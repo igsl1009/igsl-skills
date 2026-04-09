@@ -3,7 +3,7 @@ schema: igsl-skill-graph-v2
 created: '2026-04-09'
 next_ids:
   S: S-02
-  META: META-09
+  META: META-10
   M: M-03
   C: C-05
   A: A-03
@@ -360,12 +360,12 @@ nodes:
     full_tokens: 280
     health:
       applied_rate: 1.0
-      completion_rate: 0.836
+      completion_rate: 0.7995
       fallback_rate: 0.0
       alert_threshold: 0.8
-      total_applications: 11
+      total_applications: 14
       token_cost_avg: 280
-      health_score: 0.836
+      health_score: 0.7995
       last_applied: '2026-04-09'
     lineage:
       version: '1.0'
@@ -477,12 +477,12 @@ nodes:
     full_tokens: 180
     health:
       applied_rate: 1.0
-      completion_rate: 0.8393
+      completion_rate: 0.8019
       fallback_rate: 0.0
       alert_threshold: 0.8
-      total_applications: 11
+      total_applications: 14
       token_cost_avg: 180
-      health_score: 0.8393
+      health_score: 0.8019
       last_applied: '2026-04-09'
     lineage:
       version: '2.0'
@@ -559,6 +559,63 @@ nodes:
         S-01: 0.55
       never_with: []
       bundle_score: 0.72
+    memory_nodes: []
+    last_updated: '2026-04-09'
+    deprecated: false
+  META-09:
+    name: system-manager
+    type: meta-skill
+    surface: claude-code
+    path: ~/.igsl-skills/skills/meta/system-manager/SKILL.md
+    tags:
+    - management
+    - health
+    - integrity
+    - cleanup
+    - status
+    - serr
+    connects_to:
+    - META-05
+    - META-07
+    cross_applies: []
+    hardness: hard
+    trigger_keywords:
+    - igsl status
+    - manage
+    - system check
+    - health report
+    - integrity
+    - fix-serr
+    meta_summary: Always-on. igsl_manage.py status/check/links/fix-serr. Auto-cleanup
+      on bad sessions.
+    meta_tokens: 55
+    full_tokens: 220
+    health:
+      applied_rate: 1.0
+      completion_rate: 0.9
+      fallback_rate: 0.0
+      alert_threshold: 0.7
+      total_applications: 0
+      token_cost_avg: 220
+      health_score: 0.9
+      last_applied: '2026-04-09'
+    lineage:
+      version: '1.0'
+      parent: null
+      evolution_mode: null
+      created: '2026-04-09'
+      diff_path: null
+      session_source: null
+    access:
+      tier: private
+      source_commit: null
+      installed_at: '2026-04-09'
+    bundle:
+      co_occurs_with:
+        META-05: 1.0
+        META-07: 1.0
+      never_with: []
+      bundle_score: 0.95
     memory_nodes: []
     last_updated: '2026-04-09'
     deprecated: false

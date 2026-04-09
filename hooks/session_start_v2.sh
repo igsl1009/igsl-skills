@@ -68,6 +68,20 @@ python3 "$IGSL/skill.py" scan --session-start > /dev/null 2>&1 || true
 # ── 6. Health sync ───────────────────────────────────────────────────────────
 python3 "$IGSL/integrate.py" health-sync > /dev/null 2>&1 || true
 
+# ── 6b. Management integrity check ───────────────────────────────────────────
+MGMT_STATUS="ok"
+MGMT_MSG=""
+if [ -f "$IGSL/igsl_manage.py" ]; then
+  MGMT_RESULT=$(python3 "$IGSL/igsl_manage.py" check 2>/dev/null || echo "FAIL")
+  if echo "$MGMT_RESULT" | grep -q "^FAIL"; then
+    MGMT_STATUS="warn"
+    MGMT_MSG="⚠ MANAGEMENT: integrity check failed. Run: python3 ~/.igsl-skills/igsl_manage.py status"
+  fi
+else
+  MGMT_STATUS="warn"
+  MGMT_MSG="⚠ MANAGEMENT: igsl_manage.py not found. System manager not installed."
+fi
+
 # ── 7. Get alert count ───────────────────────────────────────────────────────
 ALERT_COUNT=$(python3 "$IGSL/skill.py" health alert 2>/dev/null | grep "⚠" | wc -l | tr -d ' ')
 
@@ -84,6 +98,6 @@ T0_CONTENT=$(head -8 "$MEM/t0_identity.mem" 2>/dev/null | \
 # ── 10. Build and emit additionalContext JSON ────────────────────────────────
 cat << ENDJSON
 {
-  "additionalContext": "${T0_CONTENT}\\n\\nACTIVE MEMORY NODES:\\n${ACTIVE_NODES}\\n\\nSESSION: ${SESSION_ID}\\nPROJECT: ${PROJECT_TAG}\\nGIT: branch=${GIT_BRANCH} | last: ${GIT_LAST}\\nDIRTY: ${DIRTY:-none}\\nHEALTH ALERTS: ${ALERT_COUNT}\\n\\nSKILL SYSTEM:\\n- Meta-scan: ~/.igsl-skills/_meta_scan.md\\n- Hard skills loaded: META-05 (auto-improve) META-07 (memory-system)\\n- Soft skills: load on keyword match via skill.py load\\n\\nMEMORY WRITE PROTOCOL (use during session):\\n  DEC: python3 ~/.igsl-skills/memory/node.py add --id PREFIX-NNN --type DEC --tags 't1 t2' --content '<120 chars>' --src $(cat /tmp/igsl_session_id 2>/dev/null | head -c 6)\\n  PAT: same but --type PAT --content 'PAT[+/-/!] ...'\\n  LOOP: same but --type LOOP --content '○ task description'\\n  close: python3 ~/.igsl-skills/memory/node.py close LOOP-ID --note 'done'\\n  query: python3 ~/.igsl-skills/memory/node.py query 'keywords'\\n\\nSKILL LOAD PROTOCOL (only load on keyword match):\\n  check: python3 ~/.igsl-skills/skill.py query 'keywords'\\n  load: python3 ~/.igsl-skills/skill.py load S-01\\n  cross: python3 ~/.igsl-skills/integrate.py memory-to-skills 'keywords'\\n\\nNEVER write memory as prose. NEVER load skills without keyword match."
+  "additionalContext": "${T0_CONTENT}\\n\\nACTIVE MEMORY NODES:\\n${ACTIVE_NODES}\\n\\nSESSION: ${SESSION_ID}\\nPROJECT: ${PROJECT_TAG}\\nGIT: branch=${GIT_BRANCH} | last: ${GIT_LAST}\\nDIRTY: ${DIRTY:-none}\\nHEALTH ALERTS: ${ALERT_COUNT}\\n${MGMT_MSG}\\n\\nSKILL SYSTEM:\\n- Meta-scan: ~/.igsl-skills/_meta_scan.md\\n- Hard skills loaded: META-05 (auto-improve) META-07 (memory-system) META-09 (system-manager)\\n- Soft skills: load on keyword match via skill.py load\\n\\nMEMORY WRITE PROTOCOL (use during session):\\n  DEC: python3 ~/.igsl-skills/memory/node.py add --id PREFIX-NNN --type DEC --tags 't1 t2' --content '<120 chars>' --src $(cat /tmp/igsl_session_id 2>/dev/null | head -c 6)\\n  PAT: same but --type PAT --content 'PAT[+/-/!] ...'\\n  LOOP: same but --type LOOP --content '○ task description'\\n  close: python3 ~/.igsl-skills/memory/node.py close LOOP-ID --note 'done'\\n  query: python3 ~/.igsl-skills/memory/node.py query 'keywords'\\n\\nSKILL LOAD PROTOCOL (only load on keyword match):\\n  check: python3 ~/.igsl-skills/skill.py query 'keywords'\\n  load: python3 ~/.igsl-skills/skill.py load S-01\\n  cross: python3 ~/.igsl-skills/integrate.py memory-to-skills 'keywords'\\n\\nNEVER write memory as prose. NEVER load skills without keyword match."
 }
 ENDJSON

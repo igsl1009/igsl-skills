@@ -1,9 +1,10 @@
-# IGSL SKILL META-SCAN | 2026-04-09 | 13 nodes
+# IGSL SKILL META-SCAN | 2026-04-09 | 14 nodes
 
 ## HARD SKILLS (auto-loaded every session)
-  [META-05     ] auto-improve             280tok  h=0.82  Always-on. Session journal, captures corrections, propo
-  [META-07     ] memory-system            180tok  h=0.82  Always-on. Memory write protocol: node.py add/update/cl
-  Hard skill total: 460 tokens
+  [META-05     ] auto-improve             280tok  h=0.80  Always-on. Session journal, captures corrections, propo
+  [META-07     ] memory-system            180tok  h=0.80  Always-on. Memory write protocol: node.py add/update/cl
+  [META-09     ] system-manager           220tok  h=0.90  Always-on. igsl_manage.py status/check/links/fix-serr. 
+  Hard skill total: 680 tokens
 
 ## SOFT-HOOK SKILLS (load when keywords match)
   [GEN-ERR-001 ] latex-errors             220tok  h=0.88  triggers:[latex pdflatex tikz compile tex]
@@ -19,6 +20,6 @@
   [S-01        ] quant-research          1420tok  h=0.27  triggers:[lob factor alpha ic regime]
 
 ## SUMMARY
-  Hard skills: 2 nodes, 460 tokens always
+  Hard skills: 3 nodes, 680 tokens always
   Soft skills: 11 nodes, load on match
-  Total registry: 13 nodes
+  Total registry: 14 nodes
