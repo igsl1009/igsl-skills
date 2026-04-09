@@ -150,7 +150,7 @@ def is_valid(node: dict) -> bool:
 
 def tokenize(text: str) -> list:
     words = re.findall(r"[a-zA-Z0-9\-\_]+", text.lower())
-    return [w for w in words if w not in STOPWORDS and len(w) > 1]
+    return [w for w in words if w not in STOPWORDS and (len(w) > 1 or w.isalpha())]
 
 def bm25(qtoks: list, dtoks: list, k1: float = 1.2, b: float = 0.75,
          avg_dl: float = 15.0) -> float:
@@ -423,6 +423,13 @@ def cmd_close(args, nodes: dict):
         sys.exit(1)
 
     node = nodes[nid]
+    if node.get("t") != "LOOP":
+        print(f"ERROR: '{nid}' is type {node.get('t')}, not LOOP.")
+        print(f"  Only LOOP nodes can be closed.")
+        print(f"  To archive: use 'gc' command.")
+        print(f"  To update content: use 'update' command.")
+        sys.exit(1)
+
     note = (getattr(args, "note", "") or "").strip()
     old_c = node.get("c", "")
 

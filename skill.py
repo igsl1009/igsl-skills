@@ -111,7 +111,7 @@ STOPWORDS = {
 
 def tokenize(text: str) -> list:
     words = re.findall(r"[a-zA-Z0-9\-\_]+", text.lower())
-    return [w for w in words if w not in STOPWORDS and len(w) > 1]
+    return [w for w in words if w not in STOPWORDS and (len(w) > 1 or w.isalpha())]
 
 def bm25_score(qtoks: list, dtoks: list, k1: float = 1.2, b: float = 0.75) -> float:
     avg_dl = 15.0
@@ -313,12 +313,16 @@ def cmd_health_show(args, reg: dict):
     else:
         targets = {k: v for k, v in nodes.items() if not v.get("deprecated")}
 
+    def _hs(h):
+        # Use stored floored score when skill has been applied; fall back to raw compute
+        return h.get("health_score") if h.get("total_applications", 0) > 0 else health_score(h)
+
     sorted_nodes = sorted(targets.items(),
-                          key=lambda x: health_score(x[1].get("health", {})),
+                          key=lambda x: _hs(x[1].get("health", {})),
                           reverse=True)
     for nid, n in sorted_nodes:
         h = n.get("health", {})
-        hs = health_score(h)
+        hs = _hs(h)
         thresh = h.get("alert_threshold", 0.60)
         alert = " ⚠ ALERT" if hs < thresh else ""
         print(f"[{nid:<12}] {n.get('name', '?'):<24} {fmt_health_bar(h)}{alert}")
@@ -331,7 +335,8 @@ def cmd_health_alert(args, reg: dict):
         if n.get("deprecated"):
             continue
         h = n.get("health", {})
-        hs = health_score(h)
+        # Use stored floored score when skill has been applied; fall back to raw compute
+        hs = h.get("health_score") if h.get("total_applications", 0) > 0 else health_score(h)
         thresh = h.get("alert_threshold", 0.60)
         if hs < thresh:
             alerts.append((nid, n, hs, thresh))

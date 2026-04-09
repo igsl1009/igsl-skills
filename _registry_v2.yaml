@@ -54,13 +54,13 @@ nodes:
     meta_tokens: 120
     full_tokens: 1420
     health:
-      applied_rate: 0.87
-      completion_rate: 0.94
-      fallback_rate: 0.06
+      applied_rate: 0.7015
+      completion_rate: 0.7015
+      fallback_rate: 0.0005
       alert_threshold: 0.6
-      total_applications: 47
+      total_applications: 248
       token_cost_avg: 1420
-      health_score: 0.91
+      health_score: 0.492
       last_applied: '2026-04-09'
     lineage:
       version: '2.0'
@@ -77,6 +77,9 @@ nodes:
       co_occurs_with:
         GEN-ERR-001: 0.78
         META-07: 0.45
+        SK-001: 0.05
+        SK-002: 0.05
+        HMS-004: 0.05
       never_with: []
       bundle_score: 0.82
     memory_nodes:
@@ -130,12 +133,12 @@ nodes:
       health_score: 0.7448
       last_applied: '2026-04-09'
     lineage:
-      version: '1.0'
-      parent: null
-      evolution_mode: null
+      version: '1.1'
+      parent: META-01@1.0
+      evolution_mode: FIX
       created: '2026-04-09'
-      diff_path: null
-      session_source: null
+      diff_path: _archive/META-01@1.0-to-1.1.diff
+      session_source: manual
     access:
       tier: private
       source_commit: 5c2df9c
@@ -357,12 +360,12 @@ nodes:
     full_tokens: 280
     health:
       applied_rate: 1.0
-      completion_rate: 0.8266
+      completion_rate: 0.8736
       fallback_rate: 0.0
       alert_threshold: 0.8
-      total_applications: 4
+      total_applications: 7
       token_cost_avg: 280
-      health_score: 0.8266
+      health_score: 0.8736
       last_applied: '2026-04-09'
     lineage:
       version: '1.0'
@@ -474,12 +477,12 @@ nodes:
     full_tokens: 180
     health:
       applied_rate: 1.0
-      completion_rate: 0.8332
+      completion_rate: 0.8784
       fallback_rate: 0.0
       alert_threshold: 0.8
-      total_applications: 4
+      total_applications: 7
       token_cost_avg: 180
-      health_score: 0.8332
+      health_score: 0.8784
       last_applied: '2026-04-09'
     lineage:
       version: '2.0'
