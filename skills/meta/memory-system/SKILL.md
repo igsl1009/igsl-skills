@@ -1,5 +1,5 @@
-# META-02 — Memory System
-**id**: META-02 | **hardness**: hard | **type**: meta
+# META-07 — Memory System
+**id**: META-07 | **hardness**: hard | **type**: meta
 
 ## Purpose
 Manage the memory node network: create, update, decay, search, and surface relevant nodes at session start.

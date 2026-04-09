@@ -1,5 +1,5 @@
-# META-05 — Pipeline Builder
-**id**: META-05 | **hardness**: hard | **type**: meta
+# META-03 — Pipeline Builder
+**id**: META-03 | **hardness**: hard | **type**: meta
 
 ## Purpose
 Build, debug, and optimize multi-step data and automation pipelines. Applies to HMS factor pipelines, OpenClaude message routing, research automation, and launchd scheduling.

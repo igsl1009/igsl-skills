@@ -1,5 +1,5 @@
-# META-01 — Auto-Improve
-**id**: META-01 | **hardness**: hard | **type**: meta
+# META-05 — Auto-Improve
+**id**: META-05 | **hardness**: hard | **type**: meta
 
 ## Purpose
 Detect skill gaps and quality issues during sessions; generate structured improvement proposals saved to `~/.igsl-skills/_proposed/`.

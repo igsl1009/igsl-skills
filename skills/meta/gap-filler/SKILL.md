@@ -1,5 +1,5 @@
-# META-06 — Gap Filler
-**id**: META-06 | **hardness**: hard | **type**: meta
+# META-04 — Gap Filler
+**id**: META-04 | **hardness**: hard | **type**: meta
 
 ## Purpose
 Detect missing skills and knowledge gaps during sessions; propose new skill nodes or memory nodes to fill them. Tracks "unknown unknowns" from failed tasks.

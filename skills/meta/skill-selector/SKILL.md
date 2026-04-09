@@ -1,5 +1,5 @@
-# META-04 — Skill Selector
-**id**: META-04 | **hardness**: hard | **type**: meta
+# META-02 — Skill Selector
+**id**: META-02 | **hardness**: hard | **type**: meta
 
 ## Purpose
 Intelligently select and load the right skills for each session based on project context, user message keywords, and health scores. Manages the progressive disclosure loading system.

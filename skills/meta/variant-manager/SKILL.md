@@ -1,5 +1,5 @@
-# META-07 — Variant Manager
-**id**: META-07 | **hardness**: hard | **type**: meta
+# META-06 — Variant Manager
+**id**: META-06 | **hardness**: hard | **type**: meta
 
 ## Purpose
 Manage skill variants: A/B testing approaches, maintaining multiple versions of a skill, promoting winners, deprecating losers. Tracks which skill variant performs best across sessions.

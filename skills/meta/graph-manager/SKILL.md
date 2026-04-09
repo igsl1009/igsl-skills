@@ -1,5 +1,5 @@
-# META-03 — Graph Manager
-**id**: META-03 | **hardness**: hard | **type**: meta
+# META-01 — Graph Manager
+**id**: META-01 | **hardness**: hard | **type**: meta
 
 ## Purpose
 Manage the skill graph: add/update nodes, track health, run evolutions, manage the registry.
