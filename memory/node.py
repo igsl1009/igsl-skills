@@ -19,7 +19,7 @@ Commands:
   show
 """
 
-import json, sys, re, math, argparse
+import json, sys, re, math, argparse, fcntl, contextlib
 from pathlib import Path
 from datetime import date, datetime
 from collections import defaultdict
@@ -28,7 +28,19 @@ MEM_DIR    = Path.home() / ".igsl-skills" / "memory"
 NODES_FILE = MEM_DIR / "nodes.jsonl"
 INDEX_FILE = MEM_DIR / "active-index.json"
 ARCH_DIR   = MEM_DIR / "archive"
+LOCK_FILE  = MEM_DIR / ".nodes.lock"
 TODAY      = date.today().isoformat()
+
+@contextlib.contextmanager
+def node_lock():
+    """Cross-process exclusive file lock for read-modify-write cycles."""
+    MEM_DIR.mkdir(parents=True, exist_ok=True)
+    with open(LOCK_FILE, "w") as lf:
+        fcntl.flock(lf.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(lf.fileno(), fcntl.LOCK_UN)
 
 # ── Type configuration ────────────────────────────────────────────────────────
 
@@ -631,26 +643,31 @@ def main():
         p.print_help()
         sys.exit(0)
 
-    nodes = load_nodes()
+    WRITE_CMDS = {"add", "update", "link", "close", "gc"}
 
-    if args.cmd == "add":
-        cmd_add(args, nodes)
-    elif args.cmd == "update":
-        cmd_update(args, nodes)
-    elif args.cmd == "fetch":
-        cmd_fetch(args, nodes)
-    elif args.cmd == "query":
-        cmd_query(args, nodes)
-    elif args.cmd == "link":
-        cmd_link(args, nodes)
-    elif args.cmd == "close":
-        cmd_close(args, nodes)
-    elif args.cmd == "gc":
-        cmd_gc(args, nodes)
-    elif args.cmd == "active":
-        cmd_active(nodes)
-    elif args.cmd == "show":
-        cmd_show(nodes)
+    if args.cmd in WRITE_CMDS:
+        with node_lock():
+            nodes = load_nodes()  # re-load inside lock for consistency
+            if args.cmd == "add":
+                cmd_add(args, nodes)
+            elif args.cmd == "update":
+                cmd_update(args, nodes)
+            elif args.cmd == "link":
+                cmd_link(args, nodes)
+            elif args.cmd == "close":
+                cmd_close(args, nodes)
+            elif args.cmd == "gc":
+                cmd_gc(args, nodes)
+    else:
+        nodes = load_nodes()
+        if args.cmd == "fetch":
+            cmd_fetch(args, nodes)
+        elif args.cmd == "query":
+            cmd_query(args, nodes)
+        elif args.cmd == "active":
+            cmd_active(nodes)
+        elif args.cmd == "show":
+            cmd_show(nodes)
 
 
 if __name__ == "__main__":

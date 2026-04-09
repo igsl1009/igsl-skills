@@ -1,11 +1,12 @@
 {"id":"ART-170631","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"unknow","c":"ART[2026-04-09] /Users/igsl/.igsl-skills/skills/meta/variant-manager/SKILL.md","refs7d":1}
 {"id":"ART-172908","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /tmp/test.py","refs7d":1}
 {"id":"ART-173031","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /tmp/test.py","refs7d":1}
-{"id":"BND-729369-MAX","t":"GEN","tags":["boundary"],"w":0.8,"ts":"2026-04-09","links":[],"src":"test","c":"YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY","refs7d":1}
+{"id":"BND-729625-MAX","t":"GEN","tags":["boundary"],"w":0.8,"ts":"2026-04-09","links":[],"src":"test","c":"YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY","refs7d":1}
 {"id":"CONC-0000","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 0","refs7d":1}
 {"id":"CONC-0001","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 1","refs7d":1}
 {"id":"CONC-0002","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 2","refs7d":1}
 {"id":"CONC-0003","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 3","refs7d":1}
+{"id":"CONC-0004","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 4","refs7d":1}
 {"id":"CONC-0005","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 5","refs7d":1}
 {"id":"CONC-0006","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 6","refs7d":1}
 {"id":"CONC-0007","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 7","refs7d":1}
@@ -13,26 +14,36 @@
 {"id":"CONC-0009","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 9","refs7d":1}
 {"id":"CONC-0010","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 10","refs7d":1}
 {"id":"CONC-0011","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 11","refs7d":1}
+{"id":"CONC-0012","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 12","refs7d":1}
 {"id":"CONC-0013","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 13","refs7d":1}
+{"id":"CONC-0014","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 14","refs7d":1}
+{"id":"CONC-0015","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 15","refs7d":1}
+{"id":"CONC-0016","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 16","refs7d":1}
 {"id":"CONC-0017","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 17","refs7d":1}
+{"id":"CONC-0018","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 18","refs7d":1}
 {"id":"CONC-0019","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 19","refs7d":1}
 {"id":"CONC-0020","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 20","refs7d":1}
+{"id":"CONC-0021","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 21","refs7d":1}
 {"id":"CONC-0022","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 22","refs7d":1}
 {"id":"CONC-0023","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 23","refs7d":1}
 {"id":"CONC-0024","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 24","refs7d":1}
 {"id":"CONC-0025","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 25","refs7d":1}
+{"id":"CONC-0026","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 26","refs7d":1}
 {"id":"CONC-0027","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 27","refs7d":1}
+{"id":"CONC-0028","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 28","refs7d":1}
 {"id":"CONC-0029","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 29","refs7d":1}
 {"id":"CONC-0030","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 30","refs7d":1}
 {"id":"CONC-0031","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 31","refs7d":1}
 {"id":"CONC-0032","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 32","refs7d":1}
 {"id":"CONC-0033","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 33","refs7d":1}
 {"id":"CONC-0034","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 34","refs7d":1}
+{"id":"CONC-0035","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 35","refs7d":1}
 {"id":"CONC-0036","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 36","refs7d":1}
 {"id":"CONC-0037","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 37","refs7d":1}
 {"id":"CONC-0038","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 38","refs7d":1}
 {"id":"CONC-0039","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 39","refs7d":1}
 {"id":"CONC-0040","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 40","refs7d":1}
+{"id":"CONC-0041","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 41","refs7d":1}
 {"id":"CONC-0042","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 42","refs7d":1}
 {"id":"CONC-0043","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 43","refs7d":1}
 {"id":"CONC-0044","t":"GEN","tags":["concurrent"],"w":0.8,"ts":"2026-04-09","links":[],"src":"stress","c":"concurrent add test 44","refs7d":1}
@@ -56,10 +67,10 @@
 {"id":"HMS-001","t":"DEC","tags":["hms","alpha","factor","decision"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"HMS IC window: rolling 252d; shorter=noisy, longer=misses regime shifts. Spearman rank, forward 1-period.","refs7d":7}
 {"id":"HMS-002","t":"PAT","tags":["hms","pipeline","etl"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"Factor pipeline: raw→winsorize(1,99)→cross-z-score→neutralize(industry,mktcap)→alpha blend","refs7d":7}
 {"id":"HMS-003","t":"DEC","tags":["hms","execution","twap"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"TWAP 30min for positions >0.5% ADV to minimize market impact; slippage ~5bps/side","refs7d":0}
-{"id":"HMS-004","t":"ARCH","tags":["hms","architecture","data"],"w":0.9,"ts":"2026-04-09","links":[],"src":"seed","c":"Data: Wind (CN equities), Bloomberg (cross-asset FX), internal HDF5 tick DB via h5py","refs7d":1}
+{"id":"HMS-004","t":"ARCH","tags":["hms","architecture","data"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"Data: Wind (CN equities), Bloomberg (cross-asset FX), internal HDF5 tick DB via h5py","refs7d":2}
 {"id":"HMS-005","t":"PAT","tags":["hms","backtest","risk"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Risk controls: max pos 3%, sector cap 15%, turnover penalty 0.003/unit","refs7d":0}
 {"id":"HMS-006","t":"DEC","tags":["hms","factor","momentum"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Momentum: 12-1 month returns (skip last month) — Jegadeesh-Titman; raw returns not risk-adj","refs7d":0}
-{"id":"HMS-007","t":"ART","tags":["hms","artifact","notebook"],"w":0.9,"ts":"2026-04-09","links":[],"src":"seed","c":"ART[2026-04-09] ~/hms/notebooks/factor_ic_analysis_2026Q1.ipynb","refs7d":1}
+{"id":"HMS-007","t":"ART","tags":["hms","artifact","notebook"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"ART[2026-04-09] ~/hms/notebooks/factor_ic_analysis_2026Q1.ipynb","refs7d":2}
 {"id":"HMS-008","t":"PAT","tags":["hms","signal","combination"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"Signal blend: IC-weighted equal-weight; recalibrate quarterly; expanding window IC not rolling","refs7d":4}
 {"id":"HMS-009","t":"DEC","tags":["hms","universe"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Universe: CSI 500+CSI 300, exclude ST, min 60d history, min float 500M CNY","refs7d":0}
 {"id":"HMS-010","t":"ARCH","tags":["hms","infrastructure","scheduler"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"Autoresearch: launchd 08:30 HKT daily → factor report + signal update","refs7d":7}
@@ -67,7 +78,7 @@
 {"id":"HMS-012","t":"DEC","tags":["hms","rebalance"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Rebalance: weekly Friday close; daily signal update; min 1% turnover to trade","refs7d":0}
 {"id":"HMS-013","t":"GEN","tags":["hms","quant","ic","threshold"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"IC > 0.05 → live-tradeable; IC > 0.08 → strong; decay half-life < 5d → discard (too noisy)","refs7d":0}
 {"id":"HMS-014","t":"PAT","tags":["hms","nlp","sentiment"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"NLP sentiment: SnowNLP (CN), BERT-base-chinese; news from Tushare + Wind news API. IC ~0.03","refs7d":0}
-{"id":"HMS-015","t":"LOOP","tags":["hms","open","factor"],"w":0.6,"ts":"2026-04-09","links":[],"src":"seed","c":"○ OPEN: Options flow as HMS alpha signal. No conclusion yet.","refs7d":1}
+{"id":"HMS-015","t":"LOOP","tags":["hms","open","factor"],"w":0.6,"ts":"2026-04-09","links":[],"src":"seed","c":"○ OPEN: Options flow as HMS alpha signal. No conclusion yet.","refs7d":2}
 {"id":"HMS-016","t":"ERR","tags":["hms","bug","lookahead"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"FIXED: Lookahead bias — factor neutralization used full-sample mean; fixed→expanding window mean","refs7d":7}
 {"id":"HMS-017","t":"ART","tags":["hms","artifact","report"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"ART[2026-04-09] ~/hms/reports/weekly_signal_report_2026W14.pdf","refs7d":0}
 {"id":"MCP-001","t":"ARCH","tags":["mcp","blackboard"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Blackboard MCP: shared state for multi-agent; keys namespaced by project; TTL 24h default","refs7d":0}
@@ -78,8 +89,8 @@
 {"id":"OC-004","t":"ERR","tags":["openclaude","crash","recovery"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Crash recovery: supervisor, 5s backoff, max 3 restarts/hour to prevent thrash","refs7d":0}
 {"id":"OC-005","t":"LOOP","tags":["openclaude","open","calendar"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"○ OPEN: Calendar/email integration. WhatsApp→'my calendar'→Google Cal. Pending API setup.","refs7d":0}
 {"id":"SERR-001","t":"ERR","tags":["skill-health","S-01","low-health"],"w":0.8,"ts":"2026-04-09","links":[],"src":"health","c":"ERR: skill quant-research health=0.27<0.60 | evolve with FIX mode","refs7d":1}
-{"id":"SK-001","t":"DEC","tags":["igsl","skill-graph","health"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"IGSL v2 health: EMA α=0.1; formula=applied×completion×(1-0.5×fallback); alert threshold 0.60","refs7d":4}
-{"id":"SK-002","t":"DEC","tags":["igsl","memory","half-life"],"w":0.9,"ts":"2026-04-09","links":[],"src":"seed","c":"Memory half-lives: DEC=∞, PAT=30d, ARCH=60d, ART=14d, LOOP=∞, GEN=90d, ERR=180d","refs7d":1}
+{"id":"SK-001","t":"DEC","tags":["igsl","skill-graph","health"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"IGSL v2 health: EMA α=0.1; formula=applied×completion×(1-0.5×fallback); alert threshold 0.60","refs7d":5}
+{"id":"SK-002","t":"DEC","tags":["igsl","memory","half-life"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"Memory half-lives: DEC=∞, PAT=30d, ARCH=60d, ART=14d, LOOP=∞, GEN=90d, ERR=180d","refs7d":2}
 {"id":"SK-003","t":"ARCH","tags":["igsl","token-budget"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Token budget: T0(80)+T1(50)+Index(50)+Hard(460)=640 always; soft skills load on keyword match","refs7d":0}
 {"id":"SK-004","t":"PAT","tags":["igsl","bm25","search"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"BM25 boost: score×(0.6+0.4×health); memory: score×w×recency_factor=exp(-age/90)","refs7d":3}
 {"id":"SK-005","t":"DEC","tags":["igsl","evograph","lineage"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"EvoGraph: FIX/DERIVED/CAPTURED modes; parent→child with session_id+trigger+delta summary","refs7d":0}

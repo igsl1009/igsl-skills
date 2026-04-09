@@ -77,9 +77,9 @@ nodes:
       co_occurs_with:
         GEN-ERR-001: 0.78
         META-07: 0.45
-        SK-001: 0.05
-        SK-002: 0.05
-        HMS-004: 0.05
+        SK-001: 0.0975
+        SK-002: 0.0975
+        HMS-004: 0.0975
       never_with: []
       bundle_score: 0.82
     memory_nodes:
@@ -133,11 +133,11 @@ nodes:
       health_score: 0.7448
       last_applied: '2026-04-09'
     lineage:
-      version: '1.1'
-      parent: META-01@1.0
+      version: '1.2'
+      parent: META-01@1.1
       evolution_mode: FIX
       created: '2026-04-09'
-      diff_path: _archive/META-01@1.0-to-1.1.diff
+      diff_path: _archive/META-01@1.1-to-1.2.diff
       session_source: manual
     access:
       tier: private
