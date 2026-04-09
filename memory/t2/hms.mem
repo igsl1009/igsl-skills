@@ -1,0 +1,18 @@
+# T2 HMS Context — loads on: hms, quant, factor, alpha, backtest, portfolio, signal
+
+## HMS Trading System
+- Universe: CSI 500 + CSI 300, exclude ST, min 60d history, min float 500M CNY
+- Factor IC window: rolling 252d | rebalance: weekly Friday close
+- Pipeline: raw → winsorize(1,99) → z-score → neutralize(industry,mktcap) → blend
+- Signal blend: IC-weighted equal-weight | recalibrate quarterly (expanding IC window)
+- Risk model: Barra-style, 10 style factors + industry + specific risk
+- Execution: TWAP 30min for >0.5% ADV positions
+- Data: Wind (CN equities) + Bloomberg (cross-asset) + HDF5 tick DB
+- Scheduler: launchd 08:30 HKT → daily factor report + signal update
+
+## Open Items
+- HMS-015: Options flow as alpha signal (LOOP — no conclusion)
+
+## Key Thresholds
+- IC > 0.05 → live-tradeable | IC > 0.08 → strong
+- Max position 3% | sector cap 15% | turnover penalty 0.003/unit

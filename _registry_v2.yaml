@@ -1,0 +1,562 @@
+version: "2.0"
+schema: "igsl-skill-graph-v2"
+created: "2026-04-09"
+next_ids:
+  S: "S-02"
+  META: "META-09"
+  M: "M-03"
+  C: "C-05"
+  A: "A-03"
+
+nodes:
+
+  S-01:
+    name: quant-research
+    type: skill
+    surface: claude-ai-chat
+    path: "~/.igsl-skills/user/quant-research/SKILL.md"
+    tags: [hms, alpha, ic, regime, ml, rl, fina, binance, trading, signal, quant, volatility]
+    connects_to: []
+    cross_applies: [META-05, META-07]
+    hardness: soft-hook
+    trigger_keywords: [lob, factor, alpha, ic, regime, rl, hms, binance, trading, signal, quant, volatility, backtest, orderbook, execution, fina, offline]
+    meta_summary: "Renaissance quant. LOB microstructure, factor models, RL execution, LaTeX, HMS architecture."
+    meta_tokens: 120
+    full_tokens: 1420
+    health:
+      applied_rate: 0.87
+      completion_rate: 0.94
+      fallback_rate: 0.06
+      health_score: 0.91
+      alert_threshold: 0.60
+      total_applications: 47
+      token_cost_avg: 1420
+      last_applied: "2026-04-09"
+    lineage:
+      version: "2.0"
+      parent: null
+      evolution_mode: null
+      created: "2026-04-09"
+      diff_path: null
+      session_source: null
+    access:
+      tier: private
+      source_commit: "af6a447"
+      installed_at: "2026-04-09"
+    bundle:
+      co_occurs_with:
+        GEN-ERR-001: 0.78
+        META-07: 0.45
+      never_with: []
+      bundle_score: 0.82
+    memory_nodes: [SK-001, SK-002, HMS-004, HMS-007, HMS-015]
+    last_updated: "2026-04-09"
+    deprecated: false
+
+  META-01:
+    name: graph-manager
+    type: meta-skill
+    surface: claude-code
+    path: "~/.igsl-skills/meta/graph-manager/SKILL.md"
+    tags: [registry, graph, add-node, edges, meta, management, deprecate]
+    connects_to: [META-02, META-03, META-04, META-05]
+    cross_applies: []
+    hardness: explicit-import
+    trigger_keywords: [add skill, registry, new node, update skill, deprecate, edge, connect, graph]
+    meta_summary: "Registry keeper. Add/update/deprecate nodes, bidirectional edges, audit."
+    meta_tokens: 60
+    full_tokens: 420
+    health:
+      applied_rate: 0.72
+      completion_rate: 0.95
+      fallback_rate: 0.05
+      health_score: 0.88
+      alert_threshold: 0.50
+      total_applications: 12
+      token_cost_avg: 420
+      last_applied: "2026-04-09"
+    lineage:
+      version: "1.0"
+      parent: null
+      evolution_mode: null
+      created: "2026-04-09"
+      diff_path: null
+      session_source: null
+    access:
+      tier: private
+      source_commit: "af6a447"
+      installed_at: "2026-04-09"
+    bundle:
+      co_occurs_with:
+        META-02: 0.85
+        META-04: 0.70
+      never_with: []
+      bundle_score: 0.75
+    memory_nodes: [SK-002, SK-006]
+    last_updated: "2026-04-09"
+    deprecated: false
+
+  META-02:
+    name: skill-selector
+    type: meta-skill
+    surface: claude-code
+    path: "~/.igsl-skills/meta/skill-selector/SKILL.md"
+    tags: [selector, coverage, gap-analysis, bootstrap, project]
+    connects_to: [META-01, META-03]
+    cross_applies: []
+    hardness: explicit-import
+    trigger_keywords: [what skills, what do i have, coverage, bootstrap, start project, which nodes, gap]
+    meta_summary: "Tag-query registry, rank by coverage, find gaps for new project."
+    meta_tokens: 55
+    full_tokens: 380
+    health:
+      applied_rate: 0.60
+      completion_rate: 0.90
+      fallback_rate: 0.10
+      health_score: 0.78
+      alert_threshold: 0.50
+      total_applications: 8
+      token_cost_avg: 380
+      last_applied: "2026-04-09"
+    lineage:
+      version: "1.0"
+      parent: null
+      evolution_mode: null
+      created: "2026-04-09"
+      diff_path: null
+      session_source: null
+    access:
+      tier: private
+      source_commit: "af6a447"
+      installed_at: "2026-04-09"
+    bundle:
+      co_occurs_with:
+        META-01: 0.85
+        META-03: 0.75
+      never_with: []
+      bundle_score: 0.70
+    memory_nodes: []
+    last_updated: "2026-04-09"
+    deprecated: false
+
+  META-03:
+    name: pipeline-builder
+    type: meta-skill
+    surface: claude-code
+    path: "~/.igsl-skills/meta/pipeline-builder/SKILL.md"
+    tags: [pipeline, execution-order, handoff, scaffold, claude-md]
+    connects_to: [META-02, META-04]
+    cross_applies: [META-01]
+    hardness: explicit-import
+    trigger_keywords: [build pipeline, design pipeline, scaffold, execution order, project structure, how connect]
+    meta_summary: "Design skill execution order, handoffs, generate project CLAUDE.md."
+    meta_tokens: 55
+    full_tokens: 360
+    health:
+      applied_rate: 0.58
+      completion_rate: 0.88
+      fallback_rate: 0.12
+      health_score: 0.74
+      alert_threshold: 0.50
+      total_applications: 6
+      token_cost_avg: 360
+      last_applied: "2026-04-08"
+    lineage:
+      version: "1.0"
+      parent: null
+      evolution_mode: null
+      created: "2026-04-09"
+      diff_path: null
+      session_source: null
+    access:
+      tier: private
+      source_commit: "af6a447"
+      installed_at: "2026-04-09"
+    bundle:
+      co_occurs_with:
+        META-02: 0.75
+        META-04: 0.80
+      never_with: []
+      bundle_score: 0.68
+    memory_nodes: []
+    last_updated: "2026-04-09"
+    deprecated: false
+
+  META-04:
+    name: gap-filler
+    type: meta-skill
+    surface: claude-code
+    path: "~/.igsl-skills/meta/gap-filler/SKILL.md"
+    tags: [new-node, spec, atomic, sandbox, build-skill, gap, tailor-made]
+    connects_to: [META-01, META-03]
+    cross_applies: [META-02]
+    hardness: explicit-import
+    trigger_keywords: [build new skill, spec new node, fill gap, create skill, tailor made, new function needed]
+    meta_summary: "Spec atomic new skills when pipeline-builder finds gap. Sandbox testing."
+    meta_tokens: 55
+    full_tokens: 340
+    health:
+      applied_rate: 0.65
+      completion_rate: 0.92
+      fallback_rate: 0.08
+      health_score: 0.83
+      alert_threshold: 0.50
+      total_applications: 9
+      token_cost_avg: 340
+      last_applied: "2026-04-09"
+    lineage:
+      version: "1.0"
+      parent: null
+      evolution_mode: null
+      created: "2026-04-09"
+      diff_path: null
+      session_source: null
+    access:
+      tier: private
+      source_commit: "af6a447"
+      installed_at: "2026-04-09"
+    bundle:
+      co_occurs_with:
+        META-01: 0.70
+        META-03: 0.80
+      never_with: []
+      bundle_score: 0.72
+    memory_nodes: []
+    last_updated: "2026-04-09"
+    deprecated: false
+
+  META-05:
+    name: auto-improve
+    type: meta-skill
+    surface: claude-code
+    path: "~/.igsl-skills/meta/auto-improve/SKILL.md"
+    tags: [self-improvement, journal, retrospective, correction, evolution, session]
+    connects_to: [META-01]
+    cross_applies: [META-02, META-03, META-04, META-06]
+    hardness: hard
+    trigger_keywords: [wrong, fix that, improve, remember, update skill, mistake, note that, correction]
+    meta_summary: "Always-on. Session journal, captures corrections, proposes diffs at Stop."
+    meta_tokens: 65
+    full_tokens: 280
+    health:
+      applied_rate: 1.0
+      completion_rate: 0.91
+      fallback_rate: 0.0
+      health_score: 0.97
+      alert_threshold: 0.80
+      total_applications: 83
+      token_cost_avg: 280
+      last_applied: "2026-04-09"
+    lineage:
+      version: "1.0"
+      parent: null
+      evolution_mode: null
+      created: "2026-04-09"
+      diff_path: null
+      session_source: null
+    access:
+      tier: private
+      source_commit: "af6a447"
+      installed_at: "2026-04-09"
+    bundle:
+      co_occurs_with:
+        META-07: 1.0
+      never_with: []
+      bundle_score: 0.95
+    memory_nodes: [SK-004, SK-005]
+    last_updated: "2026-04-09"
+    deprecated: false
+
+  META-06:
+    name: variant-manager
+    type: meta-skill
+    surface: claude-code
+    path: "~/.igsl-skills/meta/variant-manager/SKILL.md"
+    tags: [variants, patch, overlay, versioning, context-specific, fork]
+    connects_to: [META-01, META-05]
+    cross_applies: [META-02, META-06]
+    hardness: explicit-import
+    trigger_keywords: [variant, version, different context, patch, overlay, adapt skill, tailor skill]
+    meta_summary: "Patch-overlay variants of base skills. Base stays canonical."
+    meta_tokens: 55
+    full_tokens: 320
+    health:
+      applied_rate: 0.55
+      completion_rate: 0.90
+      fallback_rate: 0.10
+      health_score: 0.73
+      alert_threshold: 0.50
+      total_applications: 7
+      token_cost_avg: 320
+      last_applied: "2026-04-07"
+    lineage:
+      version: "1.0"
+      parent: null
+      evolution_mode: null
+      created: "2026-04-09"
+      diff_path: null
+      session_source: null
+    access:
+      tier: private
+      source_commit: "af6a447"
+      installed_at: "2026-04-09"
+    bundle:
+      co_occurs_with:
+        META-01: 0.65
+      never_with: []
+      bundle_score: 0.60
+    memory_nodes: [SK-003]
+    last_updated: "2026-04-09"
+    deprecated: false
+
+  META-07:
+    name: memory-system
+    type: meta-skill
+    surface: claude-code
+    path: "~/.igsl-skills/meta/memory-system/SKILL.md"
+    tags: [memory, token-efficient, tiers, write-protocol, nodes, compressed]
+    connects_to: [META-05, META-01]
+    cross_applies: []
+    hardness: hard
+    trigger_keywords: [remember, recall, memory, decision, pattern, artifact, open loop]
+    meta_summary: "Always-on. Memory write protocol: node.py add/update/close/link."
+    meta_tokens: 55
+    full_tokens: 180
+    health:
+      applied_rate: 1.0
+      completion_rate: 0.96
+      fallback_rate: 0.0
+      health_score: 0.98
+      alert_threshold: 0.80
+      total_applications: 83
+      token_cost_avg: 180
+      last_applied: "2026-04-09"
+    lineage:
+      version: "2.0"
+      parent: null
+      evolution_mode: null
+      created: "2026-04-09"
+      diff_path: null
+      session_source: null
+    access:
+      tier: private
+      source_commit: "af6a447"
+      installed_at: "2026-04-09"
+    bundle:
+      co_occurs_with:
+        META-05: 1.0
+      never_with: []
+      bundle_score: 0.95
+    memory_nodes: [SK-001, SK-004]
+    last_updated: "2026-04-09"
+    deprecated: false
+
+  META-08:
+    name: chat-retrieval
+    type: meta-skill
+    surface: claude-code
+    path: "~/.igsl-skills/meta/chat-retrieval/SKILL.md"
+    tags: [retrieval, index, chunks, bm25, old-chats, history]
+    connects_to: [META-07]
+    cross_applies: []
+    hardness: explicit-import
+    trigger_keywords: [old chat, find conversation, past session, retrieve, chat history, what did we discuss]
+    meta_summary: "Find old chats via keyword index + pre-chunked extracts. BM25+embed."
+    meta_tokens: 50
+    full_tokens: 200
+    health:
+      applied_rate: 0.70
+      completion_rate: 0.92
+      fallback_rate: 0.08
+      health_score: 0.87
+      alert_threshold: 0.50
+      total_applications: 14
+      token_cost_avg: 200
+      last_applied: "2026-04-09"
+    lineage:
+      version: "1.0"
+      parent: null
+      evolution_mode: null
+      created: "2026-04-09"
+      diff_path: null
+      session_source: null
+    access:
+      tier: private
+      source_commit: "af6a447"
+      installed_at: "2026-04-09"
+    bundle:
+      co_occurs_with:
+        META-07: 0.80
+        S-01: 0.55
+      never_with: []
+      bundle_score: 0.72
+    memory_nodes: []
+    last_updated: "2026-04-09"
+    deprecated: false
+
+  GEN-ERR-001:
+    name: latex-errors
+    type: skill
+    surface: claude-code
+    path: "~/.igsl-skills/user/latex-errors/SKILL.md"
+    tags: [latex, tikz, errors, patterns, compilation, pdflatex, tcolorbox]
+    connects_to: []
+    cross_applies: [S-01]
+    hardness: soft-hook
+    trigger_keywords: [latex, pdflatex, tikz, compile, tex, tcolorbox, lmodern, xcolor, pgfkeys, amsmath]
+    meta_summary: "LaTeX/TikZ errors: step->nodestep, tag->ctag, fontawesome5, pdflatex 2-pass."
+    meta_tokens: 55
+    full_tokens: 220
+    health:
+      applied_rate: 0.91
+      completion_rate: 0.98
+      fallback_rate: 0.02
+      health_score: 0.96
+      alert_threshold: 0.60
+      total_applications: 23
+      token_cost_avg: 220
+      last_applied: "2026-04-09"
+    lineage:
+      version: "1.1"
+      parent: "GEN-ERR-001@1.0"
+      evolution_mode: "CAPTURED"
+      created: "2026-04-09"
+      diff_path: "_archive/GEN-ERR-001@1.0-to-1.1.diff"
+      session_source: "journal-2026-04-09"
+    access:
+      tier: private
+      source_commit: "bf91cc2"
+      installed_at: "2026-04-09"
+    bundle:
+      co_occurs_with:
+        S-01: 0.78
+      never_with: []
+      bundle_score: 0.77
+    memory_nodes: [GEN-001, GEN-002, GEN-003, GEN-004, GEN-007]
+    last_updated: "2026-04-09"
+    deprecated: false
+
+  M-01:
+    name: blackboard-mcp
+    type: mcp
+    surface: claude-code
+    path: "~/blackboard-mcp/server.py"
+    tags: [cuhk, academic, playwright, assignments, grades, blackboard]
+    connects_to: []
+    cross_applies: [S-01, META-07]
+    hardness: explicit-import
+    trigger_keywords: [blackboard, cuhk, assignment, deadline, grades, course material]
+    meta_summary: "CUHK Blackboard MCP via Playwright. Tools: courses, assignments, grades, materials."
+    meta_tokens: 45
+    full_tokens: 80
+    health:
+      applied_rate: 0.80
+      completion_rate: 0.90
+      fallback_rate: 0.10
+      health_score: 0.88
+      alert_threshold: 0.50
+      total_applications: 5
+      token_cost_avg: 80
+      last_applied: "2026-04-02"
+    lineage:
+      version: "1.0"
+      parent: null
+      evolution_mode: null
+      created: "2026-03-06"
+      diff_path: null
+      session_source: null
+    access:
+      tier: private
+      source_commit: "000000"
+      installed_at: "2026-03-06"
+    bundle:
+      co_occurs_with:
+        S-01: 0.35
+      never_with: []
+      bundle_score: 0.45
+    memory_nodes: [MCP-001]
+    last_updated: "2026-04-09"
+    deprecated: false
+
+  M-02:
+    name: deep-research-mcp
+    type: mcp
+    surface: claude-code
+    path: "remote:railway"
+    tags: [research, railway, multi-phase, papers, deep-research]
+    connects_to: []
+    cross_applies: [S-01, META-02]
+    hardness: explicit-import
+    trigger_keywords: [deep research, research papers, arxiv, multi-phase research, comprehensive research]
+    meta_summary: "Multi-phase research MCP on Railway. Explore->synthesise->gap-fill->report."
+    meta_tokens: 40
+    full_tokens: 60
+    health:
+      applied_rate: 0.75
+      completion_rate: 0.85
+      fallback_rate: 0.15
+      health_score: 0.82
+      alert_threshold: 0.50
+      total_applications: 8
+      token_cost_avg: 60
+      last_applied: "2026-04-09"
+    lineage:
+      version: "1.0"
+      parent: null
+      evolution_mode: null
+      created: "2026-03-06"
+      diff_path: null
+      session_source: null
+    access:
+      tier: private
+      source_commit: "000000"
+      installed_at: "2026-03-06"
+    bundle:
+      co_occurs_with:
+        S-01: 0.60
+      never_with: []
+      bundle_score: 0.55
+    memory_nodes: [MCP-002]
+    last_updated: "2026-04-09"
+    deprecated: false
+
+  C-01:
+    name: Notion
+    type: connector
+    surface: claude-ai-chat
+    path: "mcp.notion.com/mcp"
+    tags: [notion, notes, tasks, docs, database]
+    connects_to: []
+    cross_applies: []
+    hardness: explicit-import
+    trigger_keywords: [notion, notes, database, task board, project doc]
+    meta_summary: "Notion connector. Search, create, update pages and databases."
+    meta_tokens: 30
+    full_tokens: 50
+    health:
+      applied_rate: 0.85
+      completion_rate: 0.95
+      fallback_rate: 0.05
+      health_score: 0.93
+      alert_threshold: 0.50
+      total_applications: 15
+      token_cost_avg: 50
+      last_applied: "2026-04-08"
+    lineage:
+      version: "1.0"
+      parent: null
+      evolution_mode: null
+      created: "2026-04-09"
+      diff_path: null
+      session_source: null
+    access:
+      tier: private
+      source_commit: "000000"
+      installed_at: "2026-04-09"
+    bundle:
+      co_occurs_with: {}
+      never_with: []
+      bundle_score: 0.50
+    memory_nodes: []
+    last_updated: "2026-04-09"
+    deprecated: false

@@ -1,0 +1,24 @@
+# T2 Skill Graph Context — loads on: igsl, skill, memory, node, health, evolve, hook
+
+## IGSL v2 System
+- Skill registry: ~/.igsl-skills/_registry_v2.yaml (13 nodes)
+- Memory store: ~/.igsl-skills/memory/nodes.jsonl (44 seeded nodes)
+- Health: EMA α=0.1, formula = applied_rate × completion_rate × (1 - 0.5 × fallback_rate)
+- BM25 boost: score × (0.6 + 0.4 × health_score)
+- Memory decay: weight × exp(-ln2 × age_days / half_life)
+
+## Integration Bridges
+1. skill-applied: bump memory weights, create ERR on failure
+2. memory-to-skills: memory query → skill bundle suggestions
+3. health-sync: write ERR nodes for low-health skills
+4. session-context: token budget display
+5. post-session: journal → memory nodes + skill evolutions + proposals
+
+## Hook Chain
+- SessionStart: session_start_v2.sh → additionalContext JSON
+- PostToolUse: health_recorder.py (always exits 0)
+- Stop: retrospective_v2.py (check stop_hook_active first)
+
+## EvoGraph
+- Modes: FIX, DERIVED, CAPTURED
+- File: ~/.igsl-skills/_evograph.jsonl

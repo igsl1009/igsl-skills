@@ -1,0 +1,55 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.igsl-skills/hooks/session_start_v2.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|Create|Bash|str_replace_based_edit_tool|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.igsl-skills/hooks/health_recorder.py"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.igsl-skills/hooks/retrospective_v2.py"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.igsl-skills/hooks/health_recorder.py"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(python3 ~/.igsl-skills/**)",
+      "Bash(python3 ~/.igsl-skills/memory/**)",
+      "Bash(python3 ~/.igsl-skills/hooks/**)",
+      "Bash(bash ~/.igsl-skills/hooks/**)",
+      "Bash(git -C ~/.igsl-skills **)",
+      "Bash(cat ~/.igsl-skills/**)"
+    ]
+  }
+}

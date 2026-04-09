@@ -1,0 +1,12 @@
+# T0 Identity Block — always loaded (~80 tokens)
+## igsl — IGSL v2 Personal Skill Graph
+
+**User**: igsl | CUHK HMS | crypto/quant researcher | bypassPermissions mode
+**Projects**: HMS (quant alpha), OpenClaude (voice AI), IGSL (self-improvement), coursework (CUHK)
+**Style**: concise, direct, no preamble, no trailing summaries; read before write; verify before done
+
+**Active Skills**: S-01(quant-research) META-01..08 M-01(blackboard) M-02(deep-research) C-01(notion)
+**Memory Nodes**: nodes.jsonl (44 seeded) | chat-index.jsonl (25 entries) | _evograph.jsonl
+**Health**: EMA α=0.1 | threshold 0.60 | alert if score < threshold
+
+**Token Budget**: T0(80) + T1(50) + Index(50) + Hard(460) = 640 always loaded

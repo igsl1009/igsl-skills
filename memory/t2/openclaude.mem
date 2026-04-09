@@ -1,0 +1,15 @@
+# T2 OpenClaude Context — loads on: openclaude, whatsapp, voice, tts, mcp-server, openclaw
+
+## OpenClaude Architecture
+- Stack: Claude Code + MCP servers + Edge TTS + WhatsApp bridge
+- Queue: keyed (one slot per sender); newer overwrites pending
+- Timeouts: 30s tool-call (hard) | 90s total (soft) → fallback text reply
+- Crash recovery: supervisor, 5s backoff, max 3 restarts/hour
+- Rule: WhatsApp log-only; NEVER reply without explicit owner authorization
+
+## Open Items
+- OC-005: Calendar/email integration (LOOP — pending Google API)
+
+## Files
+- Architecture: reference_openclaude_complete.md in Claude memory
+- Patterns: reference_openclaw_architecture.md in Claude memory

@@ -1,0 +1,32 @@
+# IGSL v2 — .gitignore
+
+# Session runtime files
+/memory/tool-log/
+/_journal/
+/memory/embeddings/
+/memory/embed_cache/
+/__pycache__/
+/**/__pycache__/
+*.pyc
+*.pyo
+
+# Temporary files
+*.tmp
+*.bak
+.DS_Store
+
+# Proposed but not yet applied
+/_proposed/
+!/_proposed/.gitkeep
+
+# Active session state
+/memory/t1_session.mem
+
+# Python env
+.venv/
+venv/
+*.egg-info/
+dist/
+
+# Log files
+*.log
