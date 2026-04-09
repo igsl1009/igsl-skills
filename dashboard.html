@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IGSL v2 Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<style>
+:root {
+  --bg:#0F1117;--surface:#1A1D26;--surface2:#22263A;
+  --border:#2D3250;--text:#E8EAF6;--text2:#9FA8DA;
+  --accent:#5C6BC0;--green:#4CAF50;--red:#EF5350;
+  --orange:#FF9800;--blue:#2196F3;--purple:#9C27B0;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'SF Mono',monospace;}
+body{background:var(--bg);color:var(--text);min-height:100vh;}
+.header{background:var(--surface);border-bottom:1px solid var(--border);
+  padding:14px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.header h1{font-size:16px;font-weight:700;}
+.header .sub{font-size:11px;color:var(--text2);margin-left:4px;}
+.badge{background:var(--surface2);border:1px solid var(--border);
+  border-radius:4px;padding:2px 10px;font-size:11px;}
+.badge.ok{border-color:var(--green);color:var(--green);}
+.badge.warn{border-color:var(--orange);color:var(--orange);}
+.badge.fail{border-color:var(--red);color:var(--red);}
+.ml-auto{margin-left:auto;font-size:11px;color:var(--text2);}
+.stats-bar{background:var(--surface);border-bottom:1px solid var(--border);
+  padding:10px 24px;display:flex;gap:28px;overflow-x:auto;align-items:center;}
+.stat{display:flex;flex-direction:column;gap:2px;min-width:64px;}
+.stat-val{font-size:20px;font-weight:700;}
+.stat-label{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;}
+.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;}
+.tab{padding:11px 18px;font-size:12px;cursor:pointer;color:var(--text2);
+  border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;}
+.tab.active{color:var(--text);border-bottom-color:var(--accent);}
+.tab:hover{color:var(--text);}
+.panels{position:relative;}
+.panel{display:none;padding:16px 20px;min-height:80vh;}
+.panel.active{display:block;}
+.graph-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.graph-wrap svg{display:block;width:100%;}
+.graph-legend{display:flex;gap:14px;flex-wrap:wrap;padding:10px 14px;
+  border-top:1px solid var(--border);background:var(--surface2);}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2);}
+.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.tooltip{position:fixed;background:var(--surface2);border:1px solid var(--border);
+  border-radius:6px;padding:9px 13px;font-size:11px;line-height:1.7;
+  pointer-events:none;max-width:260px;z-index:1000;display:none;}
+.tooltip.vis{display:block;}
+.tip-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:5px;}
+.controls{display:flex;gap:7px;margin-bottom:11px;align-items:center;flex-wrap:wrap;}
+.btn{background:var(--surface2);border:1px solid var(--border);color:var(--text2);
+  padding:4px 11px;border-radius:4px;font-size:11px;cursor:pointer;transition:all .15s;}
+.btn:hover{border-color:var(--accent);color:var(--text);}
+.btn.active{border-color:var(--accent);color:var(--text);background:var(--surface);}
+.hint{font-size:10px;color:var(--text2);margin-left:auto;}
+.health-grid{display:grid;gap:7px;}
+.h-row{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:11px 14px;}
+.h-row-hdr{display:flex;justify-content:space-between;margin-bottom:7px;}
+.h-name{font-size:12px;font-weight:600;}
+.h-score{font-size:13px;font-weight:700;}
+.h-bars{display:flex;flex-direction:column;gap:3px;}
+.bar-row{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--text2);}
+.bar-lbl{width:65px;}
+.bar-track{flex:1;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:3px;}
+.bar-val{width:32px;text-align:right;font-size:10px;}
+.thresh-line{border-top:1px dashed #444;margin-top:5px;padding-top:5px;
+  font-size:10px;color:#888;}
+.token-section{margin-bottom:20px;}
+.token-section h3{font-size:12px;font-weight:600;color:var(--text2);
+  margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em;}
+.tok-row{display:flex;align-items:center;gap:10px;margin-bottom:5px;}
+.tok-lbl{width:200px;font-size:11px;}
+.tok-track{flex:1;height:7px;background:var(--surface2);border-radius:3px;overflow:hidden;}
+.tok-fill{height:100%;border-radius:3px;}
+.tok-val{width:55px;text-align:right;font-size:10px;color:var(--text2);}
+.tok-total{font-size:15px;font-weight:700;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+.status-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.s-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:11px 14px;}
+.s-card-title{font-size:10px;color:var(--text2);text-transform:uppercase;
+  letter-spacing:.05em;margin-bottom:7px;}
+.s-list{font-size:11px;line-height:1.9;}
+.s-ok{color:var(--green);}
+.s-fail{color:var(--red);}
+.s-warn{color:var(--orange);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <span class="badge ok">IGSL v2</span>
+    <h1 style="display:inline;margin-left:10px">System Dashboard</h1>
+    <span class="sub">Skill Graph + Memory Network + Integration Bridge</span>
+  </div>
+  <span class="badge ok">QA 81✓ 0✗</span>
+  <span class="badge ok">0 alerts</span>
+  <span class="ml-auto">igsl · CUHK · 2026-04-09</span>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-val">13</div><div class="stat-label">Skills</div></div>
+  <div class="stat"><div class="stat-val">47</div><div class="stat-label">Mem Nodes</div></div>
+  <div class="stat"><div class="stat-val">10</div><div class="stat-label">Active</div></div>
+  <div class="stat"><div class="stat-val">5</div><div class="stat-label">Evo Edges</div></div>
+  <div class="stat"><div class="stat-val">25</div><div class="stat-label">Chat Index</div></div>
+  <div class="stat"><div class="stat-val">0.76</div><div class="stat-label">Avg Health</div></div>
+  <div class="stat"><div class="stat-val">0.83</div><div class="stat-label">Avg Wt</div></div>
+  <div class="stat"><div class="stat-val">790</div><div class="stat-label">Base Toks</div></div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(0)">① Skill Graph</div>
+  <div class="tab" onclick="showTab(1)">② Memory Network</div>
+  <div class="tab" onclick="showTab(2)">③ Health</div>
+  <div class="tab" onclick="showTab(3)">④ EvoGraph</div>
+  <div class="tab" onclick="showTab(4)">⑤ Token Budget</div>
+  <div class="tab" onclick="showTab(5)">⑥ System Status</div>
+</div>
+
+<div class="tooltip" id="tip"></div>
+<div class="panels">
+
+<!-- TAB 1: SKILL GRAPH -->
+<div class="panel active" id="panel-0">
+  <div class="controls">
+    <span style="font-size:11px;color:var(--text2)">Filter:</span>
+    <button class="btn active" id="sf-all"      onclick="filterSkill('all')">All</button>
+    <button class="btn"        id="sf-hard"     onclick="filterSkill('hard')">Hard</button>
+    <button class="btn"        id="sf-soft"     onclick="filterSkill('soft-hook')">Soft-hook</button>
+    <button class="btn"        id="sf-explicit" onclick="filterSkill('explicit-import')">Explicit</button>
+    <span class="hint">Drag · Scroll to zoom · Hover for details</span>
+  </div>
+  <div class="graph-wrap">
+    <svg id="skill-svg" style="height:560px;background:#0F1117;"></svg>
+    <div class="graph-legend">
+      <div class="leg-item"><div class="leg-dot" style="background:#E53935"></div>Hard (always loaded)</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#1E88E5"></div>Soft-hook (keyword)</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#43A047"></div>Explicit-import</div>
+      <div class="leg-item" style="margin-left:auto;color:var(--text2);font-size:10px">Node size = health score</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2: MEMORY NETWORK -->
+<div class="panel" id="panel-1">
+  <div class="controls">
+    <span style="font-size:11px;color:var(--text2)">Project:</span>
+    <button class="btn active" id="mf-all" onclick="filterMem('all')">All</button>
+    <button class="btn" onclick="filterMem('HMS')">HMS</button>
+    <button class="btn" onclick="filterMem('SK')">SkillGraph</button>
+    <button class="btn" onclick="filterMem('OC')">OpenClaude</button>
+    <button class="btn" onclick="filterMem('GEN')">General</button>
+    <button class="btn" onclick="filterMem('MCP')">MCP</button>
+    <span class="hint">Size=weight · Bright border=active index · Hover for content</span>
+  </div>
+  <div class="graph-wrap">
+    <svg id="mem-svg" style="height:560px;background:#0F1117;"></svg>
+    <div class="graph-legend">
+      <div class="leg-item"><div class="leg-dot" style="background:#4CAF50"></div>DEC</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#2196F3"></div>PAT</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#9C27B0"></div>ARCH</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#FF9800"></div>ART</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#F44336"></div>LOOP</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#607D8B"></div>GEN</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#E91E63"></div>ERR</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3: HEALTH -->
+<div class="panel" id="panel-2">
+  <div class="health-grid" id="health-grid"></div>
+</div>
+
+<!-- TAB 4: EVOGRAPH -->
+<div class="panel" id="panel-3">
+  <div style="margin-bottom:10px;font-size:11px;color:var(--text2)">
+    Skill evolution lineage DAG · FIX=auto-repair · DERIVED=specialisation · CAPTURED=extraction
+  </div>
+  <div class="graph-wrap">
+    <svg id="evo-svg" style="height:380px;background:#0F1117;"></svg>
+    <div class="graph-legend">
+      <div class="leg-item"><div class="leg-dot" style="background:#43A047"></div>FIX</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#1E88E5"></div>DERIVED</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#FF9800"></div>CAPTURED</div>
+    </div>
+  </div>
+  <div id="evo-details" style="margin-top:14px;font-size:11px;color:var(--text2);">
+    5 evolution edge(s) in _evograph.jsonl
+  </div>
+</div>
+
+<!-- TAB 5: TOKEN BUDGET -->
+<div class="panel" id="panel-4">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+    <div>
+      <div class="token-section">
+        <h3>Always Loaded (every session)</h3>
+        <div id="always-tokens"></div>
+        <div class="tok-total" id="always-total"></div>
+      </div>
+      <div class="token-section">
+        <h3>On-Demand (triggered)</h3>
+        <div id="ondemand-tokens"></div>
+      </div>
+      <div style="font-size:11px;color:var(--text2);line-height:2.2;margin-top:16px;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:6px;">
+        <div>Base session (always-on): <span style="color:var(--text);font-weight:600">790 tokens</span></div>
+        <div>Typical HMS session: <span style="color:var(--text)">~2880 tokens</span> (+S-01+T2+mem)</div>
+        <div>Generic session: <span style="color:var(--green)">790 tokens</span> (62% saving vs always-loaded)</div>
+        <div>Max session (all soft): <span style="color:var(--orange)">~3280 tokens</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="graph-wrap">
+        <svg id="budget-svg" style="height:360px;background:#0F1117;"></svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 6: SYSTEM STATUS -->
+<div class="panel" id="panel-5">
+  <div class="status-grid">
+    <div class="s-card">
+      <div class="s-card-title">Files & Structure</div>
+      <div class="s-list" id="s-system"></div>
+    </div>
+    <div class="s-card">
+      <div class="s-card-title">Skill Graph</div>
+      <div class="s-list" id="s-skills"></div>
+    </div>
+    <div class="s-card">
+      <div class="s-card-title">Memory Network</div>
+      <div class="s-list" id="s-memory"></div>
+    </div>
+    <div class="s-card">
+      <div class="s-card-title">Hooks &amp; Settings</div>
+      <div class="s-list" id="s-hooks"></div>
+    </div>
+  </div>
+  <div class="s-card">
+    <div class="s-card-title">Data Integrity</div>
+    <div class="s-list" id="s-data"></div>
+  </div>
+  <div class="s-card" style="margin-top:10px;">
+    <div class="s-card-title">QA Summary — 2026-04-09</div>
+    <div style="display:flex;gap:20px;padding:8px 0 4px;font-size:14px;">
+      <span style="color:var(--green)">✓ 81 passed</span>
+      <span style="color:var(--red)">✗ 0 failed</span>
+      <span style="color:var(--orange)">⚠ 0 warnings</span>
+    </div>
+    <div id="qa-failures" style="margin-top:6px;font-size:11px;"></div>
+    <div id="qa-warnings-list" style="margin-top:4px;font-size:11px;"></div>
+  </div>
+</div>
+
+</div><!-- panels -->
+
+<script>
+// ── Embedded data ──────────────────────────────────────────────
+const SKILL_NODES  = [{"id": "S-01", "name": "quant-research", "type": "skill", "hardness": "soft-hook", "health": 0.793, "tokens": 1420, "meta": "Renaissance quant. LOB microstructure, factor models, RL execution, LaTeX, HMS architecture.", "tags": ["hms", "alpha", "ic", "regime"], "color": "#1E88E5", "radius": 19, "version": "2.0", "thresh": 0.6}, {"id": "META-01", "name": "graph-manager", "type": "meta-skill", "hardness": "explicit-import", "health": 0.745, "tokens": 420, "meta": "Registry keeper. Add/update/deprecate nodes, bidirectional edges, audit.", "tags": ["registry", "graph", "add-node", "edges"], "color": "#43A047", "radius": 18, "version": "1.0", "thresh": 0.5}, {"id": "META-02", "name": "skill-selector", "type": "meta-skill", "hardness": "explicit-import", "health": 0.678, "tokens": 380, "meta": "Tag-query registry, rank by coverage, find gaps for new project.", "tags": ["selector", "coverage", "gap-analysis", "bootstrap"], "color": "#43A047", "radius": 17, "version": "1.0", "thresh": 0.5}, {"id": "META-03", "name": "pipeline-builder", "type": "meta-skill", "hardness": "explicit-import", "health": 0.707, "tokens": 360, "meta": "Design skill execution order, handoffs, generate project CLAUDE.md.", "tags": ["pipeline", "execution-order", "handoff", "scaffold"], "color": "#43A047", "radius": 17, "version": "1.0", "thresh": 0.5}, {"id": "META-04", "name": "gap-filler", "type": "meta-skill", "hardness": "explicit-import", "health": 0.696, "tokens": 340, "meta": "Spec atomic new skills when pipeline-builder finds gap. Sandbox testing.", "tags": ["new-node", "spec", "atomic", "sandbox"], "color": "#43A047", "radius": 17, "version": "1.0", "thresh": 0.5}, {"id": "META-05", "name": "auto-improve", "type": "meta-skill", "hardness": "hard", "health": 0.876, "tokens": 280, "meta": "Always-on. Session journal, captures corrections, proposes diffs at Stop.", "tags": ["self-improvement", "journal", "retrospective", "correction"], "color": "#E53935", "radius": 20, "version": "1.0", "thresh": 0.8}, {"id": "META-06", "name": "variant-manager", "type": "meta-skill", "hardness": "explicit-import", "health": 0.689, "tokens": 320, "meta": "Patch-overlay variants of base skills. Base stays canonical.", "tags": ["variants", "patch", "overlay", "versioning"], "color": "#43A047", "radius": 17, "version": "1.0", "thresh": 0.5}, {"id": "META-07", "name": "memory-system", "type": "meta-skill", "hardness": "hard", "health": 0.887, "tokens": 180, "meta": "Always-on. Memory write protocol: node.py add/update/close/link.", "tags": ["memory", "token-efficient", "tiers", "write-protocol"], "color": "#E53935", "radius": 20, "version": "2.0", "thresh": 0.8}, {"id": "META-08", "name": "chat-retrieval", "type": "meta-skill", "hardness": "explicit-import", "health": 0.722, "tokens": 200, "meta": "Find old chats via keyword index + pre-chunked extracts. BM25+embed.", "tags": ["retrieval", "index", "chunks", "bm25"], "color": "#43A047", "radius": 18, "version": "1.0", "thresh": 0.5}, {"id": "GEN-ERR-001", "name": "latex-errors", "type": "skill", "hardness": "soft-hook", "health": 0.883, "tokens": 220, "meta": "LaTeX/TikZ errors: step->nodestep, tag->ctag, fontawesome5, pdflatex 2-pass.", "tags": ["latex", "tikz", "errors", "patterns"], "color": "#1E88E5", "radius": 20, "version": "1.1", "thresh": 0.6}, {"id": "M-01", "name": "blackboard-mcp", "type": "mcp", "hardness": "explicit-import", "health": 0.684, "tokens": 80, "meta": "CUHK Blackboard MCP via Playwright. Tools: courses, assignments, grades, materials.", "tags": ["cuhk", "academic", "playwright", "assignments"], "color": "#43A047", "radius": 17, "version": "1.0", "thresh": 0.5}, {"id": "M-02", "name": "deep-research-mcp", "type": "mcp", "hardness": "explicit-import", "health": 0.676, "tokens": 60, "meta": "Multi-phase research MCP on Railway. Explore->synthesise->gap-fill->report.", "tags": ["research", "railway", "multi-phase", "papers"], "color": "#43A047", "radius": 17, "version": "1.0", "thresh": 0.5}, {"id": "C-01", "name": "Notion", "type": "connector", "hardness": "explicit-import", "health": 0.787, "tokens": 50, "meta": "Notion connector. Search, create, update pages and databases.", "tags": ["notion", "notes", "tasks", "docs"], "color": "#43A047", "radius": 19, "version": "1.0", "thresh": 0.5}];
+const SKILL_EDGES  = [{"source": "S-01", "target": "META-05", "type": "cross_applies"}, {"source": "S-01", "target": "META-07", "type": "cross_applies"}, {"source": "META-01", "target": "META-02", "type": "connects_to"}, {"source": "META-01", "target": "META-03", "type": "connects_to"}, {"source": "META-01", "target": "META-04", "type": "connects_to"}, {"source": "META-01", "target": "META-05", "type": "connects_to"}, {"source": "META-02", "target": "META-01", "type": "connects_to"}, {"source": "META-02", "target": "META-03", "type": "connects_to"}, {"source": "META-03", "target": "META-02", "type": "connects_to"}, {"source": "META-03", "target": "META-04", "type": "connects_to"}, {"source": "META-03", "target": "META-01", "type": "cross_applies"}, {"source": "META-04", "target": "META-01", "type": "connects_to"}, {"source": "META-04", "target": "META-03", "type": "connects_to"}, {"source": "META-04", "target": "META-02", "type": "cross_applies"}, {"source": "META-05", "target": "META-01", "type": "connects_to"}, {"source": "META-05", "target": "META-02", "type": "cross_applies"}, {"source": "META-05", "target": "META-03", "type": "cross_applies"}, {"source": "META-05", "target": "META-04", "type": "cross_applies"}, {"source": "META-05", "target": "META-06", "type": "cross_applies"}, {"source": "META-06", "target": "META-01", "type": "connects_to"}, {"source": "META-06", "target": "META-05", "type": "connects_to"}, {"source": "META-06", "target": "META-02", "type": "cross_applies"}, {"source": "META-06", "target": "META-06", "type": "cross_applies"}, {"source": "META-07", "target": "META-05", "type": "connects_to"}, {"source": "META-07", "target": "META-01", "type": "connects_to"}, {"source": "META-08", "target": "META-07", "type": "connects_to"}, {"source": "GEN-ERR-001", "target": "S-01", "type": "cross_applies"}, {"source": "M-01", "target": "S-01", "type": "cross_applies"}, {"source": "M-01", "target": "META-07", "type": "cross_applies"}, {"source": "M-02", "target": "S-01", "type": "cross_applies"}, {"source": "M-02", "target": "META-02", "type": "cross_applies"}];
+const MEM_NODES    = [{"id": "ART-170631", "type": "ART", "project": "ART", "weight": 0.8, "content": "ART[2026-04-09] /Users/igsl/.igsl-skills/skills/meta/variant-manager/S", "tags": ["artifact", "md"], "ts": "2026-04-09", "color": "#FF9800", "proj_color": "#827717", "radius": 13, "active": true}, {"id": "ART-172908", "type": "ART", "project": "ART", "weight": 0.8, "content": "ART[2026-04-09] /tmp/test.py", "tags": ["artifact", "py"], "ts": "2026-04-09", "color": "#FF9800", "proj_color": "#827717", "radius": 13, "active": true}, {"id": "ART-173031", "type": "ART", "project": "ART", "weight": 0.8, "content": "ART[2026-04-09] /tmp/test.py", "tags": ["artifact", "py"], "ts": "2026-04-09", "color": "#FF9800", "proj_color": "#827717", "radius": 13, "active": true}, {"id": "CRS-001", "type": "ART", "project": "CRS", "weight": 0.8, "content": "ART[2026-04-09] ~/coursework/FINA4120/assignment3_submission.pdf", "tags": ["coursework", "cuhk", "artifact"], "ts": "2026-04-09", "color": "#FF9800", "proj_color": "#E65100", "radius": 13, "active": false}, {"id": "CRS-002", "type": "DEC", "project": "CRS", "weight": 0.8, "content": "CUHK format: PDF via Blackboard; filename: STUDENTID_COURSECODE_ASS#.p", "tags": ["coursework", "cuhk", "submission"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#E65100", "radius": 13, "active": false}, {"id": "GEN-001", "type": "GEN", "project": "GEN", "weight": 0.8, "content": "Large DataFrames (>1M rows): vectorized ops, avoid apply(), numba for ", "tags": ["python", "performance", "dataframe"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-002", "type": "GEN", "project": "GEN", "weight": 0.8, "content": "Feature branch: from main, PR, squash merge; never force-push main", "tags": ["git", "workflow"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-003", "type": "GEN", "project": "GEN", "weight": 0.8, "content": "API retry: exp backoff 1→2→4→8s, max 4 retries, jitter ±20%; 429→immed", "tags": ["api", "retry", "pattern"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-004", "type": "GEN", "project": "GEN", "weight": 0.8, "content": "LaTeX: use \\input{} not \\include{} (no page break); hyperref must be l", "tags": ["latex", "typesetting"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-005", "type": "ERR", "project": "GEN", "weight": 0.8, "content": "LaTeX 'undefined control sequence': missing package or typo; check log", "tags": ["latex", "error", "common"], "ts": "2026-04-09", "color": "#E91E63", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-006", "type": "GEN", "project": "GEN", "weight": 0.8, "content": "Claude Code: give file+line, state what NOT to change, prefer Edit ove", "tags": ["claude", "prompting"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-007", "type": "PAT", "project": "GEN", "weight": 0.8, "content": "Debug: reproduce→isolate→hypothesize→test ONE change→verify. Never cha", "tags": ["debugging", "systematic"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-008", "type": "GEN", "project": "GEN", "weight": 0.8, "content": "launchd: StartInterval=poll, StartCalendarInterval=cron; plist in ~/Li", "tags": ["macos", "launchd"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-009", "type": "GEN", "project": "GEN", "weight": 0.8, "content": "jsonschema: draft7, $defs for reusable types, additionalProperties:fal", "tags": ["json", "schema"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-010", "type": "PAT", "project": "GEN", "weight": 0.8, "content": "Bash: set -euo pipefail; quote all vars; [[ ]] not [ ]; trap EXIT for ", "tags": ["bash", "scripting"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "HMS-001", "type": "DEC", "project": "HMS", "weight": 1.0, "content": "HMS IC window: rolling 252d; shorter=noisy, longer=misses regime shift", "tags": ["hms", "alpha", "factor"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#1565C0", "radius": 16, "active": true}, {"id": "HMS-002", "type": "PAT", "project": "HMS", "weight": 1.0, "content": "Factor pipeline: raw→winsorize(1,99)→cross-z-score→neutralize(industry", "tags": ["hms", "pipeline", "etl"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#1565C0", "radius": 16, "active": true}, {"id": "HMS-003", "type": "DEC", "project": "HMS", "weight": 0.8, "content": "TWAP 30min for positions >0.5% ADV to minimize market impact; slippage", "tags": ["hms", "execution", "twap"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-004", "type": "ARCH", "project": "HMS", "weight": 0.8, "content": "Data: Wind (CN equities), Bloomberg (cross-asset FX), internal HDF5 ti", "tags": ["hms", "architecture", "data"], "ts": "2026-04-09", "color": "#9C27B0", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-005", "type": "PAT", "project": "HMS", "weight": 0.8, "content": "Risk controls: max pos 3%, sector cap 15%, turnover penalty 0.003/unit", "tags": ["hms", "backtest", "risk"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-006", "type": "DEC", "project": "HMS", "weight": 0.8, "content": "Momentum: 12-1 month returns (skip last month) — Jegadeesh-Titman; raw", "tags": ["hms", "factor", "momentum"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-007", "type": "ART", "project": "HMS", "weight": 0.8, "content": "ART[2026-04-09] ~/hms/notebooks/factor_ic_analysis_2026Q1.ipynb", "tags": ["hms", "artifact", "notebook"], "ts": "2026-04-09", "color": "#FF9800", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-008", "type": "PAT", "project": "HMS", "weight": 1.0, "content": "Signal blend: IC-weighted equal-weight; recalibrate quarterly; expandi", "tags": ["hms", "signal", "combination"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#1565C0", "radius": 16, "active": true}, {"id": "HMS-009", "type": "DEC", "project": "HMS", "weight": 0.8, "content": "Universe: CSI 500+CSI 300, exclude ST, min 60d history, min float 500M", "tags": ["hms", "universe"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-010", "type": "ARCH", "project": "HMS", "weight": 1.0, "content": "Autoresearch: launchd 08:30 HKT daily → factor report + signal update", "tags": ["hms", "infrastructure", "scheduler"], "ts": "2026-04-09", "color": "#9C27B0", "proj_color": "#1565C0", "radius": 16, "active": true}, {"id": "HMS-011", "type": "PAT", "project": "HMS", "weight": 0.8, "content": "Risk model: Barra-style, 10 style factors + industry dummies; estimati", "tags": ["hms", "risk", "model"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-012", "type": "DEC", "project": "HMS", "weight": 0.8, "content": "Rebalance: weekly Friday close; daily signal update; min 1% turnover t", "tags": ["hms", "rebalance"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-013", "type": "GEN", "project": "HMS", "weight": 0.8, "content": "IC > 0.05 → live-tradeable; IC > 0.08 → strong; decay half-life < 5d →", "tags": ["hms", "quant", "ic"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-014", "type": "PAT", "project": "HMS", "weight": 0.8, "content": "NLP sentiment: SnowNLP (CN), BERT-base-chinese; news from Tushare + Wi", "tags": ["hms", "nlp", "sentiment"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-015", "type": "LOOP", "project": "HMS", "weight": 0.8, "content": "○ OPEN: Options flow as HMS alpha signal. No conclusion. Pending data ", "tags": ["hms", "open", "factor"], "ts": "2026-04-09", "color": "#F44336", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-016", "type": "ERR", "project": "HMS", "weight": 1.0, "content": "FIXED: Lookahead bias — factor neutralization used full-sample mean; f", "tags": ["hms", "bug", "lookahead"], "ts": "2026-04-09", "color": "#E91E63", "proj_color": "#1565C0", "radius": 16, "active": true}, {"id": "HMS-017", "type": "ART", "project": "HMS", "weight": 0.8, "content": "ART[2026-04-09] ~/hms/reports/weekly_signal_report_2026W14.pdf", "tags": ["hms", "artifact", "report"], "ts": "2026-04-09", "color": "#FF9800", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "MCP-001", "type": "ARCH", "project": "MCP", "weight": 0.8, "content": "Blackboard MCP: shared state for multi-agent; keys namespaced by proje", "tags": ["mcp", "blackboard"], "ts": "2026-04-09", "color": "#9C27B0", "proj_color": "#00695C", "radius": 13, "active": false}, {"id": "MCP-002", "type": "ARCH", "project": "MCP", "weight": 0.8, "content": "Deep Research MCP: Firecrawl+Claude synthesis; max 20 pages/query; out", "tags": ["mcp", "deep-research", "firecrawl"], "ts": "2026-04-09", "color": "#9C27B0", "proj_color": "#00695C", "radius": 13, "active": false}, {"id": "OC-001", "type": "ARCH", "project": "OC", "weight": 0.8, "content": "OpenClaude: Claude Code + MCP + Edge TTS + WhatsApp. Loop: message→cla", "tags": ["openclaude", "architecture", "mcp"], "ts": "2026-04-09", "color": "#9C27B0", "proj_color": "#6A1B9A", "radius": 13, "active": false}, {"id": "OC-002", "type": "DEC", "project": "OC", "weight": 0.8, "content": "Keyed queue: one slot per sender; newer overwrites pending — prevents ", "tags": ["openclaude", "queue", "keyed"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#6A1B9A", "radius": 13, "active": false}, {"id": "OC-003", "type": "PAT", "project": "OC", "weight": 0.8, "content": "Dual timeout: 30s tool-call (hard), 90s total (soft); escalates to fal", "tags": ["openclaude", "timeout", "dual"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#6A1B9A", "radius": 13, "active": false}, {"id": "OC-004", "type": "ERR", "project": "OC", "weight": 0.8, "content": "Crash recovery: supervisor, 5s backoff, max 3 restarts/hour to prevent", "tags": ["openclaude", "crash", "recovery"], "ts": "2026-04-09", "color": "#E91E63", "proj_color": "#6A1B9A", "radius": 13, "active": false}, {"id": "OC-005", "type": "LOOP", "project": "OC", "weight": 0.8, "content": "○ OPEN: Calendar/email integration. WhatsApp→'my calendar'→Google Cal.", "tags": ["openclaude", "open", "calendar"], "ts": "2026-04-09", "color": "#F44336", "proj_color": "#6A1B9A", "radius": 13, "active": false}, {"id": "SK-001", "type": "DEC", "project": "SK", "weight": 1.0, "content": "IGSL v2 health: EMA α=0.1; formula=applied×completion×(1-0.5×fallback)", "tags": ["igsl", "skill-graph", "health"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#2E7D32", "radius": 16, "active": true}, {"id": "SK-002", "type": "DEC", "project": "SK", "weight": 0.8, "content": "Memory half-lives: DEC=∞, PAT=30d, ARCH=60d, ART=14d, LOOP=∞, GEN=90d,", "tags": ["igsl", "memory", "half-life"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#2E7D32", "radius": 13, "active": false}, {"id": "SK-003", "type": "ARCH", "project": "SK", "weight": 0.8, "content": "Token budget: T0(80)+T1(50)+Index(50)+Hard(460)=640 always; soft skill", "tags": ["igsl", "token-budget"], "ts": "2026-04-09", "color": "#9C27B0", "proj_color": "#2E7D32", "radius": 13, "active": false}, {"id": "SK-004", "type": "PAT", "project": "SK", "weight": 1.0, "content": "BM25 boost: score×(0.6+0.4×health); memory: score×w×recency_factor=exp", "tags": ["igsl", "bm25", "search"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#2E7D32", "radius": 16, "active": true}, {"id": "SK-005", "type": "DEC", "project": "SK", "weight": 0.8, "content": "EvoGraph: FIX/DERIVED/CAPTURED modes; parent→child with session_id+tri", "tags": ["igsl", "evograph", "lineage"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#2E7D32", "radius": 13, "active": false}, {"id": "SK-006", "type": "LOOP", "project": "SK", "weight": 0.8, "content": "○ OPEN: Semantic embedding search for skills via all-MiniLM-L6-v2. Not", "tags": ["igsl", "open", "embedding"], "ts": "2026-04-09", "color": "#F44336", "proj_color": "#2E7D32", "radius": 13, "active": false}, {"id": "SK-007", "type": "PAT", "project": "SK", "weight": 0.8, "content": "Hook chain: session_start_v2.sh→additionalContext; health_recorder.py ", "tags": ["igsl", "session", "hook"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#2E7D32", "radius": 13, "active": false}, {"id": "SK-008", "type": "DEC", "project": "SK", "weight": 0.8, "content": "5 bridges: skill-applied, memory-to-skills, health-sync, session-conte", "tags": ["igsl", "integrate", "bidirectional"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#2E7D32", "radius": 13, "active": false}];
+const MEM_EDGES    = [];
+const HEALTH_DATA  = [{"id": "META-07", "name": "memory-system", "applied": 1.0, "completion": 0.887, "fallback": 0.0, "health": 0.887, "threshold": 0.8, "n": 87}, {"id": "GEN-ERR-001", "name": "latex-errors", "applied": 0.91, "completion": 0.98, "fallback": 0.02, "health": 0.883, "threshold": 0.6, "n": 23}, {"id": "META-05", "name": "auto-improve", "applied": 1.0, "completion": 0.876, "fallback": 0.0, "health": 0.876, "threshold": 0.8, "n": 85}, {"id": "S-01", "name": "quant-research", "applied": 0.87, "completion": 0.94, "fallback": 0.06, "health": 0.793, "threshold": 0.6, "n": 47}, {"id": "C-01", "name": "Notion", "applied": 0.85, "completion": 0.95, "fallback": 0.05, "health": 0.787, "threshold": 0.5, "n": 15}, {"id": "META-01", "name": "graph-manager", "applied": 0.8, "completion": 0.95, "fallback": 0.04, "health": 0.745, "threshold": 0.5, "n": 12}, {"id": "META-08", "name": "chat-retrieval", "applied": 0.8, "completion": 0.93, "fallback": 0.06, "health": 0.722, "threshold": 0.5, "n": 14}, {"id": "META-03", "name": "pipeline-builder", "applied": 0.8, "completion": 0.92, "fallback": 0.08, "health": 0.707, "threshold": 0.5, "n": 6}, {"id": "META-04", "name": "gap-filler", "applied": 0.78, "completion": 0.92, "fallback": 0.06, "health": 0.696, "threshold": 0.5, "n": 9}, {"id": "META-06", "name": "variant-manager", "applied": 0.78, "completion": 0.92, "fallback": 0.08, "health": 0.689, "threshold": 0.5, "n": 7}, {"id": "M-01", "name": "blackboard-mcp", "applied": 0.8, "completion": 0.9, "fallback": 0.1, "health": 0.684, "threshold": 0.5, "n": 5}, {"id": "META-02", "name": "skill-selector", "applied": 0.76, "completion": 0.92, "fallback": 0.06, "health": 0.678, "threshold": 0.5, "n": 8}, {"id": "M-02", "name": "deep-research-mcp", "applied": 0.8, "completion": 0.88, "fallback": 0.08, "health": 0.676, "threshold": 0.5, "n": 8}];
+const TOKEN_BUDGET = {"always": [{"label": "T0 Identity", "tokens": 80, "color": "#E53935"}, {"label": "T1 Session", "tokens": 50, "color": "#FB8C00"}, {"label": "Active Index", "tokens": 50, "color": "#FDD835"}, {"label": "Skill Scan", "tokens": 150, "color": "#43A047"}, {"label": "Hard Skills", "tokens": 460, "color": "#1E88E5"}], "ondemand": [{"label": "Memory Query (5 nodes)", "tokens": 150, "color": "#8E24AA"}, {"label": "S-01 quant-research", "tokens": 1420, "color": "#00897B"}, {"label": "GEN-ERR-001 latex", "tokens": 220, "color": "#3949AB"}, {"label": "T2 Project Memory", "tokens": 300, "color": "#E65100"}]};
+const EVO_NODES    = [{"id": "EVO-001", "mode": "root", "label": "EVO-001"}, {"id": "META-01", "mode": "CAPTURED", "label": "META-01"}, {"id": "EVO-002", "mode": "root", "label": "EVO-002"}, {"id": "META-02", "mode": "CAPTURED", "label": "META-02"}, {"id": "EVO-003", "mode": "root", "label": "EVO-003"}, {"id": "S-01", "mode": "CAPTURED", "label": "S-01"}, {"id": "EVO-004", "mode": "root", "label": "EVO-004"}, {"id": "HMS-016", "mode": "FIX", "label": "HMS-016"}, {"id": "EVO-005", "mode": "root", "label": "EVO-005"}, {"id": "META-07", "mode": "DERIVED", "label": "META-07"}];
+const EVO_EDGES    = [{"source": "EVO-001", "target": "META-01", "mode": "CAPTURED", "ts": "2026-04-09T08:58:23.873620Z", "trigger": "initial_build", "delta": "Created META-01 auto-improve skill node — captures self-impr"}, {"source": "EVO-002", "target": "META-02", "mode": "CAPTURED", "ts": "2026-04-09T08:58:23.873620Z", "trigger": "initial_build", "delta": "Created META-02 memory-system skill node — captures memory n"}, {"source": "EVO-003", "target": "S-01", "mode": "CAPTURED", "ts": "2026-04-09T08:58:23.873620Z", "trigger": "initial_build", "delta": "Created S-01 quant-research skill — captures HMS factor rese"}, {"source": "EVO-004", "target": "HMS-016", "mode": "FIX", "ts": "2026-04-09T08:58:23.873620Z", "trigger": "bug_fix", "delta": "Fixed lookahead bias: full-sample mean → expanding window me"}, {"source": "EVO-005", "target": "META-07", "mode": "DERIVED", "ts": "2026-04-09T08:58:23.873620Z", "trigger": "architecture_split", "delta": "META-07 chat-retrieval derived from META-03 graph-manager; s"}];
+const QA_REPORT    = {"run_at": "2026-04-09T09:30:30.237798", "system": {"skill.py exists": "pass", "node.py exists": "pass", "integrate.py exists": "pass", "embed.py exists": "pass", "query.py exists": "pass", "cascade_watcher.py exists": "pass", "session_start_v2.sh exists": "pass", "health_recorder.py exists": "pass", "retrospective_v2.py exists": "pass", "apply_proposals.py exists": "pass", "_registry_v2.yaml exists": "pass", "nodes.jsonl exists": "pass", "t0_identity.mem exists": "pass", "chat-index.jsonl exists": "pass", "active-index.json exists": "pass", "settings installed": "pass", "git initialized": "pass", "CLAUDE.md exists": "pass", "skills/meta/auto-improve/SKILL.md": "pass", "skills/meta/memory-system/SKILL.md": "pass", "skills/meta/graph-manager/SKILL.md": "pass", "skills/meta/skill-selector/SKILL.md": "pass", "skills/meta/pipeline-builder/SKILL.md": "pass", "skills/meta/gap-filler/SKILL.md": "pass", "skills/meta/variant-manager/SKILL.md": "pass", "skills/meta/chat-retrieval/SKILL.md": "pass", "skills/user/latex-errors/SKILL.md": "pass", "skills/quant/quant-research/SKILL.md": "pass", "templates/CLAUDE_v2_template.md": "pass", "templates/CLAUDE_hms.md": "pass", "templates/CLAUDE_coursework.md": "pass", "templates/CLAUDE_skills.md": "pass", "registry_nodes": 13, "evograph_edges": 5, "evograph_stress_edges": 0, "real_nodes": 46, "stress_nodes": 0, "total_nodes": 47}, "skill_graph": {"skill show: exit 0": "pass", "skill show: has nodes": "pass", "skill scan: exit 0": "pass", "skill scan: has output": "pass", "skill query: exit 0": "pass", "skill query: finds S-01": "pass", "skill health show: exit 0": "pass", "skill health show: bars": "pass", "skill health alert: exit 0": "pass", "skill bundle suggest: exit 0": "pass", "skill lineage: exit 0": "pass", "skill lineage: has output": "pass", "registry has 13+ nodes (13)": "pass", "evograph: no stress contamination": "pass"}, "memory_network": {"node show: exit 0": "pass", "node show: reports nodes": "pass", "node show: type distribution": "pass", "node query: exit 0": "pass", "node query: finds HMS nodes": "pass", "node fetch HMS-001: exit 0": "pass", "node fetch HMS-001: content": "pass", "node active: exit 0": "pass", "no STRESS nodes in nodes.jsonl (0 found)": "pass", "active index: has nodes (10)": "pass", "chat index: 20+ entries (25)": "pass", "chat query search: exit 0": "pass", "chat query: finds results": "pass"}, "integration": {"integrate session-context": "pass", "integrate health-sync": "pass", "integrate memory-to-skills": "pass", "integrate skill-applied": "pass"}, "hooks": {"stop hook: exit 0 on stop_hook_active": "pass", "stop hook: silent on stop_hook_active": "pass", "health_recorder: success Write payload": "pass", "health_recorder: failure payload": "pass", "health_recorder: malformed JSON": "pass", "health_recorder: empty stdin": "pass", "session_start: valid JSON output": "pass", "session_start: exit 0": "pass", "cascade_watcher: exit 0": "pass", "settings: SessionStart hook": "pass", "settings: PostToolUse hook": "pass", "settings: Stop hook": "pass", "settings: SubagentStop hook": "pass", "settings: valid JSON": "pass"}, "data_integrity": {"nodes.jsonl: no schema errors (0 found)": "pass", "nodes.jsonl: no duplicate IDs (0 found)": "pass", "registry paths exist (0 missing)": "pass", "_evograph.jsonl: valid JSON (0 errors)": "pass"}, "failures": [], "warnings": [], "passed": 81, "failed": 0};
+const SYS_STATS    = {"skill_nodes": 13, "memory_nodes": 47, "active_nodes": 10, "evo_edges": 5, "chat_entries": 25, "avg_health": 0.756, "avg_weight": 0.83, "qa_passed": 81, "qa_failed": 0, "qa_warnings": 0, "failures": [], "warnings": []};
+
+// ── Tab system ─────────────────────────────────────────────────
+function showTab(i) {
+  document.querySelectorAll('.tab').forEach((t,j) => t.classList.toggle('active', i===j));
+  document.querySelectorAll('.panel').forEach((p,j) => p.classList.toggle('active', i===j));
+  if (i === 1 && !window._memBuilt)  { buildMemGraph();  window._memBuilt=true; }
+  if (i === 3 && !window._evoBuilt)  { buildEvoGraph();  window._evoBuilt=true; }
+  if (i === 4 && !window._budBuilt)  { buildBudget();    window._budBuilt=true; }
+}
+
+// ── Tooltip ────────────────────────────────────────────────────
+const tipEl = document.getElementById('tip');
+function showTip(html, e) {
+  tipEl.innerHTML = html;
+  tipEl.classList.add('vis');
+  moveTip(e);
+}
+function moveTip(e) {
+  tipEl.style.left = Math.min(e.clientX+12, window.innerWidth-270)+'px';
+  tipEl.style.top  = Math.min(e.clientY+12, window.innerHeight-180)+'px';
+}
+function hideTip() { tipEl.classList.remove('vis'); }
+document.addEventListener('mousemove', e => { if(tipEl.classList.contains('vis')) moveTip(e); });
+
+// ── SKILL GRAPH ────────────────────────────────────────────────
+let skillSim, skillNodeSel, skillLinkSel;
+
+(function buildSkillGraph() {
+  const svg = d3.select('#skill-svg');
+  const W = svg.node().getBoundingClientRect().width || 900;
+  const H = 560;
+  svg.attr('viewBox', `0 0 ${W} ${H}`);
+
+  const defs = svg.append('defs');
+  ['connects_to','cross_applies'].forEach(t => {
+    defs.append('marker').attr('id','arr-'+t)
+      .attr('viewBox','0 -5 10 10').attr('refX',18).attr('refY',0)
+      .attr('markerWidth',5).attr('markerHeight',5).attr('orient','auto')
+      .append('path').attr('d','M0,-5L10,0L0,5')
+      .attr('fill', t==='connects_to'?'#5C6BC0':'#546E7A');
+  });
+
+  const g = svg.append('g');
+  svg.call(d3.zoom().scaleExtent([.25,4])
+    .on('zoom', e => g.attr('transform', e.transform)));
+
+  skillLinkSel = g.append('g').selectAll('line').data(SKILL_EDGES).join('line')
+    .attr('stroke', d => d.type==='connects_to'?'#5C6BC0':'#546E7A')
+    .attr('stroke-width', d => d.type==='connects_to'?1.5:1)
+    .attr('stroke-dasharray', d => d.type==='cross_applies'?'4,2':null)
+    .attr('marker-end', d => `url(#arr-${d.type})`);
+
+  skillNodeSel = g.append('g').selectAll('g').data(SKILL_NODES).join('g')
+    .call(d3.drag()
+      .on('start',(e,d)=>{if(!e.active)skillSim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y;})
+      .on('drag', (e,d)=>{d.fx=e.x;d.fy=e.y;})
+      .on('end',  (e,d)=>{if(!e.active)skillSim.alphaTarget(0);d.fx=null;d.fy=null;}))
+    .on('mouseover',(e,d)=>showTip(
+      `<div class="tip-title">[` +d.id+ `] ` +d.name+ `</div>` +
+      `<div>Type: `+d.type+` | Hardness: `+d.hardness+`</div>` +
+      `<div>Health: `+d.health+` (thresh `+d.thresh+`)</div>` +
+      `<div>Tokens: `+d.tokens+` | v`+d.version+`</div>` +
+      `<div style="color:#9FA8DA;margin-top:4px">`+(d.meta||'(no summary)')+`</div>` +
+      `<div style="color:#607D8B;margin-top:2px">`+d.tags.join(' · ')+`</div>`,e))
+    .on('mouseout',hideTip);
+
+  skillNodeSel.append('circle')
+    .attr('r', d=>d.radius)
+    .attr('fill', d=>d.color+'22')
+    .attr('stroke', d=>d.color)
+    .attr('stroke-width',2);
+  skillNodeSel.append('text')
+    .attr('text-anchor','middle').attr('dy',4)
+    .attr('font-size',8).attr('fill','#E8EAF6').attr('pointer-events','none')
+    .text(d=>d.name.length>14?d.name.slice(0,13)+'…':d.name);
+  skillNodeSel.append('text')
+    .attr('text-anchor','middle').attr('dy',d=>d.radius+12)
+    .attr('font-size',9).attr('fill','#7986CB').attr('pointer-events','none')
+    .text(d=>d.id);
+
+  skillSim = d3.forceSimulation(SKILL_NODES)
+    .force('link', d3.forceLink(SKILL_EDGES).id(d=>d.id).distance(110))
+    .force('charge', d3.forceManyBody().strength(-350))
+    .force('center', d3.forceCenter(W/2, H/2))
+    .force('collision', d3.forceCollide().radius(d=>d.radius+18))
+    .on('tick', ()=>{
+      skillLinkSel
+        .attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+        .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+      skillNodeSel.attr('transform',d=>`translate(${d.x},${d.y})`);
+    });
+})();
+
+function filterSkill(h) {
+  document.querySelectorAll('[id^=sf-]').forEach(b=>b.classList.remove('active'));
+  const map={'all':'sf-all','hard':'sf-hard','soft-hook':'sf-soft','explicit-import':'sf-explicit'};
+  const el=document.getElementById(map[h]||'sf-all');
+  if(el) el.classList.add('active');
+  skillNodeSel.attr('opacity',d=>h==='all'||d.hardness===h?1:.1);
+  skillLinkSel.attr('opacity',h==='all'?.6:.1);
+}
+
+// ── MEMORY GRAPH ───────────────────────────────────────────────
+let memSim, memNodeSel, memLinkSel;
+
+function buildMemGraph() {
+  const svg = d3.select('#mem-svg');
+  const W = svg.node().getBoundingClientRect().width || 900;
+  const H = 560;
+  svg.attr('viewBox', `0 0 ${W} ${H}`);
+
+  const g = svg.append('g');
+  svg.call(d3.zoom().scaleExtent([.2,5])
+    .on('zoom', e => g.attr('transform', e.transform)));
+
+  memLinkSel = g.append('g').selectAll('line').data(MEM_EDGES).join('line')
+    .attr('stroke','#2D3250').attr('stroke-width',1);
+
+  memNodeSel = g.append('g').selectAll('g').data(MEM_NODES).join('g')
+    .call(d3.drag()
+      .on('start',(e,d)=>{if(!e.active)memSim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y;})
+      .on('drag', (e,d)=>{d.fx=e.x;d.fy=e.y;})
+      .on('end',  (e,d)=>{if(!e.active)memSim.alphaTarget(0);d.fx=null;d.fy=null;}))
+    .on('mouseover',(e,d)=>showTip(
+      `<div class="tip-title">[`+d.id+`] `+d.type+`</div>` +
+      `<div>Project: `+d.project+` | Weight: `+d.weight+`</div>` +
+      `<div>Updated: `+d.ts+`</div>` +
+      (d.active?'<div style="color:#4CAF50">★ In active index</div>':'') +
+      `<div style="color:#9FA8DA;margin-top:4px;word-break:break-word">`+d.content+`</div>` +
+      `<div style="color:#607D8B;margin-top:2px">`+d.tags.join(' ')+`</div>`,e))
+    .on('mouseout',hideTip);
+
+  memNodeSel.append('circle')
+    .attr('r',d=>d.radius)
+    .attr('fill',d=>d.color+(d.active?'BB':'33'))
+    .attr('stroke',d=>d.active?'#FFFFFF':d.color)
+    .attr('stroke-width',d=>d.active?2.5:1);
+  memNodeSel.append('text')
+    .attr('text-anchor','middle').attr('dy',3)
+    .attr('font-size',6).attr('fill','#E8EAF6').attr('pointer-events','none')
+    .text(d=>d.type);
+
+  const PROJ_CENTER = {
+    'HMS':{x:W*.22,y:H*.35},'SK':{x:W*.75,y:H*.25},
+    'OC':{x:W*.22,y:H*.72},'GEN':{x:W*.75,y:H*.72},
+    'MCP':{x:W*.5,y:H*.12},'CRS':{x:W*.5,y:H*.88},'ART':{x:W*.5,y:H*.5}
+  };
+
+  memSim = d3.forceSimulation(MEM_NODES)
+    .force('link', d3.forceLink(MEM_EDGES).id(d=>d.id).distance(45).strength(.4))
+    .force('charge', d3.forceManyBody().strength(-60))
+    .force('collision', d3.forceCollide().radius(d=>d.radius+3))
+    .force('cluster', ()=>{
+      MEM_NODES.forEach(d=>{
+        const t = PROJ_CENTER[d.project]||{x:W*.5,y:H*.5};
+        d.vx=(d.vx||0)+(t.x-d.x)*.025;
+        d.vy=(d.vy||0)+(t.y-d.y)*.025;
+      });
+    })
+    .on('tick',()=>{
+      memLinkSel.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+               .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+      memNodeSel.attr('transform',d=>`translate(${d.x},${d.y})`);
+    });
+}
+
+function filterMem(proj) {
+  document.querySelectorAll('[id^=mf-]').forEach(b=>b.classList.remove('active'));
+  const el=document.getElementById('mf-'+proj.toLowerCase())||document.getElementById('mf-all');
+  if(el) el.classList.add('active');
+  if(!memNodeSel) return;
+  memNodeSel.attr('opacity',d=>proj==='all'||d.project===proj?1:.06);
+  memLinkSel.attr('opacity',proj==='all'?.5:.05);
+}
+
+// ── HEALTH BARS ────────────────────────────────────────────────
+(function buildHealth(){
+  const g = document.getElementById('health-grid');
+  HEALTH_DATA.forEach(h=>{
+    const alert = h.health < h.threshold;
+    const sc = h.health>=.8?'#4CAF50':h.health>=.6?'#FF9800':'#EF5350';
+    g.innerHTML += `<div class="h-row" style="border-color:${alert?'#EF5350':'#2D3250'}">
+      <div class="h-row-hdr">
+        <span class="h-name">[`+h.id+`] `+h.name+`</span>
+        <span class="h-score" style="color:`+sc+`">`+h.health.toFixed(3)+`</span>
+      </div>
+      <div class="h-bars">
+        <div class="bar-row"><span class="bar-lbl">Applied</span>
+          <div class="bar-track"><div class="bar-fill" style="width:`+(h.applied*100).toFixed(0)+`%;background:#43A047"></div></div>
+          <span class="bar-val">`+(h.applied*100).toFixed(0)+`%</span></div>
+        <div class="bar-row"><span class="bar-lbl">Completion</span>
+          <div class="bar-track"><div class="bar-fill" style="width:`+(h.completion*100).toFixed(0)+`%;background:#2196F3"></div></div>
+          <span class="bar-val">`+(h.completion*100).toFixed(0)+`%</span></div>
+        <div class="bar-row"><span class="bar-lbl">Fallback</span>
+          <div class="bar-track"><div class="bar-fill" style="width:`+(h.fallback*100).toFixed(0)+`%;background:#EF5350"></div></div>
+          <span class="bar-val">`+(h.fallback*100).toFixed(0)+`%</span></div>
+      </div>
+      <div class="thresh-line">threshold `+h.threshold+` · n=`+h.n+` applies
+        `+(alert?'⚠ BELOW THRESHOLD':'✓ healthy')+`</div>
+    </div>`;
+  });
+})();
+
+// ── EVOGRAPH ───────────────────────────────────────────────────
+function buildEvoGraph(){
+  const svg = d3.select('#evo-svg');
+  const W = svg.node().getBoundingClientRect().width || 900;
+  const H = 380;
+  svg.attr('viewBox', `0 0 ${W} ${H}`);
+
+  if(EVO_NODES.length===0){
+    svg.append('text').attr('x',W/2).attr('y',H/2)
+      .attr('text-anchor','middle').attr('fill','#9FA8DA').attr('font-size',13)
+      .text('No evolution edges yet');
+    return;
+  }
+
+  const MC = {'FIX':'#43A047','DERIVED':'#1E88E5','CAPTURED':'#FF9800','root':'#607D8B'};
+  const defs = svg.append('defs');
+  Object.keys(MC).forEach(m=>{
+    defs.append('marker').attr('id','evo-'+m)
+      .attr('viewBox','0 -5 10 10').attr('refX',55).attr('refY',0)
+      .attr('markerWidth',5).attr('markerHeight',5).attr('orient','auto')
+      .append('path').attr('d','M0,-5L10,0L0,5').attr('fill',MC[m]);
+  });
+
+  const g = svg.append('g');
+  svg.call(d3.zoom().scaleExtent([.3,4]).on('zoom',e=>g.attr('transform',e.transform)));
+
+  const links = g.append('g').selectAll('line').data(EVO_EDGES).join('line')
+    .attr('stroke',d=>MC[d.mode]||'#607D8B').attr('stroke-width',1.5)
+    .attr('marker-end',d=>`url(#evo-${d.mode||'root'})`);
+
+  const nodes = g.append('g').selectAll('g').data(EVO_NODES).join('g')
+    .on('mouseover',(e,d)=>showTip(
+      `<div class="tip-title">`+d.id+`</div><div>Mode: `+d.mode+`</div>`,e))
+    .on('mouseout',hideTip);
+
+  nodes.append('rect').attr('x',-52).attr('y',-13).attr('width',104).attr('height',26)
+    .attr('rx',4).attr('fill',d=>(MC[d.mode]||'#607D8B')+'33')
+    .attr('stroke',d=>MC[d.mode]||'#607D8B').attr('stroke-width',1);
+  nodes.append('text').attr('text-anchor','middle').attr('dy',4)
+    .attr('font-size',9).attr('fill','#E8EAF6').attr('pointer-events','none')
+    .text(d=>d.id.length>18?d.id.slice(0,17)+'…':d.id);
+
+  const sim = d3.forceSimulation(EVO_NODES)
+    .force('link',d3.forceLink(EVO_EDGES).id(d=>d.id).distance(150))
+    .force('charge',d3.forceManyBody().strength(-250))
+    .force('center',d3.forceCenter(W/2,H/2))
+    .on('tick',()=>{
+      links.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+           .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+      nodes.attr('transform',d=>`translate(${d.x},${d.y})`);
+    });
+}
+
+// ── TOKEN BUDGET ───────────────────────────────────────────────
+function buildBudget(){
+  const maxTok = 1500;
+  let alwaysTotal=0;
+  const aEl=document.getElementById('always-tokens');
+  TOKEN_BUDGET.always.forEach(t=>{
+    alwaysTotal+=t.tokens;
+    const pct=Math.min(100,t.tokens/maxTok*100).toFixed(1);
+    aEl.innerHTML+=`<div class="tok-row">
+      <div class="tok-lbl">`+t.label+`</div>
+      <div class="tok-track"><div class="tok-fill" style="width:`+pct+`%;background:`+t.color+`"></div></div>
+      <div class="tok-val">`+t.tokens+`</div></div>`;
+  });
+  document.getElementById('always-total').textContent='Always-on: '+alwaysTotal+' tokens';
+
+  const oEl=document.getElementById('ondemand-tokens');
+  TOKEN_BUDGET.ondemand.forEach(t=>{
+    const pct=Math.min(100,t.tokens/maxTok*100).toFixed(1);
+    oEl.innerHTML+=`<div class="tok-row">
+      <div class="tok-lbl">`+t.label+`</div>
+      <div class="tok-track"><div class="tok-fill" style="width:`+pct+`%;background:`+t.color+`"></div></div>
+      <div class="tok-val">+`+t.tokens+`</div></div>`;
+  });
+
+  const svg=d3.select('#budget-svg');
+  const W=svg.node().getBoundingClientRect().width||450;
+  const H=360;
+  const R=Math.min(W,H)/2-36;
+  svg.attr('viewBox',`0 0 ${W} ${H}`);
+  const g=svg.append('g').attr('transform',`translate(${W/2},${H/2})`);
+
+  const allToks=[...TOKEN_BUDGET.always,...TOKEN_BUDGET.ondemand.slice(0,2)];
+  const pie=d3.pie().value(d=>d.tokens).sort(null);
+  const arc=d3.arc().innerRadius(R*.55).outerRadius(R);
+
+  g.selectAll('path').data(pie(allToks)).join('path')
+    .attr('d',arc).attr('fill',d=>d.data.color)
+    .attr('stroke','#0F1117').attr('stroke-width',2)
+    .on('mouseover',(e,d)=>showTip(
+      `<div class="tip-title">`+d.data.label+`</div>`+d.data.tokens+` tokens`,e))
+    .on('mouseout',hideTip);
+
+  g.append('text').attr('text-anchor','middle').attr('dy','-.2em')
+    .attr('font-size',22).attr('font-weight',700).attr('fill','#E8EAF6')
+    .text(alwaysTotal);
+  g.append('text').attr('text-anchor','middle').attr('dy','1.3em')
+    .attr('font-size',10).attr('fill','#9FA8DA').text('base tokens');
+}
+
+// ── SYSTEM STATUS ──────────────────────────────────────────────
+(function buildStatus(){
+  function render(id, obj){
+    const el=document.getElementById(id);
+    if(!el) return;
+    Object.entries(obj||{}).forEach(([k,v])=>{
+      if(typeof v !== 'string') return;
+      const cls=v==='pass'?'s-ok':v==='warn'?'s-warn':'s-fail';
+      const icon=v==='pass'?'✓':v==='warn'?'⚠':'✗';
+      el.innerHTML+=`<div class="`+cls+`">`+icon+` `+k+`</div>`;
+    });
+  }
+  render('s-system', QA_REPORT.system);
+  render('s-skills',  QA_REPORT.skill_graph);
+  render('s-memory',  QA_REPORT.memory_network);
+  render('s-hooks',   QA_REPORT.hooks);
+  render('s-data',    QA_REPORT.data_integrity);
+
+  const fails=QA_REPORT.failures||[];
+  if(fails.length>0){
+    document.getElementById('qa-failures').innerHTML=
+      fails.map(f=>`<div style="color:var(--red)">✗ `+f+`</div>`).join('');
+  }
+  const warns=QA_REPORT.warnings||[];
+  if(warns.length>0){
+    document.getElementById('qa-warnings-list').innerHTML=
+      warns.map(w=>`<div style="color:var(--orange)">⚠ `+w+`</div>`).join('');
+  }
+})();
+</script>
+</body></html>

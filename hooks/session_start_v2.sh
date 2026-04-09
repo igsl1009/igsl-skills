@@ -69,7 +69,7 @@ python3 "$IGSL/skill.py" scan --session-start > /dev/null 2>&1 || true
 python3 "$IGSL/integrate.py" health-sync > /dev/null 2>&1 || true
 
 # ── 7. Get alert count ───────────────────────────────────────────────────────
-ALERT_COUNT=$(python3 "$IGSL/skill.py" health alert 2>/dev/null | grep -c "⚠" || echo "0")
+ALERT_COUNT=$(python3 "$IGSL/skill.py" health alert 2>/dev/null | grep "⚠" | wc -l | tr -d ' ')
 
 # ── 8. Get active memory nodes (top-5 brief) ─────────────────────────────────
 ACTIVE_NODES=$(python3 "$MEM/node.py" active 2>/dev/null | tail -5 | \

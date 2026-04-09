@@ -357,12 +357,12 @@ nodes:
     full_tokens: 280
     health:
       applied_rate: 1.0
-      completion_rate: 0.97
+      completion_rate: 0.8757
       fallback_rate: 0.0
       alert_threshold: 0.8
-      total_applications: 83
+      total_applications: 85
       token_cost_avg: 280
-      health_score: 0.97
+      health_score: 0.8757
       last_applied: '2026-04-09'
     lineage:
       version: '1.0'
@@ -474,12 +474,12 @@ nodes:
     full_tokens: 180
     health:
       applied_rate: 1.0
-      completion_rate: 0.98
+      completion_rate: 0.8869
       fallback_rate: 0.0
       alert_threshold: 0.8
-      total_applications: 83
+      total_applications: 87
       token_cost_avg: 180
-      health_score: 0.98
+      health_score: 0.8869
       last_applied: '2026-04-09'
     lineage:
       version: '2.0'
@@ -495,8 +495,8 @@ nodes:
     bundle:
       co_occurs_with:
         META-05: 1.0
-        SK-001: 0.05
-        SK-004: 0.05
+        SK-001: 0.1426
+        SK-004: 0.1426
       never_with: []
       bundle_score: 0.95
     memory_nodes:
@@ -628,7 +628,7 @@ nodes:
     name: blackboard-mcp
     type: mcp
     surface: claude-code
-    path: ~/blackboard-mcp/server.py
+    path: mcp:blackboard-mcp
     tags:
     - cuhk
     - academic
