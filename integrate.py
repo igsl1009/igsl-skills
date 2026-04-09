@@ -200,8 +200,7 @@ def cmd_health_sync(args):
 
         if hs < thresh:
             existing = [nid for nid, n in nodes.items()
-                       if n.get("t") == "ERR" and sid in n.get("c", "")
-                       and n.get("ts") == TODAY]
+                       if n.get("t") == "ERR" and sid in n.get("tags", [])]
             if not existing:
                 err_id = next_id("SERR", nodes)
                 content = (f"ERR: skill {snode.get('name', '?')} "

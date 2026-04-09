@@ -80,7 +80,7 @@ def update_health_ema(h: dict, applied: bool, completed: bool, fallback: bool) -
     h["completion_rate"] = round(h.get("completion_rate", 0.5) * (1-alpha) + (1.0 if completed else 0.0) * alpha, 4)
     h["fallback_rate"]   = round(h.get("fallback_rate", 0.0) * (1-alpha) + (1.0 if fallback else 0.0) * alpha, 4)
     h["total_applications"] = h.get("total_applications", 0) + 1
-    h["health_score"]    = health_score(h)
+    h["health_score"]    = max(0.05, health_score(h))
     h["last_applied"]    = TODAY
     return h
 

@@ -37,6 +37,7 @@
 {"id":"OC-003","t":"PAT","tags":["openclaude","timeout","dual"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Dual timeout: 30s tool-call (hard), 90s total (soft); escalates to fallback text reply","refs7d":0}
 {"id":"OC-004","t":"ERR","tags":["openclaude","crash","recovery"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Crash recovery: supervisor, 5s backoff, max 3 restarts/hour to prevent thrash","refs7d":0}
 {"id":"OC-005","t":"LOOP","tags":["openclaude","open","calendar"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"○ OPEN: Calendar/email integration. WhatsApp→'my calendar'→Google Cal. Pending API setup.","refs7d":0}
+{"id":"SERR-001","t":"ERR","tags":["skill-health","S-01","low-health"],"w":0.8,"ts":"2026-04-09","links":[],"src":"health","c":"ERR: skill quant-research health=0.27<0.60 | evolve with FIX mode","refs7d":1}
 {"id":"SK-001","t":"DEC","tags":["igsl","skill-graph","health"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"IGSL v2 health: EMA α=0.1; formula=applied×completion×(1-0.5×fallback); alert threshold 0.60","refs7d":3}
 {"id":"SK-002","t":"DEC","tags":["igsl","memory","half-life"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Memory half-lives: DEC=∞, PAT=30d, ARCH=60d, ART=14d, LOOP=∞, GEN=90d, ERR=180d","refs7d":0}
 {"id":"SK-003","t":"ARCH","tags":["igsl","token-budget"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Token budget: T0(80)+T1(50)+Index(50)+Hard(460)=640 always; soft skills load on keyword match","refs7d":0}
