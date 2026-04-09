@@ -71,7 +71,7 @@ nodes:
       session_source: null
     access:
       tier: private
-      source_commit: af6a447
+      source_commit: 8b76eae
       installed_at: '2026-04-09'
     bundle:
       co_occurs_with:
@@ -138,7 +138,7 @@ nodes:
       session_source: null
     access:
       tier: private
-      source_commit: af6a447
+      source_commit: 5c2df9c
       installed_at: '2026-04-09'
     bundle:
       co_occurs_with:
@@ -196,7 +196,7 @@ nodes:
       session_source: null
     access:
       tier: private
-      source_commit: af6a447
+      source_commit: 5c2df9c
       installed_at: '2026-04-09'
     bundle:
       co_occurs_with:
@@ -252,7 +252,7 @@ nodes:
       session_source: null
     access:
       tier: private
-      source_commit: af6a447
+      source_commit: 5c2df9c
       installed_at: '2026-04-09'
     bundle:
       co_occurs_with:
@@ -311,7 +311,7 @@ nodes:
       session_source: null
     access:
       tier: private
-      source_commit: af6a447
+      source_commit: 5c2df9c
       installed_at: '2026-04-09'
     bundle:
       co_occurs_with:
@@ -357,11 +357,11 @@ nodes:
     full_tokens: 280
     health:
       applied_rate: 1.0
-      completion_rate: 0.819
+      completion_rate: 0.8371
       fallback_rate: 0.0
-      health_score: 0.819
+      health_score: 0.8371
       alert_threshold: 0.8
-      total_applications: 84
+      total_applications: 85
       token_cost_avg: 280
       last_applied: '2026-04-09'
     lineage:
@@ -373,7 +373,7 @@ nodes:
       session_source: null
     access:
       tier: private
-      source_commit: af6a447
+      source_commit: 5c2df9c
       installed_at: '2026-04-09'
     bundle:
       co_occurs_with:
@@ -433,7 +433,7 @@ nodes:
       session_source: null
     access:
       tier: private
-      source_commit: af6a447
+      source_commit: 5c2df9c
       installed_at: '2026-04-09'
     bundle:
       co_occurs_with:
@@ -474,11 +474,11 @@ nodes:
     full_tokens: 180
     health:
       applied_rate: 1.0
-      completion_rate: 0.864
+      completion_rate: 0.8776
       fallback_rate: 0.0
-      health_score: 0.864
+      health_score: 0.8776
       alert_threshold: 0.8
-      total_applications: 84
+      total_applications: 85
       token_cost_avg: 180
       last_applied: '2026-04-09'
     lineage:
@@ -490,7 +490,7 @@ nodes:
       session_source: null
     access:
       tier: private
-      source_commit: af6a447
+      source_commit: 5c2df9c
       installed_at: '2026-04-09'
     bundle:
       co_occurs_with:
@@ -546,7 +546,7 @@ nodes:
       session_source: null
     access:
       tier: private
-      source_commit: af6a447
+      source_commit: 8b76eae
       installed_at: '2026-04-09'
     bundle:
       co_occurs_with:
@@ -607,7 +607,7 @@ nodes:
       session_source: journal-2026-04-09
     access:
       tier: private
-      source_commit: bf91cc2
+      source_commit: 8b76eae
       installed_at: '2026-04-09'
     bundle:
       co_occurs_with:
