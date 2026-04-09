@@ -232,6 +232,24 @@ body{font-family:'Inter',sans-serif;background:var(--bg-base);color:var(--text);
 #search-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:100;
   display:none;align-items:flex-start;justify-content:center;padding-top:80px}
 #search-overlay.open{display:flex}
+#glossary-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:101;
+  display:none;align-items:flex-start;justify-content:center;padding-top:60px}
+#glossary-overlay.open{display:flex}
+#glossary-box{background:var(--bg-surface);border:1px solid var(--border-hi);border-radius:10px;
+  width:560px;max-height:75vh;overflow:hidden;box-shadow:0 24px 48px rgba(0,0,0,.6);display:flex;flex-direction:column}
+#glossary-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+#glossary-body{overflow-y:auto;padding:16px}
+.gl-section{margin-bottom:20px}
+.gl-section-title{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);font-weight:600;margin-bottom:10px}
+.gl-term{margin-bottom:10px}
+.gl-term dt{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px}
+.gl-term dd{font-size:12px;color:var(--text-muted);margin:0;line-height:1.5}
+.gl-term dd code{background:var(--bg-raised);padding:1px 4px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue)}
+#help-btn{position:fixed;bottom:20px;right:20px;width:36px;height:36px;border-radius:50%;
+  background:var(--bg-surface);border:1px solid var(--border-hi);color:var(--text-muted);
+  font-size:15px;cursor:pointer;z-index:50;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 12px rgba(0,0,0,.4);transition:color .15s,border-color .15s}
+#help-btn:hover{color:var(--text);border-color:var(--blue)}
 #search-box{background:var(--bg-surface);border:1px solid var(--border-hi);border-radius:10px;
   width:540px;overflow:hidden;box-shadow:0 24px 48px rgba(0,0,0,.6)}
 #search-input{width:100%;padding:14px 16px;background:none;border:none;color:var(--text);
@@ -546,19 +564,21 @@ function badgeClass(h){ return h==='hard'?'hard':h==='soft-hook'?'soft':h==='exp
 function buildOverview(d){
   const s=d.stats;
   const cards=[
-    {l:'Skill Nodes',  v:s.skill_nodes,  icon:'◆', c:'var(--blue)'},
-    {l:'Memory Nodes', v:s.mem_nodes,    icon:'●', c:'var(--purple)'},
-    {l:'Active Index', v:s.active_nodes, icon:'★', c:'var(--green)'},
-    {l:'Open Loops',   v:s.open_loops,   icon:'⊙', c:'var(--amber)'},
-    {l:'Evo Edges',    v:s.evo_edges,    icon:'⟳', c:'var(--cyan)'},
-    {l:'Chat Index',   v:s.chat_entries, icon:'✉', c:'var(--pink)'},
+    {l:'Skill Nodes',  v:s.skill_nodes,  icon:'◆', c:'var(--blue)',   tip:'Total skills registered in the system (hard + soft-hook + explicit-import + project-hook)'},
+    {l:'Memory Nodes', v:s.mem_nodes,    icon:'●', c:'var(--purple)', tip:'Knowledge fragments stored in memory (DEC/PAT/ARCH/ART/LOOP/GEN/ERR types)'},
+    {l:'Active Index', v:s.active_nodes, icon:'★', c:'var(--green)',  tip:'Memory nodes currently loaded into the session context window'},
+    {l:'Open Loops',   v:s.open_loops,   icon:'⊙', c:'var(--amber)',  tip:'Unresolved LOOP memory nodes — pending questions or tasks awaiting follow-up'},
+    {l:'Evo Edges',    v:s.evo_edges,    icon:'⟳', c:'var(--cyan)',   tip:'Skill version transitions tracked in the EvoGraph (FIX / DERIVED / CAPTURED)'},
+    {l:'Chat Index',   v:s.chat_entries, icon:'✉', c:'var(--pink)',   tip:'Sessions indexed in the chat history log'},
     {l:'Avg Health',   v:s.avg_health.toFixed(2), icon:'♥',
-     c:s.avg_health>.8?'var(--green)':s.avg_health>.6?'var(--amber)':'var(--red)'},
+     c:s.avg_health>.8?'var(--green)':s.avg_health>.6?'var(--amber)':'var(--red)',
+     tip:'Mean health score across all skills. Formula: applied_rate × completion_rate × (1 − 0.5 × fallback_rate)'},
     {l:'QA Score', v:`${s.qa_passed}/${s.qa_passed+s.qa_failed}`, icon:'✓',
-     c:s.qa_failed===0?'var(--green)':'var(--red)'},
+     c:s.qa_failed===0?'var(--green)':'var(--red)',
+     tip:'Automated test suite results (passed / total). Run igsl_v2_test_suite.py to update'},
   ];
   document.getElementById('stat-cards').innerHTML=cards.map(c=>`
-    <div class="stat-card">
+    <div class="stat-card" title="${c.tip}">
       <div class="sc-border" style="background:${c.c}"></div>
       <div class="sc-icon">${c.icon}</div>
       <div class="sc-value" style="color:${c.c}">${c.v}</div>
@@ -660,7 +680,7 @@ function buildSkillGraph(gd){
   ng.append('text').attr('y',d=>d.r+13).attr('text-anchor','middle')
     .attr('font-family','JetBrains Mono,monospace').attr('font-size',10)
     .attr('fill','var(--text-muted)').attr('pointer-events','none')
-    .text(d=>d.id);
+    .text(d=>d.label||d.id);
 
   ng.on('mouseover',(e,d)=>showTip(e,d.id,`${d.label}\nHealth: ${(d.health*100).toFixed(0)}%\n${d.meta||''}`))
     .on('mousemove',moveTip).on('mouseout',hideTip)
@@ -802,6 +822,10 @@ function buildMemGraph(gd){
   ng.append('text').attr('text-anchor','middle').attr('dominant-baseline','central')
     .attr('font-size',7).attr('fill',d=>d.color)
     .attr('font-family','JetBrains Mono,monospace').attr('pointer-events','none').text(d=>d.t);
+  ng.append('text').attr('y',d=>d.r+11).attr('text-anchor','middle')
+    .attr('font-family','Inter,sans-serif').attr('font-size',8)
+    .attr('fill','var(--text-dim)').attr('pointer-events','none')
+    .text(d=>d.id);
 
   ng.on('mouseover',(e,d)=>showTip(e,d.id,`${d.t} · w=${d.w.toFixed(2)} · ${d.proj}\n${d.c}`))
     .on('mousemove',moveTip).on('mouseout',hideTip)
@@ -907,15 +931,18 @@ function buildHealth(hd){
         </span>
       </div>
       <div class="h-rates">
-        <div class="h-rate-item">${hbar(d.applied,'#22C55E','5px')}
+        <div class="h-rate-item" title="Applied Rate — fraction of sessions where this skill was triggered and used">
+          ${hbar(d.applied,'#22C55E','5px')}
           <div class="h-rate-val" style="color:#22C55E">${(d.applied*100).toFixed(0)}%</div>
-          <div class="h-rate-label">Applied</div></div>
-        <div class="h-rate-item">${hbar(d.completion,'#3B82F6','5px')}
+          <div class="h-rate-label">Applied ⓘ</div></div>
+        <div class="h-rate-item" title="Completion Rate — fraction of triggers that led to a successful outcome">
+          ${hbar(d.completion,'#3B82F6','5px')}
           <div class="h-rate-val" style="color:#3B82F6">${(d.completion*100).toFixed(0)}%</div>
-          <div class="h-rate-label">Completion</div></div>
-        <div class="h-rate-item">${hbar(d.fallback,'#EF4444','5px')}
+          <div class="h-rate-label">Completion ⓘ</div></div>
+        <div class="h-rate-item" title="Fallback Rate — fraction of triggers where Claude used default behavior instead of this skill (lower is better)">
+          ${hbar(d.fallback,'#EF4444','5px')}
           <div class="h-rate-val" style="color:#EF4444">${(d.fallback*100).toFixed(0)}%</div>
-          <div class="h-rate-label">Fallback</div></div>
+          <div class="h-rate-label">Fallback ⓘ</div></div>
       </div>
     </div>`).join('');
 }
@@ -1114,6 +1141,119 @@ function buildSearch(d){
 function openSearch(){ document.getElementById('search-overlay').classList.add('open'); document.getElementById('search-input').focus(); }
 function closeSearch(){ document.getElementById('search-overlay').classList.remove('open'); document.getElementById('search-input').value=''; document.getElementById('search-results').innerHTML=''; }
 document.getElementById('search-btn').addEventListener('click',openSearch);
+
+// ── Glossary ────────────────────────────────────────────────────────────────
+function openGlossary(){ document.getElementById('glossary-overlay').classList.add('open'); }
+function closeGlossary(){ document.getElementById('glossary-overlay').classList.remove('open'); }
+document.getElementById('help-btn').addEventListener('click',openGlossary);
+document.getElementById('glossary-overlay').addEventListener('click',e=>{ if(e.target.id==='glossary-overlay') closeGlossary(); });
+document.addEventListener('keydown',e=>{ if(e.key==='?'&&!e.ctrlKey&&!e.metaKey) openGlossary(); });
 </script>
+
+<!-- ── Glossary Modal ──────────────────────────────────────────────────── -->
+<button id="help-btn" title="Open glossary (?)" aria-label="Help / Glossary">?</button>
+<div id="glossary-overlay">
+  <div id="glossary-box">
+    <div id="glossary-header">
+      <span style="font-size:14px;font-weight:600;color:var(--text)">Glossary — IGSL v2 Terms</span>
+      <button onclick="closeGlossary()" style="background:none;border:none;color:var(--text-muted);font-size:18px;cursor:pointer;line-height:1">✕</button>
+    </div>
+    <div id="glossary-body">
+
+      <div class="gl-section">
+        <div class="gl-section-title">Health Metrics</div>
+        <dl>
+          <div class="gl-term">
+            <dt>Health Score</dt>
+            <dd>Composite score 0–1 for how well a skill is performing. Formula: <code>applied × completion × (1 − 0.5 × fallback)</code>. Green ≥0.8, amber ≥0.6, red below threshold.</dd>
+          </div>
+          <div class="gl-term">
+            <dt>Applied Rate</dt>
+            <dd>Fraction of sessions where this skill was triggered AND successfully applied. Low value means the skill rarely fires.</dd>
+          </div>
+          <div class="gl-term">
+            <dt>Completion Rate</dt>
+            <dd>Fraction of triggers that led to a successful outcome. Low value means the skill fires but doesn't help complete the task.</dd>
+          </div>
+          <div class="gl-term">
+            <dt>Fallback Rate</dt>
+            <dd>Fraction of triggers where Claude fell back to default behavior instead of using the skill. High value hurts health score.</dd>
+          </div>
+          <div class="gl-term">
+            <dt>Alert Threshold</dt>
+            <dd>Minimum acceptable health score. If a skill's health drops below this, an ⚠ alert appears on the overview and health views.</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="gl-section">
+        <div class="gl-section-title">Skill Types (Hardness)</div>
+        <dl>
+          <div class="gl-term">
+            <dt>Hard</dt>
+            <dd>Always loaded into context every session. Highest token cost but guaranteed availability. Shown in red.</dd>
+          </div>
+          <div class="gl-term">
+            <dt>Soft-hook</dt>
+            <dd>Loaded automatically when matching keywords appear in the prompt. Conserves tokens — only costs when relevant. Shown in blue.</dd>
+          </div>
+          <div class="gl-term">
+            <dt>Explicit-import</dt>
+            <dd>Only loaded when directly invoked by name. Maximum token efficiency. Shown in green.</dd>
+          </div>
+          <div class="gl-term">
+            <dt>Project-hook</dt>
+            <dd>Loaded automatically when working in a matching project directory. Shown in amber.</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="gl-section">
+        <div class="gl-section-title">Memory Node Types</div>
+        <dl>
+          <div class="gl-term"><dt>DEC — Decision</dt><dd>A choice that was made (why, when, by whom).</dd></div>
+          <div class="gl-term"><dt>PAT — Pattern</dt><dd>A recurring behavior or approach observed across multiple sessions.</dd></div>
+          <div class="gl-term"><dt>ARCH — Architecture</dt><dd>Structural or design decisions about a system.</dd></div>
+          <div class="gl-term"><dt>ART — Artifact</dt><dd>A file, output, or deliverable that was produced.</dd></div>
+          <div class="gl-term"><dt>LOOP — Open Loop</dt><dd>An unresolved question or pending task. Pulses in the graph. Closed with <code>node.py close</code>.</dd></div>
+          <div class="gl-term"><dt>GEN — General</dt><dd>Miscellaneous notes that don't fit other types.</dd></div>
+          <div class="gl-term"><dt>ERR — Error</dt><dd>An error pattern captured to avoid in future sessions.</dd></div>
+        </dl>
+      </div>
+
+      <div class="gl-section">
+        <div class="gl-section-title">Other Concepts</div>
+        <dl>
+          <div class="gl-term">
+            <dt>Weight (w)</dt>
+            <dd>Relevance score 0–1 for a memory node. Decays over time (each type has a half-life in days). Nodes below w=0.1 are garbage-collected.</dd>
+          </div>
+          <div class="gl-term">
+            <dt>Active Index</dt>
+            <dd>The subset of memory nodes currently loaded into the session's context window. Shown with a white ring in Memory Net.</dd>
+          </div>
+          <div class="gl-term">
+            <dt>EvoGraph</dt>
+            <dd>Lineage graph tracking skill version history. Edge modes: <code>FIX</code> (bug fixed), <code>DERIVED</code> (new skill from existing), <code>CAPTURED</code> (pattern formalized into a version).</dd>
+          </div>
+          <div class="gl-term">
+            <dt>Token Budget</dt>
+            <dd>Total tokens consumed by loading skills + memory. Hard skills always cost tokens; soft skills only when triggered. Lower is better — the goal is progressive disclosure.</dd>
+          </div>
+          <div class="gl-term">
+            <dt>Open Loops</dt>
+            <dd>Count of LOOP-type memory nodes not yet resolved. Each represents a pending question or task that needs follow-up.</dd>
+          </div>
+          <div class="gl-term">
+            <dt>QA Score</dt>
+            <dd>Passed/total from the automated test suite (<code>igsl_v2_test_suite.py</code>). Run after any skill change to catch regressions.</dd>
+          </div>
+        </dl>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
