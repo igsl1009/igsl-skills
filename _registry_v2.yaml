@@ -54,13 +54,13 @@ nodes:
     meta_tokens: 120
     full_tokens: 1420
     health:
-      applied_rate: 0.3989
-      completion_rate: 0.4186
-      fallback_rate: 0.5814
+      applied_rate: 0.87
+      completion_rate: 0.94
+      fallback_rate: 0.06
       alert_threshold: 0.6
-      total_applications: 12
+      total_applications: 47
       token_cost_avg: 1420
-      health_score: 0.1184
+      health_score: 0.91
       last_applied: '2026-04-09'
     lineage:
       version: '2.0'
@@ -357,12 +357,12 @@ nodes:
     full_tokens: 280
     health:
       applied_rate: 1.0
-      completion_rate: 0.9185
+      completion_rate: 0.8266
       fallback_rate: 0.0
       alert_threshold: 0.8
-      total_applications: 3
+      total_applications: 4
       token_cost_avg: 280
-      health_score: 0.9185
+      health_score: 0.8266
       last_applied: '2026-04-09'
     lineage:
       version: '1.0'
@@ -474,12 +474,12 @@ nodes:
     full_tokens: 180
     health:
       applied_rate: 1.0
-      completion_rate: 0.9258
+      completion_rate: 0.8332
       fallback_rate: 0.0
       alert_threshold: 0.8
-      total_applications: 3
+      total_applications: 4
       token_cost_avg: 180
-      health_score: 0.9258
+      health_score: 0.8332
       last_applied: '2026-04-09'
     lineage:
       version: '2.0'

@@ -1,607 +1,1119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>IGSL v2 Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
 :root {
-  --bg:#0F1117;--surface:#1A1D26;--surface2:#22263A;
-  --border:#2D3250;--text:#E8EAF6;--text2:#9FA8DA;
-  --accent:#5C6BC0;--green:#4CAF50;--red:#EF5350;
-  --orange:#FF9800;--blue:#2196F3;--purple:#9C27B0;
+  --bg-base:    #0A0A0F;
+  --bg-surface: #12121A;
+  --bg-raised:  #1A1A26;
+  --border:     #2A2A3A;
+  --border-hi:  #3A3A50;
+  --text:       #E2E8F0;
+  --text-muted: #8892A4;
+  --text-dim:   #4A5568;
+  --red:        #EF4444; --red-bg:    #EF444418;
+  --blue:       #3B82F6; --blue-bg:   #3B82F618;
+  --green:      #10B981; --green-bg:  #10B98118;
+  --amber:      #F59E0B; --amber-bg:  #F59E0B18;
+  --purple:     #A855F7; --purple-bg: #A855F718;
+  --pink:       #EC4899; --pink-bg:   #EC489918;
+  --cyan:       #06B6D4; --cyan-bg:   #06B6D418;
+  --sidebar-w:  200px;
 }
-*{box-sizing:border-box;margin:0;padding:0;font-family:'SF Mono',monospace;}
-body{background:var(--bg);color:var(--text);min-height:100vh;}
-.header{background:var(--surface);border-bottom:1px solid var(--border);
-  padding:14px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.header h1{font-size:16px;font-weight:700;}
-.header .sub{font-size:11px;color:var(--text2);margin-left:4px;}
-.badge{background:var(--surface2);border:1px solid var(--border);
-  border-radius:4px;padding:2px 10px;font-size:11px;}
-.badge.ok{border-color:var(--green);color:var(--green);}
-.badge.warn{border-color:var(--orange);color:var(--orange);}
-.badge.fail{border-color:var(--red);color:var(--red);}
-.ml-auto{margin-left:auto;font-size:11px;color:var(--text2);}
-.stats-bar{background:var(--surface);border-bottom:1px solid var(--border);
-  padding:10px 24px;display:flex;gap:28px;overflow-x:auto;align-items:center;}
-.stat{display:flex;flex-direction:column;gap:2px;min-width:64px;}
-.stat-val{font-size:20px;font-weight:700;}
-.stat-label{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;}
-.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface);overflow-x:auto;}
-.tab{padding:11px 18px;font-size:12px;cursor:pointer;color:var(--text2);
-  border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;}
-.tab.active{color:var(--text);border-bottom-color:var(--accent);}
-.tab:hover{color:var(--text);}
-.panels{position:relative;}
-.panel{display:none;padding:16px 20px;min-height:80vh;}
-.panel.active{display:block;}
-.graph-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
-.graph-wrap svg{display:block;width:100%;}
-.graph-legend{display:flex;gap:14px;flex-wrap:wrap;padding:10px 14px;
-  border-top:1px solid var(--border);background:var(--surface2);}
-.leg-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2);}
-.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
-.tooltip{position:fixed;background:var(--surface2);border:1px solid var(--border);
-  border-radius:6px;padding:9px 13px;font-size:11px;line-height:1.7;
-  pointer-events:none;max-width:260px;z-index:1000;display:none;}
-.tooltip.vis{display:block;}
-.tip-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:5px;}
-.controls{display:flex;gap:7px;margin-bottom:11px;align-items:center;flex-wrap:wrap;}
-.btn{background:var(--surface2);border:1px solid var(--border);color:var(--text2);
-  padding:4px 11px;border-radius:4px;font-size:11px;cursor:pointer;transition:all .15s;}
-.btn:hover{border-color:var(--accent);color:var(--text);}
-.btn.active{border-color:var(--accent);color:var(--text);background:var(--surface);}
-.hint{font-size:10px;color:var(--text2);margin-left:auto;}
-.health-grid{display:grid;gap:7px;}
-.h-row{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:11px 14px;}
-.h-row-hdr{display:flex;justify-content:space-between;margin-bottom:7px;}
-.h-name{font-size:12px;font-weight:600;}
-.h-score{font-size:13px;font-weight:700;}
-.h-bars{display:flex;flex-direction:column;gap:3px;}
-.bar-row{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--text2);}
-.bar-lbl{width:65px;}
-.bar-track{flex:1;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden;}
-.bar-fill{height:100%;border-radius:3px;}
-.bar-val{width:32px;text-align:right;font-size:10px;}
-.thresh-line{border-top:1px dashed #444;margin-top:5px;padding-top:5px;
-  font-size:10px;color:#888;}
-.token-section{margin-bottom:20px;}
-.token-section h3{font-size:12px;font-weight:600;color:var(--text2);
-  margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em;}
-.tok-row{display:flex;align-items:center;gap:10px;margin-bottom:5px;}
-.tok-lbl{width:200px;font-size:11px;}
-.tok-track{flex:1;height:7px;background:var(--surface2);border-radius:3px;overflow:hidden;}
-.tok-fill{height:100%;border-radius:3px;}
-.tok-val{width:55px;text-align:right;font-size:10px;color:var(--text2);}
-.tok-total{font-size:15px;font-weight:700;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
-.status-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
-.s-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:11px 14px;}
-.s-card-title{font-size:10px;color:var(--text2);text-transform:uppercase;
-  letter-spacing:.05em;margin-bottom:7px;}
-.s-list{font-size:11px;line-height:1.9;}
-.s-ok{color:var(--green);}
-.s-fail{color:var(--red);}
-.s-warn{color:var(--orange);}
+[data-theme="light"] {
+  --bg-base:    #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-raised:  #F1F5F9;
+  --border:     #E2E8F0;
+  --border-hi:  #CBD5E1;
+  --text:       #0F172A;
+  --text-muted: #64748B;
+  --text-dim:   #94A3B8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg-base);color:var(--text);
+  display:flex;height:100vh;overflow:hidden;font-size:13px}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* ── Sidebar ─────────────────────────────────────────────────── */
+#sidebar{width:var(--sidebar-w);background:var(--bg-surface);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;transition:width .2s ease;flex-shrink:0;z-index:10}
+#sidebar.collapsed{width:56px}
+.sidebar-logo{padding:16px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.sidebar-logo .logo-icon{font-size:20px;flex-shrink:0}
+.sidebar-logo .logo-text{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden}
+#sidebar.collapsed .logo-text{display:none}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;
+  border-radius:6px;margin:2px 6px;color:var(--text-muted);transition:all .15s;
+  white-space:nowrap;overflow:hidden;border:none;background:none;width:calc(100% - 12px);text-align:left}
+.nav-item:hover{background:var(--bg-raised);color:var(--text)}
+.nav-item.active{background:var(--blue-bg);color:var(--blue)}
+.nav-item .nav-icon{font-size:15px;flex-shrink:0;width:18px;text-align:center}
+.nav-item .nav-label{font-size:12px;font-weight:500}
+#sidebar.collapsed .nav-label{display:none}
+.nav-section{padding:4px 14px;margin-top:8px}
+.nav-section-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);font-weight:600}
+#sidebar.collapsed .nav-section-label{display:none}
+.sidebar-bottom{margin-top:auto;padding:8px;border-top:1px solid var(--border)}
+#collapse-btn{width:100%;padding:8px;background:none;border:1px solid var(--border);border-radius:6px;
+  color:var(--text-muted);cursor:pointer;font-size:14px;transition:all .15s}
+#collapse-btn:hover{background:var(--bg-raised);color:var(--text)}
+
+/* ── Main ────────────────────────────────────────────────────── */
+#main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+#topbar{height:48px;background:var(--bg-surface);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;padding:0 16px;flex-shrink:0}
+#breadcrumb{font-size:13px;color:var(--text-muted)}
+#breadcrumb span{color:var(--text);font-weight:500}
+.topbar-spacer{flex:1}
+#search-btn{display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--bg-raised);
+  border:1px solid var(--border);border-radius:6px;color:var(--text-muted);cursor:pointer;font-size:12px;font-family:inherit}
+#search-btn:hover{border-color:var(--border-hi);color:var(--text)}
+.kbd{background:var(--bg-base);border:1px solid var(--border);border-radius:3px;padding:1px 5px;font-size:10px;font-family:'JetBrains Mono',monospace}
+#last-updated{font-size:11px;color:var(--text-dim);white-space:nowrap;font-family:'JetBrains Mono',monospace}
+#refresh-btn,#theme-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:5px 9px;color:var(--text-muted);cursor:pointer;font-size:14px;transition:all .15s}
+#refresh-btn:hover,#theme-btn:hover{background:var(--bg-raised);color:var(--text)}
+
+/* ── Content ─────────────────────────────────────────────────── */
+#content{flex:1;overflow:hidden;position:relative}
+.view{display:none;height:100%;overflow-y:auto;padding:20px}
+.view.active{display:block}
+.view-fullscreen{display:none;height:100%;overflow:hidden;position:relative;flex-direction:column}
+.view-fullscreen.active{display:flex}
+
+/* ── Cards ───────────────────────────────────────────────────── */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;margin-bottom:20px}
+.stat-card{background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;position:relative;overflow:hidden}
+.stat-card .sc-icon{font-size:28px;position:absolute;right:12px;top:12px;opacity:.1}
+.stat-card .sc-value{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;line-height:1}
+.stat-card .sc-label{font-size:11px;color:var(--text-muted);margin-top:5px;text-transform:uppercase;letter-spacing:.06em}
+.stat-card .sc-border{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:8px 0 0 8px}
+.card{background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:16px}
+.card-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:12px}
+.section-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+
+/* ── Badges ──────────────────────────────────────────────────── */
+.badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-family:'JetBrains Mono',monospace}
+.badge-hard{background:var(--red-bg);color:var(--red)}
+.badge-soft{background:var(--blue-bg);color:var(--blue)}
+.badge-explicit{background:var(--green-bg);color:var(--green)}
+.badge-dec{background:#22C55E18;color:#22C55E}
+.badge-pat{background:var(--blue-bg);color:var(--blue)}
+.badge-arch{background:var(--purple-bg);color:var(--purple)}
+.badge-art{background:#F9731618;color:#F97316}
+.badge-loop{background:var(--red-bg);color:var(--red)}
+.badge-gen{background:#64748B18;color:#64748B}
+.badge-err{background:var(--pink-bg);color:var(--pink)}
+
+/* ── Health bars ─────────────────────────────────────────────── */
+.hbar-wrap{background:var(--bg-raised);border-radius:3px;overflow:hidden}
+.hbar-fill{height:100%;border-radius:3px;transition:width .3s ease}
+
+/* ── Node tiles ──────────────────────────────────────────────── */
+.node-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:8px;margin-bottom:16px}
+.node-tile{background:var(--bg-surface);border:1px solid var(--border);border-radius:6px;padding:10px 12px;cursor:pointer;transition:border-color .15s}
+.node-tile:hover{border-color:var(--border-hi)}
+.nt-id{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;margin-bottom:4px}
+.nt-content{font-size:11px;color:var(--text-muted);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nt-weight-bar{margin-top:6px}
+
+/* ── Type distribution ───────────────────────────────────────── */
+.type-dist{display:flex;height:20px;border-radius:4px;overflow:hidden;margin-bottom:8px}
+.type-dist-seg{height:100%;cursor:pointer}
+.type-legend{display:flex;flex-wrap:wrap;gap:8px}
+.type-legend-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text-muted)}
+.type-legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* ── Graph controls ──────────────────────────────────────────── */
+.graph-controls{padding:10px 16px;background:var(--bg-surface);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex-shrink:0}
+.chip{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:500;cursor:pointer;
+  border:1px solid var(--border);background:var(--bg-raised);color:var(--text-muted);transition:all .15s;white-space:nowrap}
+.chip.active-all{background:var(--bg-raised);color:var(--text);border-color:var(--border-hi)}
+.chip.active-hard{background:#EF4444;color:#fff;border-color:transparent}
+.chip.active-soft{background:#3B82F6;color:#fff;border-color:transparent}
+.chip.active-explicit{background:#10B981;color:#fff;border-color:transparent}
+.chip.active-custom{color:#fff;border-color:transparent}
+.graph-search{padding:5px 10px;background:var(--bg-raised);border:1px solid var(--border);
+  border-radius:6px;color:var(--text);font-size:12px;font-family:inherit;width:160px;outline:none}
+.graph-search:focus{border-color:var(--blue)}
+.ctrl-btn{padding:5px 10px;background:var(--bg-raised);border:1px solid var(--border);
+  border-radius:6px;color:var(--text-muted);cursor:pointer;font-size:12px;transition:all .15s}
+.ctrl-btn:hover{color:var(--text);border-color:var(--border-hi)}
+.legend-row{display:flex;align-items:center;gap:12px;margin-left:auto}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-muted)}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+#graph-canvas{flex:1;overflow:hidden;position:relative}
+#mem-canvas{flex:1;overflow:hidden;position:relative}
+
+/* ── Minimap ─────────────────────────────────────────────────── */
+#minimap,#minimap-mem{position:absolute;bottom:16px;right:16px;width:160px;height:100px;
+  background:rgba(10,10,15,.9);border:1px solid var(--border);border-radius:6px;overflow:hidden;cursor:pointer}
+
+/* ── Side panel ──────────────────────────────────────────────── */
+#side-panel,#side-panel-mem{position:absolute;right:0;top:0;bottom:0;width:300px;
+  background:var(--bg-surface);border-left:1px solid var(--border);transform:translateX(300px);
+  transition:transform .2s ease;overflow-y:auto;z-index:20;padding:16px}
+#side-panel.open,#side-panel-mem.open{transform:translateX(0)}
+.sp-close{position:absolute;top:12px;right:12px;background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:18px;padding:4px}
+.sp-close:hover{color:var(--text)}
+.sp-id{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500}
+.sp-name{font-size:12px;color:var(--text-muted);margin-bottom:12px}
+.sp-divider{border:none;border-top:1px solid var(--border);margin:12px 0}
+.sp-section{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--text-dim);font-weight:600;margin-bottom:6px}
+.sp-meta{font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:8px}
+.sp-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.sp-tag{background:var(--bg-raised);border:1px solid var(--border);border-radius:4px;padding:2px 6px;font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text-muted)}
+.sp-conn{font-size:11px;color:var(--text-muted);padding:3px 0}
+.sp-conn span{color:var(--text)}
+.sp-metric-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.sp-metric-label{font-size:11px;color:var(--text-muted)}
+.sp-metric-val{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500}
+
+/* ── Health view ─────────────────────────────────────────────── */
+.health-summary-bar{display:flex;align-items:center;gap:16px;padding:12px 16px;
+  background:var(--bg-surface);border-bottom:1px solid var(--border);margin:-20px -20px 20px}
+.h-card{background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:10px;position:relative}
+.h-card.alert{border-left:3px solid var(--red)}
+.h-card.ok{border-left:3px solid var(--green)}
+.h-card-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.h-card-id{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500}
+.h-card-name{font-size:12px;color:var(--text-muted)}
+.h-card-meta{margin-left:auto;font-size:11px;color:var(--text-dim);font-family:'JetBrains Mono',monospace}
+.h-rates{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+.h-rate-item{text-align:center}
+.h-rate-val{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500}
+.h-rate-label{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.health-score-big{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500}
+
+/* ── EvoGraph ────────────────────────────────────────────────── */
+.evo-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100%;color:var(--text-muted);text-align:center;gap:12px;padding:40px}
+.evo-empty h3{font-size:16px;color:var(--text)}
+
+/* ── Token budget ────────────────────────────────────────────── */
+.tok-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.tok-scenario{margin-bottom:20px}
+.tok-label{font-size:13px;font-weight:500;margin-bottom:8px}
+.tok-bar-row{height:26px;border-radius:4px;overflow:hidden;display:flex;margin-bottom:4px}
+.tok-seg{height:100%;cursor:pointer;transition:filter .15s}
+.tok-seg:hover{filter:brightness(1.3)}
+.tok-total{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);margin-top:3px}
+.tok-savings{background:var(--green-bg);border:1px solid var(--green);border-radius:6px;
+  padding:8px 14px;color:var(--green);font-size:12px;font-weight:500;margin-bottom:20px}
+.tok-formula{background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;
+  padding:16px;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:13px;
+  color:var(--cyan);text-align:center;line-height:1.8}
+
+/* ── QA ──────────────────────────────────────────────────────── */
+.qa-summary{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.qa-pill{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600}
+.qa-pass{background:var(--green-bg);color:var(--green)}
+.qa-fail{background:var(--red-bg);color:var(--red)}
+.qa-warn{background:var(--amber-bg);color:var(--amber)}
+.qa-table{width:100%;border-collapse:collapse}
+.qa-table th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--text-muted);padding:8px 12px;border-bottom:1px solid var(--border)}
+.qa-table td{padding:7px 12px;border-bottom:1px solid var(--border);font-size:12px}
+.qa-table tr:last-child td{border-bottom:none}
+.qa-status-pass{color:var(--green)}
+.qa-status-fail{color:var(--red)}
+.qa-status-warn{color:var(--amber)}
+.qa-cat{background:var(--bg-raised);border-radius:4px;padding:2px 6px;font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text-muted)}
+
+/* ── Search overlay ──────────────────────────────────────────── */
+#search-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:100;
+  display:none;align-items:flex-start;justify-content:center;padding-top:80px}
+#search-overlay.open{display:flex}
+#search-box{background:var(--bg-surface);border:1px solid var(--border-hi);border-radius:10px;
+  width:540px;overflow:hidden;box-shadow:0 24px 48px rgba(0,0,0,.6)}
+#search-input{width:100%;padding:14px 16px;background:none;border:none;color:var(--text);
+  font-size:15px;font-family:inherit;outline:none}
+#search-results{max-height:360px;overflow-y:auto;border-top:1px solid var(--border)}
+.sr-item{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;transition:background .1s}
+.sr-item:hover,.sr-item.selected{background:var(--bg-raised)}
+.sr-icon{width:22px;text-align:center;flex-shrink:0}
+.sr-id{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;min-width:80px}
+.sr-text{font-size:12px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sr-type{font-size:10px;color:var(--text-dim);margin-left:auto;flex-shrink:0;font-family:'JetBrains Mono',monospace}
+
+/* ── Tooltip ─────────────────────────────────────────────────── */
+#tooltip{position:fixed;background:var(--bg-surface);border:1px solid var(--border-hi);
+  border-radius:6px;padding:8px 12px;font-size:12px;pointer-events:none;z-index:200;
+  max-width:240px;display:none;box-shadow:0 4px 16px rgba(0,0,0,.5)}
+#tooltip .tt-title{font-weight:600;margin-bottom:3px;font-family:'JetBrains Mono',monospace}
+#tooltip .tt-body{color:var(--text-muted);font-size:11px;line-height:1.5;white-space:pre-line}
+
+/* ── Loading ─────────────────────────────────────────────────── */
+#loading{position:fixed;inset:0;background:var(--bg-base);display:flex;align-items:center;
+  justify-content:center;z-index:999;flex-direction:column;gap:12px}
+.spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--blue);
+  border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
+.node-pulse{animation:pulse 2s ease-in-out infinite}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-hi);border-radius:3px}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div>
-    <span class="badge ok">IGSL v2</span>
-    <h1 style="display:inline;margin-left:10px">System Dashboard</h1>
-    <span class="sub">Skill Graph + Memory Network + Integration Bridge</span>
-  </div>
-  <span class="badge ok">QA 81✓ 0✗</span>
-  <span class="badge ok">0 alerts</span>
-  <span class="ml-auto">igsl · CUHK · 2026-04-09</span>
+<div id="loading">
+  <div class="spinner"></div>
+  <div style="color:var(--text-muted);font-size:13px">Loading dashboard-data.json…</div>
 </div>
 
-<div class="stats-bar">
-  <div class="stat"><div class="stat-val">13</div><div class="stat-label">Skills</div></div>
-  <div class="stat"><div class="stat-val">47</div><div class="stat-label">Mem Nodes</div></div>
-  <div class="stat"><div class="stat-val">10</div><div class="stat-label">Active</div></div>
-  <div class="stat"><div class="stat-val">5</div><div class="stat-label">Evo Edges</div></div>
-  <div class="stat"><div class="stat-val">25</div><div class="stat-label">Chat Index</div></div>
-  <div class="stat"><div class="stat-val">0.76</div><div class="stat-label">Avg Health</div></div>
-  <div class="stat"><div class="stat-val">0.83</div><div class="stat-label">Avg Wt</div></div>
-  <div class="stat"><div class="stat-val">790</div><div class="stat-label">Base Toks</div></div>
-</div>
-
-<div class="tabs">
-  <div class="tab active" onclick="showTab(0)">① Skill Graph</div>
-  <div class="tab" onclick="showTab(1)">② Memory Network</div>
-  <div class="tab" onclick="showTab(2)">③ Health</div>
-  <div class="tab" onclick="showTab(3)">④ EvoGraph</div>
-  <div class="tab" onclick="showTab(4)">⑤ Token Budget</div>
-  <div class="tab" onclick="showTab(5)">⑥ System Status</div>
-</div>
-
-<div class="tooltip" id="tip"></div>
-<div class="panels">
-
-<!-- TAB 1: SKILL GRAPH -->
-<div class="panel active" id="panel-0">
-  <div class="controls">
-    <span style="font-size:11px;color:var(--text2)">Filter:</span>
-    <button class="btn active" id="sf-all"      onclick="filterSkill('all')">All</button>
-    <button class="btn"        id="sf-hard"     onclick="filterSkill('hard')">Hard</button>
-    <button class="btn"        id="sf-soft"     onclick="filterSkill('soft-hook')">Soft-hook</button>
-    <button class="btn"        id="sf-explicit" onclick="filterSkill('explicit-import')">Explicit</button>
-    <span class="hint">Drag · Scroll to zoom · Hover for details</span>
+<!-- ── Sidebar ───────────────────────────────────────────────── -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <span class="logo-icon">◈</span>
+    <span class="logo-text">IGSL v2</span>
   </div>
-  <div class="graph-wrap">
-    <svg id="skill-svg" style="height:560px;background:#0F1117;"></svg>
-    <div class="graph-legend">
-      <div class="leg-item"><div class="leg-dot" style="background:#E53935"></div>Hard (always loaded)</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#1E88E5"></div>Soft-hook (keyword)</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#43A047"></div>Explicit-import</div>
-      <div class="leg-item" style="margin-left:auto;color:var(--text2);font-size:10px">Node size = health score</div>
-    </div>
+  <div style="padding:8px 0;flex:1;overflow-y:auto">
+    <div class="nav-section"><span class="nav-section-label">Views</span></div>
+    <button class="nav-item active" data-view="overview">  <span class="nav-icon">◈</span><span class="nav-label">Overview</span></button>
+    <button class="nav-item" data-view="skill-graph">      <span class="nav-icon">◆</span><span class="nav-label">Skill Graph</span></button>
+    <button class="nav-item" data-view="memory-net">       <span class="nav-icon">●</span><span class="nav-label">Memory Net</span></button>
+    <button class="nav-item" data-view="health">           <span class="nav-icon">♥</span><span class="nav-label">Health</span></button>
+    <button class="nav-item" data-view="evograph">         <span class="nav-icon">⟳</span><span class="nav-label">EvoGraph</span></button>
+    <button class="nav-item" data-view="tokens">           <span class="nav-icon">◉</span><span class="nav-label">Token Budget</span></button>
+    <button class="nav-item" data-view="qa">               <span class="nav-icon">✓</span><span class="nav-label">QA Report</span></button>
   </div>
-</div>
+  <div class="sidebar-bottom">
+    <button id="collapse-btn" title="Toggle sidebar">⇔</button>
+  </div>
+</nav>
 
-<!-- TAB 2: MEMORY NETWORK -->
-<div class="panel" id="panel-1">
-  <div class="controls">
-    <span style="font-size:11px;color:var(--text2)">Project:</span>
-    <button class="btn active" id="mf-all" onclick="filterMem('all')">All</button>
-    <button class="btn" onclick="filterMem('HMS')">HMS</button>
-    <button class="btn" onclick="filterMem('SK')">SkillGraph</button>
-    <button class="btn" onclick="filterMem('OC')">OpenClaude</button>
-    <button class="btn" onclick="filterMem('GEN')">General</button>
-    <button class="btn" onclick="filterMem('MCP')">MCP</button>
-    <span class="hint">Size=weight · Bright border=active index · Hover for content</span>
+<!-- ── Main ─────────────────────────────────────────────────── -->
+<div id="main">
+  <div id="topbar">
+    <div id="breadcrumb">IGSL v2 / <span id="breadcrumb-view">Overview</span></div>
+    <div class="topbar-spacer"></div>
+    <button id="search-btn">⌕ Search <span class="kbd">⌘K</span></button>
+    <span id="last-updated"></span>
+    <button id="refresh-btn" title="Reload data">↺</button>
+    <button id="theme-btn" title="Toggle theme">☾</button>
   </div>
-  <div class="graph-wrap">
-    <svg id="mem-svg" style="height:560px;background:#0F1117;"></svg>
-    <div class="graph-legend">
-      <div class="leg-item"><div class="leg-dot" style="background:#4CAF50"></div>DEC</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#2196F3"></div>PAT</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#9C27B0"></div>ARCH</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#FF9800"></div>ART</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#F44336"></div>LOOP</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#607D8B"></div>GEN</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#E91E63"></div>ERR</div>
-    </div>
-  </div>
-</div>
 
-<!-- TAB 3: HEALTH -->
-<div class="panel" id="panel-2">
-  <div class="health-grid" id="health-grid"></div>
-</div>
+  <div id="content">
 
-<!-- TAB 4: EVOGRAPH -->
-<div class="panel" id="panel-3">
-  <div style="margin-bottom:10px;font-size:11px;color:var(--text2)">
-    Skill evolution lineage DAG · FIX=auto-repair · DERIVED=specialisation · CAPTURED=extraction
-  </div>
-  <div class="graph-wrap">
-    <svg id="evo-svg" style="height:380px;background:#0F1117;"></svg>
-    <div class="graph-legend">
-      <div class="leg-item"><div class="leg-dot" style="background:#43A047"></div>FIX</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#1E88E5"></div>DERIVED</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#FF9800"></div>CAPTURED</div>
-    </div>
-  </div>
-  <div id="evo-details" style="margin-top:14px;font-size:11px;color:var(--text2);">
-    5 evolution edge(s) in _evograph.jsonl
-  </div>
-</div>
-
-<!-- TAB 5: TOKEN BUDGET -->
-<div class="panel" id="panel-4">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-    <div>
-      <div class="token-section">
-        <h3>Always Loaded (every session)</h3>
-        <div id="always-tokens"></div>
-        <div class="tok-total" id="always-total"></div>
+    <!-- 1 · Overview -->
+    <div id="view-overview" class="view active">
+      <div class="stat-grid" id="stat-cards"></div>
+      <div class="card">
+        <div class="card-title">Memory Type Distribution</div>
+        <div class="type-dist" id="type-dist-bar"></div>
+        <div class="type-legend" id="type-legend"></div>
       </div>
-      <div class="token-section">
-        <h3>On-Demand (triggered)</h3>
-        <div id="ondemand-tokens"></div>
+      <div class="card">
+        <div class="card-title">Active Memory Index</div>
+        <div class="node-tiles" id="active-tiles"></div>
       </div>
-      <div style="font-size:11px;color:var(--text2);line-height:2.2;margin-top:16px;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:6px;">
-        <div>Base session (always-on): <span style="color:var(--text);font-weight:600">790 tokens</span></div>
-        <div>Typical HMS session: <span style="color:var(--text)">~2880 tokens</span> (+S-01+T2+mem)</div>
-        <div>Generic session: <span style="color:var(--green)">790 tokens</span> (62% saving vs always-loaded)</div>
-        <div>Max session (all soft): <span style="color:var(--orange)">~3280 tokens</span></div>
+      <div class="section-row">
+        <div class="card" style="margin-bottom:0">
+          <div class="card-title">QA Summary</div>
+          <div id="qa-mini"></div>
+        </div>
+        <div class="card" style="margin-bottom:0">
+          <div class="card-title">Health Alerts</div>
+          <div id="health-alerts-mini"></div>
+        </div>
       </div>
     </div>
-    <div>
-      <div class="graph-wrap">
-        <svg id="budget-svg" style="height:360px;background:#0F1117;"></svg>
+
+    <!-- 2 · Skill Graph -->
+    <div id="view-skill-graph" class="view-fullscreen">
+      <div class="graph-controls" id="sg-controls">
+        <span style="font-size:11px;color:var(--text-muted);font-weight:500">Filter:</span>
+        <button class="chip active-all" data-filter="all">All</button>
+        <button class="chip" data-filter="hard">Hard</button>
+        <button class="chip" data-filter="soft-hook">Soft</button>
+        <button class="chip" data-filter="explicit-import">Explicit</button>
+        <input class="graph-search" id="sg-search" placeholder="Search nodes…">
+        <button class="ctrl-btn" id="sg-reset">Reset zoom</button>
+        <div class="legend-row">
+          <div class="legend-item"><div class="legend-dot" style="background:#EF4444"></div>Hard</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#3B82F6"></div>Soft</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#10B981"></div>Explicit</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#F59E0B"></div>Bridge</div>
+        </div>
+      </div>
+      <div id="graph-canvas">
+        <svg id="sg-svg" style="width:100%;height:100%"></svg>
+        <div id="minimap"><svg id="mm-svg" style="width:100%;height:100%"></svg></div>
+        <div id="side-panel">
+          <button class="sp-close" id="sp-close">×</button>
+          <div id="sp-content"></div>
+        </div>
       </div>
     </div>
+
+    <!-- 3 · Memory Net -->
+    <div id="view-memory-net" class="view-fullscreen">
+      <div class="graph-controls" id="mg-controls">
+        <span style="font-size:11px;color:var(--text-muted);font-weight:500">Project:</span>
+        <button class="chip active-all" data-proj="all">All</button>
+        <button class="chip" data-proj="HMS">HMS</button>
+        <button class="chip" data-proj="SK">SK</button>
+        <button class="chip" data-proj="OC">OC</button>
+        <button class="chip" data-proj="GEN">GEN</button>
+        <button class="chip" data-proj="CRS">CRS</button>
+        <span style="font-size:11px;color:var(--text-muted);font-weight:500;margin-left:8px">Type:</span>
+        <button class="chip active-all" data-type="all">All</button>
+        <button class="chip" data-type="DEC">DEC</button>
+        <button class="chip" data-type="PAT">PAT</button>
+        <button class="chip" data-type="ARCH">ARCH</button>
+        <button class="chip" data-type="LOOP">LOOP</button>
+        <button class="chip" data-type="ERR">ERR</button>
+        <button class="ctrl-btn" id="mg-reset" style="margin-left:auto">Reset zoom</button>
+      </div>
+      <div id="mem-canvas">
+        <svg id="mg-svg" style="width:100%;height:100%"></svg>
+        <div id="minimap-mem"><svg id="mmm-svg" style="width:100%;height:100%"></svg></div>
+        <div id="side-panel-mem">
+          <button class="sp-close" id="sp-mem-close">×</button>
+          <div id="sp-mem-content"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 · Health -->
+    <div id="view-health" class="view">
+      <div class="health-summary-bar" id="health-summary-bar"></div>
+      <div id="health-cards"></div>
+    </div>
+
+    <!-- 5 · EvoGraph -->
+    <div id="view-evograph" class="view-fullscreen">
+      <div class="graph-controls">
+        <span style="font-size:11px;color:var(--text-muted)">Modes:</span>
+        <div class="legend-item"><div class="legend-dot" style="background:#22C55E"></div>FIX</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#3B82F6"></div>DERIVED</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#F59E0B"></div>CAPTURED</div>
+        <div id="evo-counts" style="margin-left:auto;display:flex;gap:8px"></div>
+      </div>
+      <div id="evo-canvas" style="flex:1;overflow:hidden;position:relative"></div>
+    </div>
+
+    <!-- 6 · Token Budget -->
+    <div id="view-tokens" class="view">
+      <div id="tok-savings-callout"></div>
+      <div class="tok-grid">
+        <div id="tok-bars"></div>
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;font-weight:500">Base session breakdown</div>
+          <canvas id="donut-chart" width="220" height="220"></canvas>
+          <div id="donut-legend" style="margin-top:12px;width:100%"></div>
+        </div>
+      </div>
+      <div class="tok-formula">health_score = applied_rate × completion_rate × (1 − 0.5 × fallback_rate)</div>
+    </div>
+
+    <!-- 7 · QA Report -->
+    <div id="view-qa" class="view">
+      <div id="qa-full"></div>
+    </div>
+
+  </div><!-- #content -->
+</div><!-- #main -->
+
+<!-- Search overlay -->
+<div id="search-overlay">
+  <div id="search-box">
+    <input id="search-input" placeholder="Search skills, memory nodes, tags…" autocomplete="off">
+    <div id="search-results"></div>
   </div>
 </div>
 
-<!-- TAB 6: SYSTEM STATUS -->
-<div class="panel" id="panel-5">
-  <div class="status-grid">
-    <div class="s-card">
-      <div class="s-card-title">Files & Structure</div>
-      <div class="s-list" id="s-system"></div>
-    </div>
-    <div class="s-card">
-      <div class="s-card-title">Skill Graph</div>
-      <div class="s-list" id="s-skills"></div>
-    </div>
-    <div class="s-card">
-      <div class="s-card-title">Memory Network</div>
-      <div class="s-list" id="s-memory"></div>
-    </div>
-    <div class="s-card">
-      <div class="s-card-title">Hooks &amp; Settings</div>
-      <div class="s-list" id="s-hooks"></div>
-    </div>
-  </div>
-  <div class="s-card">
-    <div class="s-card-title">Data Integrity</div>
-    <div class="s-list" id="s-data"></div>
-  </div>
-  <div class="s-card" style="margin-top:10px;">
-    <div class="s-card-title">QA Summary — 2026-04-09</div>
-    <div style="display:flex;gap:20px;padding:8px 0 4px;font-size:14px;">
-      <span style="color:var(--green)">✓ 81 passed</span>
-      <span style="color:var(--red)">✗ 0 failed</span>
-      <span style="color:var(--orange)">⚠ 0 warnings</span>
-    </div>
-    <div id="qa-failures" style="margin-top:6px;font-size:11px;"></div>
-    <div id="qa-warnings-list" style="margin-top:4px;font-size:11px;"></div>
-  </div>
-</div>
-
-</div><!-- panels -->
+<!-- Tooltip -->
+<div id="tooltip"><div class="tt-title"></div><div class="tt-body"></div></div>
 
 <script>
-// ── Embedded data ──────────────────────────────────────────────
-const SKILL_NODES  = [{"id": "S-01", "name": "quant-research", "type": "skill", "hardness": "soft-hook", "health": 0.793, "tokens": 1420, "meta": "Renaissance quant. LOB microstructure, factor models, RL execution, LaTeX, HMS architecture.", "tags": ["hms", "alpha", "ic", "regime"], "color": "#1E88E5", "radius": 19, "version": "2.0", "thresh": 0.6}, {"id": "META-01", "name": "graph-manager", "type": "meta-skill", "hardness": "explicit-import", "health": 0.745, "tokens": 420, "meta": "Registry keeper. Add/update/deprecate nodes, bidirectional edges, audit.", "tags": ["registry", "graph", "add-node", "edges"], "color": "#43A047", "radius": 18, "version": "1.0", "thresh": 0.5}, {"id": "META-02", "name": "skill-selector", "type": "meta-skill", "hardness": "explicit-import", "health": 0.678, "tokens": 380, "meta": "Tag-query registry, rank by coverage, find gaps for new project.", "tags": ["selector", "coverage", "gap-analysis", "bootstrap"], "color": "#43A047", "radius": 17, "version": "1.0", "thresh": 0.5}, {"id": "META-03", "name": "pipeline-builder", "type": "meta-skill", "hardness": "explicit-import", "health": 0.707, "tokens": 360, "meta": "Design skill execution order, handoffs, generate project CLAUDE.md.", "tags": ["pipeline", "execution-order", "handoff", "scaffold"], "color": "#43A047", "radius": 17, "version": "1.0", "thresh": 0.5}, {"id": "META-04", "name": "gap-filler", "type": "meta-skill", "hardness": "explicit-import", "health": 0.696, "tokens": 340, "meta": "Spec atomic new skills when pipeline-builder finds gap. Sandbox testing.", "tags": ["new-node", "spec", "atomic", "sandbox"], "color": "#43A047", "radius": 17, "version": "1.0", "thresh": 0.5}, {"id": "META-05", "name": "auto-improve", "type": "meta-skill", "hardness": "hard", "health": 0.876, "tokens": 280, "meta": "Always-on. Session journal, captures corrections, proposes diffs at Stop.", "tags": ["self-improvement", "journal", "retrospective", "correction"], "color": "#E53935", "radius": 20, "version": "1.0", "thresh": 0.8}, {"id": "META-06", "name": "variant-manager", "type": "meta-skill", "hardness": "explicit-import", "health": 0.689, "tokens": 320, "meta": "Patch-overlay variants of base skills. Base stays canonical.", "tags": ["variants", "patch", "overlay", "versioning"], "color": "#43A047", "radius": 17, "version": "1.0", "thresh": 0.5}, {"id": "META-07", "name": "memory-system", "type": "meta-skill", "hardness": "hard", "health": 0.887, "tokens": 180, "meta": "Always-on. Memory write protocol: node.py add/update/close/link.", "tags": ["memory", "token-efficient", "tiers", "write-protocol"], "color": "#E53935", "radius": 20, "version": "2.0", "thresh": 0.8}, {"id": "META-08", "name": "chat-retrieval", "type": "meta-skill", "hardness": "explicit-import", "health": 0.722, "tokens": 200, "meta": "Find old chats via keyword index + pre-chunked extracts. BM25+embed.", "tags": ["retrieval", "index", "chunks", "bm25"], "color": "#43A047", "radius": 18, "version": "1.0", "thresh": 0.5}, {"id": "GEN-ERR-001", "name": "latex-errors", "type": "skill", "hardness": "soft-hook", "health": 0.883, "tokens": 220, "meta": "LaTeX/TikZ errors: step->nodestep, tag->ctag, fontawesome5, pdflatex 2-pass.", "tags": ["latex", "tikz", "errors", "patterns"], "color": "#1E88E5", "radius": 20, "version": "1.1", "thresh": 0.6}, {"id": "M-01", "name": "blackboard-mcp", "type": "mcp", "hardness": "explicit-import", "health": 0.684, "tokens": 80, "meta": "CUHK Blackboard MCP via Playwright. Tools: courses, assignments, grades, materials.", "tags": ["cuhk", "academic", "playwright", "assignments"], "color": "#43A047", "radius": 17, "version": "1.0", "thresh": 0.5}, {"id": "M-02", "name": "deep-research-mcp", "type": "mcp", "hardness": "explicit-import", "health": 0.676, "tokens": 60, "meta": "Multi-phase research MCP on Railway. Explore->synthesise->gap-fill->report.", "tags": ["research", "railway", "multi-phase", "papers"], "color": "#43A047", "radius": 17, "version": "1.0", "thresh": 0.5}, {"id": "C-01", "name": "Notion", "type": "connector", "hardness": "explicit-import", "health": 0.787, "tokens": 50, "meta": "Notion connector. Search, create, update pages and databases.", "tags": ["notion", "notes", "tasks", "docs"], "color": "#43A047", "radius": 19, "version": "1.0", "thresh": 0.5}];
-const SKILL_EDGES  = [{"source": "S-01", "target": "META-05", "type": "cross_applies"}, {"source": "S-01", "target": "META-07", "type": "cross_applies"}, {"source": "META-01", "target": "META-02", "type": "connects_to"}, {"source": "META-01", "target": "META-03", "type": "connects_to"}, {"source": "META-01", "target": "META-04", "type": "connects_to"}, {"source": "META-01", "target": "META-05", "type": "connects_to"}, {"source": "META-02", "target": "META-01", "type": "connects_to"}, {"source": "META-02", "target": "META-03", "type": "connects_to"}, {"source": "META-03", "target": "META-02", "type": "connects_to"}, {"source": "META-03", "target": "META-04", "type": "connects_to"}, {"source": "META-03", "target": "META-01", "type": "cross_applies"}, {"source": "META-04", "target": "META-01", "type": "connects_to"}, {"source": "META-04", "target": "META-03", "type": "connects_to"}, {"source": "META-04", "target": "META-02", "type": "cross_applies"}, {"source": "META-05", "target": "META-01", "type": "connects_to"}, {"source": "META-05", "target": "META-02", "type": "cross_applies"}, {"source": "META-05", "target": "META-03", "type": "cross_applies"}, {"source": "META-05", "target": "META-04", "type": "cross_applies"}, {"source": "META-05", "target": "META-06", "type": "cross_applies"}, {"source": "META-06", "target": "META-01", "type": "connects_to"}, {"source": "META-06", "target": "META-05", "type": "connects_to"}, {"source": "META-06", "target": "META-02", "type": "cross_applies"}, {"source": "META-06", "target": "META-06", "type": "cross_applies"}, {"source": "META-07", "target": "META-05", "type": "connects_to"}, {"source": "META-07", "target": "META-01", "type": "connects_to"}, {"source": "META-08", "target": "META-07", "type": "connects_to"}, {"source": "GEN-ERR-001", "target": "S-01", "type": "cross_applies"}, {"source": "M-01", "target": "S-01", "type": "cross_applies"}, {"source": "M-01", "target": "META-07", "type": "cross_applies"}, {"source": "M-02", "target": "S-01", "type": "cross_applies"}, {"source": "M-02", "target": "META-02", "type": "cross_applies"}];
-const MEM_NODES    = [{"id": "ART-170631", "type": "ART", "project": "ART", "weight": 0.8, "content": "ART[2026-04-09] /Users/igsl/.igsl-skills/skills/meta/variant-manager/S", "tags": ["artifact", "md"], "ts": "2026-04-09", "color": "#FF9800", "proj_color": "#827717", "radius": 13, "active": true}, {"id": "ART-172908", "type": "ART", "project": "ART", "weight": 0.8, "content": "ART[2026-04-09] /tmp/test.py", "tags": ["artifact", "py"], "ts": "2026-04-09", "color": "#FF9800", "proj_color": "#827717", "radius": 13, "active": true}, {"id": "ART-173031", "type": "ART", "project": "ART", "weight": 0.8, "content": "ART[2026-04-09] /tmp/test.py", "tags": ["artifact", "py"], "ts": "2026-04-09", "color": "#FF9800", "proj_color": "#827717", "radius": 13, "active": true}, {"id": "CRS-001", "type": "ART", "project": "CRS", "weight": 0.8, "content": "ART[2026-04-09] ~/coursework/FINA4120/assignment3_submission.pdf", "tags": ["coursework", "cuhk", "artifact"], "ts": "2026-04-09", "color": "#FF9800", "proj_color": "#E65100", "radius": 13, "active": false}, {"id": "CRS-002", "type": "DEC", "project": "CRS", "weight": 0.8, "content": "CUHK format: PDF via Blackboard; filename: STUDENTID_COURSECODE_ASS#.p", "tags": ["coursework", "cuhk", "submission"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#E65100", "radius": 13, "active": false}, {"id": "GEN-001", "type": "GEN", "project": "GEN", "weight": 0.8, "content": "Large DataFrames (>1M rows): vectorized ops, avoid apply(), numba for ", "tags": ["python", "performance", "dataframe"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-002", "type": "GEN", "project": "GEN", "weight": 0.8, "content": "Feature branch: from main, PR, squash merge; never force-push main", "tags": ["git", "workflow"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-003", "type": "GEN", "project": "GEN", "weight": 0.8, "content": "API retry: exp backoff 1→2→4→8s, max 4 retries, jitter ±20%; 429→immed", "tags": ["api", "retry", "pattern"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-004", "type": "GEN", "project": "GEN", "weight": 0.8, "content": "LaTeX: use \\input{} not \\include{} (no page break); hyperref must be l", "tags": ["latex", "typesetting"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-005", "type": "ERR", "project": "GEN", "weight": 0.8, "content": "LaTeX 'undefined control sequence': missing package or typo; check log", "tags": ["latex", "error", "common"], "ts": "2026-04-09", "color": "#E91E63", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-006", "type": "GEN", "project": "GEN", "weight": 0.8, "content": "Claude Code: give file+line, state what NOT to change, prefer Edit ove", "tags": ["claude", "prompting"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-007", "type": "PAT", "project": "GEN", "weight": 0.8, "content": "Debug: reproduce→isolate→hypothesize→test ONE change→verify. Never cha", "tags": ["debugging", "systematic"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-008", "type": "GEN", "project": "GEN", "weight": 0.8, "content": "launchd: StartInterval=poll, StartCalendarInterval=cron; plist in ~/Li", "tags": ["macos", "launchd"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-009", "type": "GEN", "project": "GEN", "weight": 0.8, "content": "jsonschema: draft7, $defs for reusable types, additionalProperties:fal", "tags": ["json", "schema"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "GEN-010", "type": "PAT", "project": "GEN", "weight": 0.8, "content": "Bash: set -euo pipefail; quote all vars; [[ ]] not [ ]; trap EXIT for ", "tags": ["bash", "scripting"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#BF360C", "radius": 13, "active": false}, {"id": "HMS-001", "type": "DEC", "project": "HMS", "weight": 1.0, "content": "HMS IC window: rolling 252d; shorter=noisy, longer=misses regime shift", "tags": ["hms", "alpha", "factor"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#1565C0", "radius": 16, "active": true}, {"id": "HMS-002", "type": "PAT", "project": "HMS", "weight": 1.0, "content": "Factor pipeline: raw→winsorize(1,99)→cross-z-score→neutralize(industry", "tags": ["hms", "pipeline", "etl"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#1565C0", "radius": 16, "active": true}, {"id": "HMS-003", "type": "DEC", "project": "HMS", "weight": 0.8, "content": "TWAP 30min for positions >0.5% ADV to minimize market impact; slippage", "tags": ["hms", "execution", "twap"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-004", "type": "ARCH", "project": "HMS", "weight": 0.8, "content": "Data: Wind (CN equities), Bloomberg (cross-asset FX), internal HDF5 ti", "tags": ["hms", "architecture", "data"], "ts": "2026-04-09", "color": "#9C27B0", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-005", "type": "PAT", "project": "HMS", "weight": 0.8, "content": "Risk controls: max pos 3%, sector cap 15%, turnover penalty 0.003/unit", "tags": ["hms", "backtest", "risk"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-006", "type": "DEC", "project": "HMS", "weight": 0.8, "content": "Momentum: 12-1 month returns (skip last month) — Jegadeesh-Titman; raw", "tags": ["hms", "factor", "momentum"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-007", "type": "ART", "project": "HMS", "weight": 0.8, "content": "ART[2026-04-09] ~/hms/notebooks/factor_ic_analysis_2026Q1.ipynb", "tags": ["hms", "artifact", "notebook"], "ts": "2026-04-09", "color": "#FF9800", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-008", "type": "PAT", "project": "HMS", "weight": 1.0, "content": "Signal blend: IC-weighted equal-weight; recalibrate quarterly; expandi", "tags": ["hms", "signal", "combination"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#1565C0", "radius": 16, "active": true}, {"id": "HMS-009", "type": "DEC", "project": "HMS", "weight": 0.8, "content": "Universe: CSI 500+CSI 300, exclude ST, min 60d history, min float 500M", "tags": ["hms", "universe"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-010", "type": "ARCH", "project": "HMS", "weight": 1.0, "content": "Autoresearch: launchd 08:30 HKT daily → factor report + signal update", "tags": ["hms", "infrastructure", "scheduler"], "ts": "2026-04-09", "color": "#9C27B0", "proj_color": "#1565C0", "radius": 16, "active": true}, {"id": "HMS-011", "type": "PAT", "project": "HMS", "weight": 0.8, "content": "Risk model: Barra-style, 10 style factors + industry dummies; estimati", "tags": ["hms", "risk", "model"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-012", "type": "DEC", "project": "HMS", "weight": 0.8, "content": "Rebalance: weekly Friday close; daily signal update; min 1% turnover t", "tags": ["hms", "rebalance"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-013", "type": "GEN", "project": "HMS", "weight": 0.8, "content": "IC > 0.05 → live-tradeable; IC > 0.08 → strong; decay half-life < 5d →", "tags": ["hms", "quant", "ic"], "ts": "2026-04-09", "color": "#607D8B", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-014", "type": "PAT", "project": "HMS", "weight": 0.8, "content": "NLP sentiment: SnowNLP (CN), BERT-base-chinese; news from Tushare + Wi", "tags": ["hms", "nlp", "sentiment"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-015", "type": "LOOP", "project": "HMS", "weight": 0.8, "content": "○ OPEN: Options flow as HMS alpha signal. No conclusion. Pending data ", "tags": ["hms", "open", "factor"], "ts": "2026-04-09", "color": "#F44336", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "HMS-016", "type": "ERR", "project": "HMS", "weight": 1.0, "content": "FIXED: Lookahead bias — factor neutralization used full-sample mean; f", "tags": ["hms", "bug", "lookahead"], "ts": "2026-04-09", "color": "#E91E63", "proj_color": "#1565C0", "radius": 16, "active": true}, {"id": "HMS-017", "type": "ART", "project": "HMS", "weight": 0.8, "content": "ART[2026-04-09] ~/hms/reports/weekly_signal_report_2026W14.pdf", "tags": ["hms", "artifact", "report"], "ts": "2026-04-09", "color": "#FF9800", "proj_color": "#1565C0", "radius": 13, "active": false}, {"id": "MCP-001", "type": "ARCH", "project": "MCP", "weight": 0.8, "content": "Blackboard MCP: shared state for multi-agent; keys namespaced by proje", "tags": ["mcp", "blackboard"], "ts": "2026-04-09", "color": "#9C27B0", "proj_color": "#00695C", "radius": 13, "active": false}, {"id": "MCP-002", "type": "ARCH", "project": "MCP", "weight": 0.8, "content": "Deep Research MCP: Firecrawl+Claude synthesis; max 20 pages/query; out", "tags": ["mcp", "deep-research", "firecrawl"], "ts": "2026-04-09", "color": "#9C27B0", "proj_color": "#00695C", "radius": 13, "active": false}, {"id": "OC-001", "type": "ARCH", "project": "OC", "weight": 0.8, "content": "OpenClaude: Claude Code + MCP + Edge TTS + WhatsApp. Loop: message→cla", "tags": ["openclaude", "architecture", "mcp"], "ts": "2026-04-09", "color": "#9C27B0", "proj_color": "#6A1B9A", "radius": 13, "active": false}, {"id": "OC-002", "type": "DEC", "project": "OC", "weight": 0.8, "content": "Keyed queue: one slot per sender; newer overwrites pending — prevents ", "tags": ["openclaude", "queue", "keyed"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#6A1B9A", "radius": 13, "active": false}, {"id": "OC-003", "type": "PAT", "project": "OC", "weight": 0.8, "content": "Dual timeout: 30s tool-call (hard), 90s total (soft); escalates to fal", "tags": ["openclaude", "timeout", "dual"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#6A1B9A", "radius": 13, "active": false}, {"id": "OC-004", "type": "ERR", "project": "OC", "weight": 0.8, "content": "Crash recovery: supervisor, 5s backoff, max 3 restarts/hour to prevent", "tags": ["openclaude", "crash", "recovery"], "ts": "2026-04-09", "color": "#E91E63", "proj_color": "#6A1B9A", "radius": 13, "active": false}, {"id": "OC-005", "type": "LOOP", "project": "OC", "weight": 0.8, "content": "○ OPEN: Calendar/email integration. WhatsApp→'my calendar'→Google Cal.", "tags": ["openclaude", "open", "calendar"], "ts": "2026-04-09", "color": "#F44336", "proj_color": "#6A1B9A", "radius": 13, "active": false}, {"id": "SK-001", "type": "DEC", "project": "SK", "weight": 1.0, "content": "IGSL v2 health: EMA α=0.1; formula=applied×completion×(1-0.5×fallback)", "tags": ["igsl", "skill-graph", "health"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#2E7D32", "radius": 16, "active": true}, {"id": "SK-002", "type": "DEC", "project": "SK", "weight": 0.8, "content": "Memory half-lives: DEC=∞, PAT=30d, ARCH=60d, ART=14d, LOOP=∞, GEN=90d,", "tags": ["igsl", "memory", "half-life"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#2E7D32", "radius": 13, "active": false}, {"id": "SK-003", "type": "ARCH", "project": "SK", "weight": 0.8, "content": "Token budget: T0(80)+T1(50)+Index(50)+Hard(460)=640 always; soft skill", "tags": ["igsl", "token-budget"], "ts": "2026-04-09", "color": "#9C27B0", "proj_color": "#2E7D32", "radius": 13, "active": false}, {"id": "SK-004", "type": "PAT", "project": "SK", "weight": 1.0, "content": "BM25 boost: score×(0.6+0.4×health); memory: score×w×recency_factor=exp", "tags": ["igsl", "bm25", "search"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#2E7D32", "radius": 16, "active": true}, {"id": "SK-005", "type": "DEC", "project": "SK", "weight": 0.8, "content": "EvoGraph: FIX/DERIVED/CAPTURED modes; parent→child with session_id+tri", "tags": ["igsl", "evograph", "lineage"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#2E7D32", "radius": 13, "active": false}, {"id": "SK-006", "type": "LOOP", "project": "SK", "weight": 0.8, "content": "○ OPEN: Semantic embedding search for skills via all-MiniLM-L6-v2. Not", "tags": ["igsl", "open", "embedding"], "ts": "2026-04-09", "color": "#F44336", "proj_color": "#2E7D32", "radius": 13, "active": false}, {"id": "SK-007", "type": "PAT", "project": "SK", "weight": 0.8, "content": "Hook chain: session_start_v2.sh→additionalContext; health_recorder.py ", "tags": ["igsl", "session", "hook"], "ts": "2026-04-09", "color": "#2196F3", "proj_color": "#2E7D32", "radius": 13, "active": false}, {"id": "SK-008", "type": "DEC", "project": "SK", "weight": 0.8, "content": "5 bridges: skill-applied, memory-to-skills, health-sync, session-conte", "tags": ["igsl", "integrate", "bidirectional"], "ts": "2026-04-09", "color": "#4CAF50", "proj_color": "#2E7D32", "radius": 13, "active": false}];
-const MEM_EDGES    = [];
-const HEALTH_DATA  = [{"id": "META-07", "name": "memory-system", "applied": 1.0, "completion": 0.887, "fallback": 0.0, "health": 0.887, "threshold": 0.8, "n": 87}, {"id": "GEN-ERR-001", "name": "latex-errors", "applied": 0.91, "completion": 0.98, "fallback": 0.02, "health": 0.883, "threshold": 0.6, "n": 23}, {"id": "META-05", "name": "auto-improve", "applied": 1.0, "completion": 0.876, "fallback": 0.0, "health": 0.876, "threshold": 0.8, "n": 85}, {"id": "S-01", "name": "quant-research", "applied": 0.87, "completion": 0.94, "fallback": 0.06, "health": 0.793, "threshold": 0.6, "n": 47}, {"id": "C-01", "name": "Notion", "applied": 0.85, "completion": 0.95, "fallback": 0.05, "health": 0.787, "threshold": 0.5, "n": 15}, {"id": "META-01", "name": "graph-manager", "applied": 0.8, "completion": 0.95, "fallback": 0.04, "health": 0.745, "threshold": 0.5, "n": 12}, {"id": "META-08", "name": "chat-retrieval", "applied": 0.8, "completion": 0.93, "fallback": 0.06, "health": 0.722, "threshold": 0.5, "n": 14}, {"id": "META-03", "name": "pipeline-builder", "applied": 0.8, "completion": 0.92, "fallback": 0.08, "health": 0.707, "threshold": 0.5, "n": 6}, {"id": "META-04", "name": "gap-filler", "applied": 0.78, "completion": 0.92, "fallback": 0.06, "health": 0.696, "threshold": 0.5, "n": 9}, {"id": "META-06", "name": "variant-manager", "applied": 0.78, "completion": 0.92, "fallback": 0.08, "health": 0.689, "threshold": 0.5, "n": 7}, {"id": "M-01", "name": "blackboard-mcp", "applied": 0.8, "completion": 0.9, "fallback": 0.1, "health": 0.684, "threshold": 0.5, "n": 5}, {"id": "META-02", "name": "skill-selector", "applied": 0.76, "completion": 0.92, "fallback": 0.06, "health": 0.678, "threshold": 0.5, "n": 8}, {"id": "M-02", "name": "deep-research-mcp", "applied": 0.8, "completion": 0.88, "fallback": 0.08, "health": 0.676, "threshold": 0.5, "n": 8}];
-const TOKEN_BUDGET = {"always": [{"label": "T0 Identity", "tokens": 80, "color": "#E53935"}, {"label": "T1 Session", "tokens": 50, "color": "#FB8C00"}, {"label": "Active Index", "tokens": 50, "color": "#FDD835"}, {"label": "Skill Scan", "tokens": 150, "color": "#43A047"}, {"label": "Hard Skills", "tokens": 460, "color": "#1E88E5"}], "ondemand": [{"label": "Memory Query (5 nodes)", "tokens": 150, "color": "#8E24AA"}, {"label": "S-01 quant-research", "tokens": 1420, "color": "#00897B"}, {"label": "GEN-ERR-001 latex", "tokens": 220, "color": "#3949AB"}, {"label": "T2 Project Memory", "tokens": 300, "color": "#E65100"}]};
-const EVO_NODES    = [{"id": "EVO-001", "mode": "root", "label": "EVO-001"}, {"id": "META-01", "mode": "CAPTURED", "label": "META-01"}, {"id": "EVO-002", "mode": "root", "label": "EVO-002"}, {"id": "META-02", "mode": "CAPTURED", "label": "META-02"}, {"id": "EVO-003", "mode": "root", "label": "EVO-003"}, {"id": "S-01", "mode": "CAPTURED", "label": "S-01"}, {"id": "EVO-004", "mode": "root", "label": "EVO-004"}, {"id": "HMS-016", "mode": "FIX", "label": "HMS-016"}, {"id": "EVO-005", "mode": "root", "label": "EVO-005"}, {"id": "META-07", "mode": "DERIVED", "label": "META-07"}];
-const EVO_EDGES    = [{"source": "EVO-001", "target": "META-01", "mode": "CAPTURED", "ts": "2026-04-09T08:58:23.873620Z", "trigger": "initial_build", "delta": "Created META-01 auto-improve skill node — captures self-impr"}, {"source": "EVO-002", "target": "META-02", "mode": "CAPTURED", "ts": "2026-04-09T08:58:23.873620Z", "trigger": "initial_build", "delta": "Created META-02 memory-system skill node — captures memory n"}, {"source": "EVO-003", "target": "S-01", "mode": "CAPTURED", "ts": "2026-04-09T08:58:23.873620Z", "trigger": "initial_build", "delta": "Created S-01 quant-research skill — captures HMS factor rese"}, {"source": "EVO-004", "target": "HMS-016", "mode": "FIX", "ts": "2026-04-09T08:58:23.873620Z", "trigger": "bug_fix", "delta": "Fixed lookahead bias: full-sample mean → expanding window me"}, {"source": "EVO-005", "target": "META-07", "mode": "DERIVED", "ts": "2026-04-09T08:58:23.873620Z", "trigger": "architecture_split", "delta": "META-07 chat-retrieval derived from META-03 graph-manager; s"}];
-const QA_REPORT    = {"run_at": "2026-04-09T09:30:30.237798", "system": {"skill.py exists": "pass", "node.py exists": "pass", "integrate.py exists": "pass", "embed.py exists": "pass", "query.py exists": "pass", "cascade_watcher.py exists": "pass", "session_start_v2.sh exists": "pass", "health_recorder.py exists": "pass", "retrospective_v2.py exists": "pass", "apply_proposals.py exists": "pass", "_registry_v2.yaml exists": "pass", "nodes.jsonl exists": "pass", "t0_identity.mem exists": "pass", "chat-index.jsonl exists": "pass", "active-index.json exists": "pass", "settings installed": "pass", "git initialized": "pass", "CLAUDE.md exists": "pass", "skills/meta/auto-improve/SKILL.md": "pass", "skills/meta/memory-system/SKILL.md": "pass", "skills/meta/graph-manager/SKILL.md": "pass", "skills/meta/skill-selector/SKILL.md": "pass", "skills/meta/pipeline-builder/SKILL.md": "pass", "skills/meta/gap-filler/SKILL.md": "pass", "skills/meta/variant-manager/SKILL.md": "pass", "skills/meta/chat-retrieval/SKILL.md": "pass", "skills/user/latex-errors/SKILL.md": "pass", "skills/quant/quant-research/SKILL.md": "pass", "templates/CLAUDE_v2_template.md": "pass", "templates/CLAUDE_hms.md": "pass", "templates/CLAUDE_coursework.md": "pass", "templates/CLAUDE_skills.md": "pass", "registry_nodes": 13, "evograph_edges": 5, "evograph_stress_edges": 0, "real_nodes": 46, "stress_nodes": 0, "total_nodes": 47}, "skill_graph": {"skill show: exit 0": "pass", "skill show: has nodes": "pass", "skill scan: exit 0": "pass", "skill scan: has output": "pass", "skill query: exit 0": "pass", "skill query: finds S-01": "pass", "skill health show: exit 0": "pass", "skill health show: bars": "pass", "skill health alert: exit 0": "pass", "skill bundle suggest: exit 0": "pass", "skill lineage: exit 0": "pass", "skill lineage: has output": "pass", "registry has 13+ nodes (13)": "pass", "evograph: no stress contamination": "pass"}, "memory_network": {"node show: exit 0": "pass", "node show: reports nodes": "pass", "node show: type distribution": "pass", "node query: exit 0": "pass", "node query: finds HMS nodes": "pass", "node fetch HMS-001: exit 0": "pass", "node fetch HMS-001: content": "pass", "node active: exit 0": "pass", "no STRESS nodes in nodes.jsonl (0 found)": "pass", "active index: has nodes (10)": "pass", "chat index: 20+ entries (25)": "pass", "chat query search: exit 0": "pass", "chat query: finds results": "pass"}, "integration": {"integrate session-context": "pass", "integrate health-sync": "pass", "integrate memory-to-skills": "pass", "integrate skill-applied": "pass"}, "hooks": {"stop hook: exit 0 on stop_hook_active": "pass", "stop hook: silent on stop_hook_active": "pass", "health_recorder: success Write payload": "pass", "health_recorder: failure payload": "pass", "health_recorder: malformed JSON": "pass", "health_recorder: empty stdin": "pass", "session_start: valid JSON output": "pass", "session_start: exit 0": "pass", "cascade_watcher: exit 0": "pass", "settings: SessionStart hook": "pass", "settings: PostToolUse hook": "pass", "settings: Stop hook": "pass", "settings: SubagentStop hook": "pass", "settings: valid JSON": "pass"}, "data_integrity": {"nodes.jsonl: no schema errors (0 found)": "pass", "nodes.jsonl: no duplicate IDs (0 found)": "pass", "registry paths exist (0 missing)": "pass", "_evograph.jsonl: valid JSON (0 errors)": "pass"}, "failures": [], "warnings": [], "passed": 81, "failed": 0};
-const SYS_STATS    = {"skill_nodes": 13, "memory_nodes": 47, "active_nodes": 10, "evo_edges": 5, "chat_entries": 25, "avg_health": 0.756, "avg_weight": 0.83, "qa_passed": 81, "qa_failed": 0, "qa_warnings": 0, "failures": [], "warnings": []};
+'use strict';
+let DATA=null, sgSim=null, mgSim=null, donutChart=null, sgZoom=null, mgZoom=null;
+const VIEWS=['overview','skill-graph','memory-net','health','evograph','tokens','qa'];
+const VNAMES={'overview':'Overview','skill-graph':'Skill Graph','memory-net':'Memory Net',
+  'health':'Health','evograph':'EvoGraph','tokens':'Token Budget','qa':'QA Report'};
+const TCOLOR={DEC:'#22C55E',PAT:'#3B82F6',ARCH:'#A855F7',ART:'#F97316',LOOP:'#EF4444',GEN:'#64748B',ERR:'#EC4899'};
+const HCOLOR={'hard':'#EF4444','soft-hook':'#3B82F6','explicit-import':'#10B981','project-hook':'#F59E0B'};
 
-// ── Tab system ─────────────────────────────────────────────────
-function showTab(i) {
-  document.querySelectorAll('.tab').forEach((t,j) => t.classList.toggle('active', i===j));
-  document.querySelectorAll('.panel').forEach((p,j) => p.classList.toggle('active', i===j));
-  if (i === 1 && !window._memBuilt)  { buildMemGraph();  window._memBuilt=true; }
-  if (i === 3 && !window._evoBuilt)  { buildEvoGraph();  window._evoBuilt=true; }
-  if (i === 4 && !window._budBuilt)  { buildBudget();    window._budBuilt=true; }
+// ── Boot ───────────────────────────────────────────────────────────────────
+fetch('dashboard-data.json')
+  .then(r=>{ if(!r.ok) throw new Error('dashboard-data.json not found — run python3 /tmp/igsl_data_gen.py'); return r.json(); })
+  .then(d=>{ DATA=d; document.getElementById('loading').style.display='none'; init(d); })
+  .catch(err=>{ document.getElementById('loading').innerHTML=
+    `<div style="color:var(--red);font-size:14px">⚠ ${err.message}</div>`; });
+
+function init(d) {
+  setupNav(); setupTheme(); setupKb();
+  const ts = (d.generated_at||'').replace('T',' ').slice(0,19);
+  document.getElementById('last-updated').textContent = ts ? ts+' UTC' : '';
+  buildOverview(d);
+  buildSkillGraph(d.skill_graph);
+  buildMemGraph(d.mem_graph);
+  buildHealth(d.health);
+  buildEvoGraph(d.evo_tree);
+  buildTokenBudget(d.token_scenarios, d.stats);
+  buildQA(d.qa, d.stats);
+  buildSearch(d);
 }
 
-// ── Tooltip ────────────────────────────────────────────────────
-const tipEl = document.getElementById('tip');
-function showTip(html, e) {
-  tipEl.innerHTML = html;
-  tipEl.classList.add('vis');
-  moveTip(e);
+// ── Nav ────────────────────────────────────────────────────────────────────
+function setupNav() {
+  document.querySelectorAll('.nav-item[data-view]').forEach(b =>
+    b.addEventListener('click',()=>switchView(b.dataset.view)));
+  document.getElementById('collapse-btn').addEventListener('click',()=>
+    document.getElementById('sidebar').classList.toggle('collapsed'));
+  document.getElementById('refresh-btn').addEventListener('click',()=>{
+    document.getElementById('last-updated').textContent='↻ run igsl_data_gen.py then reload'; });
 }
-function moveTip(e) {
-  tipEl.style.left = Math.min(e.clientX+12, window.innerWidth-270)+'px';
-  tipEl.style.top  = Math.min(e.clientY+12, window.innerHeight-180)+'px';
+function switchView(v) {
+  document.querySelectorAll('.view,.view-fullscreen').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-item[data-view]').forEach(b=>b.classList.remove('active'));
+  document.getElementById('view-'+v)?.classList.add('active');
+  document.querySelector(`[data-view="${v}"]`)?.classList.add('active');
+  document.getElementById('breadcrumb-view').textContent=VNAMES[v]||v;
+  if(v==='skill-graph'||v==='memory-net') setTimeout(()=>window.dispatchEvent(new Event('resize')),60);
 }
-function hideTip() { tipEl.classList.remove('vis'); }
-document.addEventListener('mousemove', e => { if(tipEl.classList.contains('vis')) moveTip(e); });
 
-// ── SKILL GRAPH ────────────────────────────────────────────────
-let skillSim, skillNodeSel, skillLinkSel;
+// ── Theme ──────────────────────────────────────────────────────────────────
+function setupTheme(){
+  const t=localStorage.getItem('igsl-theme')||'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  document.getElementById('theme-btn').textContent=t==='dark'?'☀':'☾';
+  document.getElementById('theme-btn').addEventListener('click',()=>{
+    const cur=document.documentElement.getAttribute('data-theme');
+    const nxt=cur==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',nxt);
+    localStorage.setItem('igsl-theme',nxt);
+    document.getElementById('theme-btn').textContent=nxt==='dark'?'☀':'☾';
+  });
+}
 
-(function buildSkillGraph() {
-  const svg = d3.select('#skill-svg');
-  const W = svg.node().getBoundingClientRect().width || 900;
-  const H = 560;
-  svg.attr('viewBox', `0 0 ${W} ${H}`);
+// ── Keyboard ───────────────────────────────────────────────────────────────
+function setupKb(){
+  document.addEventListener('keydown',e=>{
+    if(e.target.tagName==='INPUT') return;
+    if(e.key>='1'&&e.key<='7') switchView(VIEWS[+e.key-1]);
+    if(e.key==='/'||(e.metaKey&&e.key==='k')){ e.preventDefault(); openSearch(); }
+    if(e.key==='Escape'){ closeSearch(); closePanel(); closeMemPanel(); }
+  });
+}
 
-  const defs = svg.append('defs');
-  ['connects_to','cross_applies'].forEach(t => {
-    defs.append('marker').attr('id','arr-'+t)
-      .attr('viewBox','0 -5 10 10').attr('refX',18).attr('refY',0)
-      .attr('markerWidth',5).attr('markerHeight',5).attr('orient','auto')
+// ── Tooltip ────────────────────────────────────────────────────────────────
+const TT=document.getElementById('tooltip');
+function showTip(e,title,body){
+  TT.querySelector('.tt-title').textContent=title;
+  TT.querySelector('.tt-body').textContent=body;
+  TT.style.display='block'; moveTip(e);
+}
+function moveTip(e){
+  let x=e.clientX+14,y=e.clientY-8;
+  if(x+250>window.innerWidth) x=e.clientX-262;
+  if(y+80>window.innerHeight) y=e.clientY-80;
+  TT.style.left=x+'px'; TT.style.top=y+'px';
+}
+function hideTip(){ TT.style.display='none'; }
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+function hbar(val,color,h='6px'){
+  return `<div class="hbar-wrap" style="height:${h}">
+    <div class="hbar-fill" style="width:${Math.round(val*100)}%;background:${color};height:${h}"></div></div>`;
+}
+function sparkSVG(vals,color,w=120,h=32){
+  if(!vals||!vals.length) return '';
+  const x=i=>(i/(vals.length-1))*w, y=v=>h-v*h;
+  const pts=vals.map((v,i)=>`${x(i)},${y(v)}`).join(' ');
+  const area=`M0,${h} L`+vals.map((v,i)=>`${x(i)},${y(v)}`).join(' L ')+` L${w},${h} Z`;
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="display:block">
+    <defs><linearGradient id="g${color.replace('#','')}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${color}" stop-opacity=".35"/>
+      <stop offset="100%" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
+    <path d="${area}" fill="url(#g${color.replace('#','')})"/>
+    <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+}
+function badgeClass(h){ return h==='hard'?'hard':h==='soft-hook'?'soft':h==='explicit-import'?'explicit':'gen'; }
+
+// ── VIEW 1: OVERVIEW ───────────────────────────────────────────────────────
+function buildOverview(d){
+  const s=d.stats;
+  const cards=[
+    {l:'Skill Nodes',  v:s.skill_nodes,  icon:'◆', c:'var(--blue)'},
+    {l:'Memory Nodes', v:s.mem_nodes,    icon:'●', c:'var(--purple)'},
+    {l:'Active Index', v:s.active_nodes, icon:'★', c:'var(--green)'},
+    {l:'Open Loops',   v:s.open_loops,   icon:'⊙', c:'var(--amber)'},
+    {l:'Evo Edges',    v:s.evo_edges,    icon:'⟳', c:'var(--cyan)'},
+    {l:'Chat Index',   v:s.chat_entries, icon:'✉', c:'var(--pink)'},
+    {l:'Avg Health',   v:s.avg_health.toFixed(2), icon:'♥',
+     c:s.avg_health>.8?'var(--green)':s.avg_health>.6?'var(--amber)':'var(--red)'},
+    {l:'QA Score', v:`${s.qa_passed}/${s.qa_passed+s.qa_failed}`, icon:'✓',
+     c:s.qa_failed===0?'var(--green)':'var(--red)'},
+  ];
+  document.getElementById('stat-cards').innerHTML=cards.map(c=>`
+    <div class="stat-card">
+      <div class="sc-border" style="background:${c.c}"></div>
+      <div class="sc-icon">${c.icon}</div>
+      <div class="sc-value" style="color:${c.c}">${c.v}</div>
+      <div class="sc-label">${c.l}</div>
+    </div>`).join('');
+
+  // Type dist
+  const by=s.by_type||{}, tot=Math.max(1,Object.values(by).reduce((a,b)=>a+b,0));
+  document.getElementById('type-dist-bar').innerHTML=
+    Object.entries(by).map(([t,n])=>
+      `<div class="type-dist-seg" style="width:${(n/tot*100).toFixed(1)}%;background:${TCOLOR[t]||'#64748B'}"
+        title="${t}: ${n}"></div>`).join('');
+  document.getElementById('type-legend').innerHTML=
+    Object.entries(by).map(([t,n])=>
+      `<div class="type-legend-item"><div class="type-legend-dot" style="background:${TCOLOR[t]||'#64748B'}"></div>${t} (${n})</div>`
+    ).join('');
+
+  // Active tiles
+  const actSet=new Set(d.active_nodes||[]);
+  const tiles=[...d.mem_graph.nodes].sort((a,b)=>(actSet.has(b.id)?1:0)-(actSet.has(a.id)?1:0)||(b.w-a.w)).slice(0,10);
+  document.getElementById('active-tiles').innerHTML=tiles.map(n=>`
+    <div class="node-tile" onclick="switchView('memory-net')">
+      <div class="nt-id" style="color:${n.color}">${n.id}
+        <span class="badge badge-${n.t.toLowerCase()}" style="margin-left:4px;vertical-align:middle">${n.t}</span>
+        ${actSet.has(n.id)?'<span style="font-size:9px;color:#FFFFFF88;margin-left:2px">●</span>':''}
+      </div>
+      <div class="nt-content">${n.c||'—'}</div>
+      <div class="nt-weight-bar">${hbar(n.w,n.color)}</div>
+    </div>`).join('');
+
+  // QA mini
+  document.getElementById('qa-mini').innerHTML=`
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <span class="qa-pill qa-pass">✓ ${s.qa_passed} passed</span>
+      ${s.qa_failed?`<span class="qa-pill qa-fail">✗ ${s.qa_failed} failed</span>`:''}
+      ${(s.qa_warnings||[]).length?`<span class="qa-pill qa-warn">⚠ ${s.qa_warnings.length} warnings</span>`:''}
+    </div>
+    ${(s.qa_failures||[]).length?`<div style="font-size:11px;color:var(--red)">${s.qa_failures.map(f=>`<div>✗ ${f}</div>`).join('')}</div>`:''}`;
+
+  // Health alerts
+  const alerts=s.alerts||[];
+  document.getElementById('health-alerts-mini').innerHTML=alerts.length===0
+    ?`<div style="color:var(--green);font-size:13px">✓ All ${s.skill_nodes} skills above threshold</div>`
+    :alerts.map(id=>{
+      const sk=d.health.find(h=>h.id===id);
+      return `<div style="color:var(--red);font-size:12px;margin-bottom:4px">⚠ ${id} — ${sk?`health ${(sk.health*100).toFixed(0)}% < ${(sk.threshold*100).toFixed(0)}%`:''}</div>`;
+    }).join('');
+}
+
+// ── VIEW 2: SKILL GRAPH ────────────────────────────────────────────────────
+function buildSkillGraph(gd){
+  const cvs=document.getElementById('graph-canvas');
+  const svg=d3.select('#sg-svg');
+  let W=cvs.clientWidth||900, H=cvs.clientHeight||560;
+  svg.attr('viewBox',`0 0 ${W} ${H}`);
+
+  const defs=svg.append('defs');
+  // Glow filter
+  const fl=defs.append('filter').attr('id','glow').attr('x','-50%').attr('y','-50%').attr('width','200%').attr('height','200%');
+  fl.append('feGaussianBlur').attr('stdDeviation','3').attr('result','blur');
+  const fm=fl.append('feMerge');
+  fm.append('feMergeNode').attr('in','blur');
+  fm.append('feMergeNode').attr('in','SourceGraphic');
+  // Arrow markers
+  ['connects_to','cross_applies'].forEach(k=>{
+    defs.append('marker').attr('id','arr-'+k)
+      .attr('viewBox','0 -5 10 10').attr('refX',24).attr('refY',0)
+      .attr('markerWidth',6).attr('markerHeight',6).attr('orient','auto')
       .append('path').attr('d','M0,-5L10,0L0,5')
-      .attr('fill', t==='connects_to'?'#5C6BC0':'#546E7A');
+      .attr('fill',k==='connects_to'?'#64748B':'#3B82F688');
   });
 
-  const g = svg.append('g');
-  svg.call(d3.zoom().scaleExtent([.25,4])
-    .on('zoom', e => g.attr('transform', e.transform)));
+  const g=svg.append('g');
+  sgZoom=d3.zoom().scaleExtent([0.15,4])
+    .on('zoom',e=>{ g.attr('transform',e.transform); });
+  svg.call(sgZoom).on('dblclick.zoom',null);
 
-  skillLinkSel = g.append('g').selectAll('line').data(SKILL_EDGES).join('line')
-    .attr('stroke', d => d.type==='connects_to'?'#5C6BC0':'#546E7A')
-    .attr('stroke-width', d => d.type==='connects_to'?1.5:1)
-    .attr('stroke-dasharray', d => d.type==='cross_applies'?'4,2':null)
-    .attr('marker-end', d => `url(#arr-${d.type})`);
+  const nodes=gd.nodes.map(d=>({...d}));
+  const edges=gd.edges.map(d=>({...d}));
 
-  skillNodeSel = g.append('g').selectAll('g').data(SKILL_NODES).join('g')
+  const link=g.append('g').selectAll('line').data(edges).enter().append('line')
+    .attr('stroke',d=>d.kind==='connects_to'?'#64748B':'#3B82F660')
+    .attr('stroke-width',d=>d.kind==='connects_to'?1.5:1)
+    .attr('stroke-dasharray',d=>d.kind==='cross_applies'?'4,3':null)
+    .attr('marker-end',d=>`url(#arr-${d.kind})`);
+
+  const ng=g.append('g').selectAll('g').data(nodes).enter().append('g')
+    .attr('class','sg-node').style('cursor','pointer')
     .call(d3.drag()
-      .on('start',(e,d)=>{if(!e.active)skillSim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y;})
-      .on('drag', (e,d)=>{d.fx=e.x;d.fy=e.y;})
-      .on('end',  (e,d)=>{if(!e.active)skillSim.alphaTarget(0);d.fx=null;d.fy=null;}))
-    .on('mouseover',(e,d)=>showTip(
-      `<div class="tip-title">[` +d.id+ `] ` +d.name+ `</div>` +
-      `<div>Type: `+d.type+` | Hardness: `+d.hardness+`</div>` +
-      `<div>Health: `+d.health+` (thresh `+d.thresh+`)</div>` +
-      `<div>Tokens: `+d.tokens+` | v`+d.version+`</div>` +
-      `<div style="color:#9FA8DA;margin-top:4px">`+(d.meta||'(no summary)')+`</div>` +
-      `<div style="color:#607D8B;margin-top:2px">`+d.tags.join(' · ')+`</div>`,e))
-    .on('mouseout',hideTip);
+      .on('start',(e,d)=>{ if(!e.active)sgSim.alphaTarget(.3).restart(); d.fx=d.x;d.fy=d.y; })
+      .on('drag', (e,d)=>{ d.fx=e.x;d.fy=e.y; })
+      .on('end',  (e,d)=>{ if(!e.active)sgSim.alphaTarget(0); d.fx=null;d.fy=null; }));
 
-  skillNodeSel.append('circle')
-    .attr('r', d=>d.radius)
-    .attr('fill', d=>d.color+'22')
-    .attr('stroke', d=>d.color)
-    .attr('stroke-width',2);
-  skillNodeSel.append('text')
-    .attr('text-anchor','middle').attr('dy',4)
-    .attr('font-size',8).attr('fill','#E8EAF6').attr('pointer-events','none')
-    .text(d=>d.name.length>14?d.name.slice(0,13)+'…':d.name);
-  skillNodeSel.append('text')
-    .attr('text-anchor','middle').attr('dy',d=>d.radius+12)
-    .attr('font-size',9).attr('fill','#7986CB').attr('pointer-events','none')
+  ng.append('circle').attr('r',d=>d.r+6).attr('fill','none')
+    .attr('stroke',d=>d.color).attr('stroke-width',1.5).attr('stroke-opacity',.3)
+    .attr('filter','url(#glow)');
+  ng.append('circle').attr('r',d=>d.r)
+    .attr('fill',d=>d.color+'2E').attr('stroke',d=>d.color).attr('stroke-width',2);
+  ng.append('text').attr('y',d=>d.r+13).attr('text-anchor','middle')
+    .attr('font-family','JetBrains Mono,monospace').attr('font-size',10)
+    .attr('fill','var(--text-muted)').attr('pointer-events','none')
     .text(d=>d.id);
 
-  skillSim = d3.forceSimulation(SKILL_NODES)
-    .force('link', d3.forceLink(SKILL_EDGES).id(d=>d.id).distance(110))
-    .force('charge', d3.forceManyBody().strength(-350))
-    .force('center', d3.forceCenter(W/2, H/2))
-    .force('collision', d3.forceCollide().radius(d=>d.radius+18))
-    .on('tick', ()=>{
-      skillLinkSel
-        .attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
-        .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
-      skillNodeSel.attr('transform',d=>`translate(${d.x},${d.y})`);
+  ng.on('mouseover',(e,d)=>showTip(e,d.id,`${d.label}\nHealth: ${(d.health*100).toFixed(0)}%\n${d.meta||''}`))
+    .on('mousemove',moveTip).on('mouseout',hideTip)
+    .on('click',(e,d)=>{ e.stopPropagation(); openPanel(d,gd); });
+  svg.on('click',()=>closePanel());
+
+  sgSim=d3.forceSimulation(nodes)
+    .force('link',d3.forceLink(edges).id(d=>d.id).distance(130))
+    .force('charge',d3.forceManyBody().strength(-350))
+    .force('center',d3.forceCenter(W/2,H/2))
+    .force('collide',d3.forceCollide().radius(d=>d.r+22));
+
+  // Settle then restart with decay
+  sgSim.stop();
+  for(let i=0;i<280;i++) sgSim.tick();
+  updateSGPos(link,ng);
+  sgSim.on('tick',()=>updateSGPos(link,ng)).restart().alphaDecay(.04);
+
+  setTimeout(()=>drawMinimap(nodes,'#mm-svg',W,H),600);
+
+  // Filter chips
+  document.querySelectorAll('#sg-controls .chip[data-filter]').forEach(c=>{
+    c.addEventListener('click',()=>{
+      document.querySelectorAll('#sg-controls .chip[data-filter]')
+        .forEach(x=>x.className='chip');
+      const f=c.dataset.filter;
+      c.className='chip active-'+(f==='all'?'all':f==='hard'?'hard':f==='soft-hook'?'soft':'explicit');
+      ng.style('opacity',d=>f==='all'||d.hardness===f?1:.1);
+      link.style('opacity',f==='all'?1:.05);
     });
-})();
-
-function filterSkill(h) {
-  document.querySelectorAll('[id^=sf-]').forEach(b=>b.classList.remove('active'));
-  const map={'all':'sf-all','hard':'sf-hard','soft-hook':'sf-soft','explicit-import':'sf-explicit'};
-  const el=document.getElementById(map[h]||'sf-all');
-  if(el) el.classList.add('active');
-  skillNodeSel.attr('opacity',d=>h==='all'||d.hardness===h?1:.1);
-  skillLinkSel.attr('opacity',h==='all'?.6:.1);
-}
-
-// ── MEMORY GRAPH ───────────────────────────────────────────────
-let memSim, memNodeSel, memLinkSel;
-
-function buildMemGraph() {
-  const svg = d3.select('#mem-svg');
-  const W = svg.node().getBoundingClientRect().width || 900;
-  const H = 560;
-  svg.attr('viewBox', `0 0 ${W} ${H}`);
-
-  const g = svg.append('g');
-  svg.call(d3.zoom().scaleExtent([.2,5])
-    .on('zoom', e => g.attr('transform', e.transform)));
-
-  memLinkSel = g.append('g').selectAll('line').data(MEM_EDGES).join('line')
-    .attr('stroke','#2D3250').attr('stroke-width',1);
-
-  memNodeSel = g.append('g').selectAll('g').data(MEM_NODES).join('g')
-    .call(d3.drag()
-      .on('start',(e,d)=>{if(!e.active)memSim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y;})
-      .on('drag', (e,d)=>{d.fx=e.x;d.fy=e.y;})
-      .on('end',  (e,d)=>{if(!e.active)memSim.alphaTarget(0);d.fx=null;d.fy=null;}))
-    .on('mouseover',(e,d)=>showTip(
-      `<div class="tip-title">[`+d.id+`] `+d.type+`</div>` +
-      `<div>Project: `+d.project+` | Weight: `+d.weight+`</div>` +
-      `<div>Updated: `+d.ts+`</div>` +
-      (d.active?'<div style="color:#4CAF50">★ In active index</div>':'') +
-      `<div style="color:#9FA8DA;margin-top:4px;word-break:break-word">`+d.content+`</div>` +
-      `<div style="color:#607D8B;margin-top:2px">`+d.tags.join(' ')+`</div>`,e))
-    .on('mouseout',hideTip);
-
-  memNodeSel.append('circle')
-    .attr('r',d=>d.radius)
-    .attr('fill',d=>d.color+(d.active?'BB':'33'))
-    .attr('stroke',d=>d.active?'#FFFFFF':d.color)
-    .attr('stroke-width',d=>d.active?2.5:1);
-  memNodeSel.append('text')
-    .attr('text-anchor','middle').attr('dy',3)
-    .attr('font-size',6).attr('fill','#E8EAF6').attr('pointer-events','none')
-    .text(d=>d.type);
-
-  const PROJ_CENTER = {
-    'HMS':{x:W*.22,y:H*.35},'SK':{x:W*.75,y:H*.25},
-    'OC':{x:W*.22,y:H*.72},'GEN':{x:W*.75,y:H*.72},
-    'MCP':{x:W*.5,y:H*.12},'CRS':{x:W*.5,y:H*.88},'ART':{x:W*.5,y:H*.5}
-  };
-
-  memSim = d3.forceSimulation(MEM_NODES)
-    .force('link', d3.forceLink(MEM_EDGES).id(d=>d.id).distance(45).strength(.4))
-    .force('charge', d3.forceManyBody().strength(-60))
-    .force('collision', d3.forceCollide().radius(d=>d.radius+3))
-    .force('cluster', ()=>{
-      MEM_NODES.forEach(d=>{
-        const t = PROJ_CENTER[d.project]||{x:W*.5,y:H*.5};
-        d.vx=(d.vx||0)+(t.x-d.x)*.025;
-        d.vy=(d.vy||0)+(t.y-d.y)*.025;
-      });
-    })
-    .on('tick',()=>{
-      memLinkSel.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
-               .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
-      memNodeSel.attr('transform',d=>`translate(${d.x},${d.y})`);
-    });
-}
-
-function filterMem(proj) {
-  document.querySelectorAll('[id^=mf-]').forEach(b=>b.classList.remove('active'));
-  const el=document.getElementById('mf-'+proj.toLowerCase())||document.getElementById('mf-all');
-  if(el) el.classList.add('active');
-  if(!memNodeSel) return;
-  memNodeSel.attr('opacity',d=>proj==='all'||d.project===proj?1:.06);
-  memLinkSel.attr('opacity',proj==='all'?.5:.05);
-}
-
-// ── HEALTH BARS ────────────────────────────────────────────────
-(function buildHealth(){
-  const g = document.getElementById('health-grid');
-  HEALTH_DATA.forEach(h=>{
-    const alert = h.health < h.threshold;
-    const sc = h.health>=.8?'#4CAF50':h.health>=.6?'#FF9800':'#EF5350';
-    g.innerHTML += `<div class="h-row" style="border-color:${alert?'#EF5350':'#2D3250'}">
-      <div class="h-row-hdr">
-        <span class="h-name">[`+h.id+`] `+h.name+`</span>
-        <span class="h-score" style="color:`+sc+`">`+h.health.toFixed(3)+`</span>
-      </div>
-      <div class="h-bars">
-        <div class="bar-row"><span class="bar-lbl">Applied</span>
-          <div class="bar-track"><div class="bar-fill" style="width:`+(h.applied*100).toFixed(0)+`%;background:#43A047"></div></div>
-          <span class="bar-val">`+(h.applied*100).toFixed(0)+`%</span></div>
-        <div class="bar-row"><span class="bar-lbl">Completion</span>
-          <div class="bar-track"><div class="bar-fill" style="width:`+(h.completion*100).toFixed(0)+`%;background:#2196F3"></div></div>
-          <span class="bar-val">`+(h.completion*100).toFixed(0)+`%</span></div>
-        <div class="bar-row"><span class="bar-lbl">Fallback</span>
-          <div class="bar-track"><div class="bar-fill" style="width:`+(h.fallback*100).toFixed(0)+`%;background:#EF5350"></div></div>
-          <span class="bar-val">`+(h.fallback*100).toFixed(0)+`%</span></div>
-      </div>
-      <div class="thresh-line">threshold `+h.threshold+` · n=`+h.n+` applies
-        `+(alert?'⚠ BELOW THRESHOLD':'✓ healthy')+`</div>
-    </div>`;
   });
-})();
+  document.getElementById('sg-search').addEventListener('input',e=>{
+    const q=e.target.value.toLowerCase();
+    ng.style('opacity',d=>!q||d.id.toLowerCase().includes(q)||d.label.toLowerCase().includes(q)||
+      (d.tags||[]).some(t=>t.toLowerCase().includes(q))?1:.1);
+  });
+  document.getElementById('sg-reset').addEventListener('click',()=>
+    svg.transition().duration(500).call(sgZoom.transform,d3.zoomIdentity));
+}
+function updateSGPos(link,ng){
+  link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+      .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+  ng.attr('transform',d=>`translate(${d.x||0},${d.y||0})`);
+}
+function drawMinimap(nodes,sel,W,H){
+  const mmSvg=d3.select(sel); mmSvg.selectAll('*').remove();
+  const mw=158,mh=98;
+  const xs=d3.scaleLinear().domain(d3.extent(nodes,d=>d.x)).range([4,mw-4]);
+  const ys=d3.scaleLinear().domain(d3.extent(nodes,d=>d.y)).range([4,mh-4]);
+  mmSvg.selectAll('circle').data(nodes).enter().append('circle')
+    .attr('cx',d=>xs(d.x)).attr('cy',d=>ys(d.y))
+    .attr('r',3.5).attr('fill',d=>d.color||'#64748B').attr('opacity',.85);
+}
+function openPanel(d,gd){
+  const col=HCOLOR[d.hardness]||'#64748B';
+  const conns=gd.edges.filter(e=>(e.source?.id||e.source)===d.id||(e.target?.id||e.target)===d.id);
+  document.getElementById('sp-content').innerHTML=`
+    <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+      <span class="sp-id" style="color:${col}">${d.id}</span>
+      <span class="badge badge-${badgeClass(d.hardness)}">${d.hardness}</span>
+      <span class="badge badge-gen">v${d.version}</span>
+    </div>
+    <div class="sp-name">${d.label}</div>
+    <hr class="sp-divider">
+    <div class="sp-section">Health</div>
+    ${hbar(d.health,col,'8px')}
+    <div style="display:flex;justify-content:space-between;margin-top:6px;margin-bottom:10px">
+      <span class="mono" style="color:${col};font-size:18px;font-weight:500">${(d.health*100).toFixed(0)}%</span>
+      <span style="font-size:11px;color:var(--text-dim);align-self:flex-end">${d.applied} uses · ${(d.tokens||0).toLocaleString()} tok</span>
+    </div>
+    ${d.meta?`<hr class="sp-divider"><div class="sp-section">Summary</div><div class="sp-meta">${d.meta}</div>`:''}
+    ${(d.triggers||[]).length?`<hr class="sp-divider"><div class="sp-section">Triggers</div>
+      <div class="sp-tags">${d.triggers.map(t=>`<span class="sp-tag">${t}</span>`).join('')}</div>`:''}
+    ${(d.tags||[]).length?`<div class="sp-section">Tags</div>
+      <div class="sp-tags">${d.tags.map(t=>`<span class="sp-tag">${t}</span>`).join('')}</div>`:''}
+    ${conns.length?`<hr class="sp-divider"><div class="sp-section">Connections</div>
+      ${conns.slice(0,8).map(e=>{
+        const from=e.source?.id||e.source, to=e.target?.id||e.target;
+        return `<div class="sp-conn">${from===d.id?'→':'←'} <span>${from===d.id?to:from}</span>
+          <span style="color:var(--text-dim);margin-left:4px">(${e.kind})</span></div>`;
+      }).join('')}`:''}
+    ${(d.memory_nodes||[]).length?`<hr class="sp-divider"><div class="sp-section">Memory Nodes</div>
+      ${d.memory_nodes.map(mid=>{
+        const mn=DATA?.mem_graph.nodes.find(n=>n.id===mid);
+        return `<div class="sp-conn"><span class="sp-tag" style="color:${mn?.color||'#64748B'}">${mid}</span>
+          ${mn?`<span style="font-size:11px;color:var(--text-muted);margin-left:4px">${mn.t} w=${mn.w.toFixed(2)}</span>`:''}</div>`;
+      }).join('')}`:''}`;
+  document.getElementById('side-panel').classList.add('open');
+}
+function closePanel(){ document.getElementById('side-panel').classList.remove('open'); }
+document.getElementById('sp-close').addEventListener('click',closePanel);
 
-// ── EVOGRAPH ───────────────────────────────────────────────────
-function buildEvoGraph(){
-  const svg = d3.select('#evo-svg');
-  const W = svg.node().getBoundingClientRect().width || 900;
-  const H = 380;
-  svg.attr('viewBox', `0 0 ${W} ${H}`);
+// ── VIEW 3: MEMORY NETWORK ─────────────────────────────────────────────────
+function buildMemGraph(gd){
+  const cvs=document.getElementById('mem-canvas');
+  const svg=d3.select('#mg-svg');
+  let W=cvs.clientWidth||900, H=cvs.clientHeight||560;
+  svg.attr('viewBox',`0 0 ${W} ${H}`);
 
-  if(EVO_NODES.length===0){
-    svg.append('text').attr('x',W/2).attr('y',H/2)
-      .attr('text-anchor','middle').attr('fill','#9FA8DA').attr('font-size',13)
-      .text('No evolution edges yet');
+  const defs=svg.append('defs');
+  const fl=defs.append('filter').attr('id','glow2').attr('x','-100%').attr('y','-100%').attr('width','300%').attr('height','300%');
+  fl.append('feGaussianBlur').attr('stdDeviation','4').attr('result','blur');
+  const fm=fl.append('feMerge');
+  fm.append('feMergeNode').attr('in','blur');
+  fm.append('feMergeNode').attr('in','SourceGraphic');
+
+  const g=svg.append('g');
+  mgZoom=d3.zoom().scaleExtent([0.1,6]).on('zoom',e=>g.attr('transform',e.transform));
+  svg.call(mgZoom).on('dblclick.zoom',null);
+
+  const nodes=gd.nodes.map(d=>({...d, tx:d.cx*W, ty:d.cy*H }));
+  const edges=gd.edges.map(d=>({...d}));
+
+  // Cluster labels
+  const cls={};
+  nodes.forEach(n=>{ if(!cls[n.proj]) cls[n.proj]={cx:n.cx*W,cy:n.cy*H,c:n.cluster_color}; });
+  g.append('g').selectAll('text').data(Object.entries(cls)).enter().append('text')
+    .attr('x',d=>d[1].cx).attr('y',d=>d[1].cy)
+    .attr('text-anchor','middle').attr('font-size',22).attr('font-weight',700)
+    .attr('fill',d=>d[1].c+'28').attr('font-family','Inter,sans-serif').text(d=>d[0]);
+
+  const link=g.append('g').selectAll('line').data(edges).enter().append('line')
+    .attr('stroke','#FFFFFF08').attr('stroke-width',1);
+
+  const ng=g.append('g').selectAll('g').data(nodes).enter().append('g')
+    .attr('class',d=>`mg-node ${d.open_loop?'node-pulse':''}`)
+    .style('cursor','pointer')
+    .call(d3.drag()
+      .on('start',(e,d)=>{ if(!e.active)mgSim.alphaTarget(.3).restart(); d.fx=d.x;d.fy=d.y; })
+      .on('drag', (e,d)=>{ d.fx=e.x;d.fy=e.y; })
+      .on('end',  (e,d)=>{ if(!e.active)mgSim.alphaTarget(0); d.fx=null;d.fy=null; }));
+
+  // Active ring
+  ng.filter(d=>d.active).append('circle')
+    .attr('r',d=>d.r+4).attr('fill','none').attr('stroke','#FFF').attr('stroke-width',2);
+
+  ng.append('circle').attr('r',d=>d.r)
+    .attr('fill',d=>d.color+'28').attr('stroke',d=>d.color).attr('stroke-width',1.5);
+  ng.append('text').attr('text-anchor','middle').attr('dominant-baseline','central')
+    .attr('font-size',7).attr('fill',d=>d.color)
+    .attr('font-family','JetBrains Mono,monospace').attr('pointer-events','none').text(d=>d.t);
+
+  ng.on('mouseover',(e,d)=>showTip(e,d.id,`${d.t} · w=${d.w.toFixed(2)} · ${d.proj}\n${d.c}`))
+    .on('mousemove',moveTip).on('mouseout',hideTip)
+    .on('click',(e,d)=>{ e.stopPropagation(); openMemPanel(d); });
+  svg.on('click',()=>closeMemPanel());
+
+  mgSim=d3.forceSimulation(nodes)
+    .force('link',d3.forceLink(edges).id(d=>d.id).distance(45).strength(.15))
+    .force('charge',d3.forceManyBody().strength(-70))
+    .force('collide',d3.forceCollide().radius(d=>d.r+8))
+    .force('cx',d3.forceX(d=>d.tx).strength(.1))
+    .force('cy',d3.forceY(d=>d.ty).strength(.1));
+
+  mgSim.stop();
+  for(let i=0;i<200;i++) mgSim.tick();
+  updateMGPos(link,ng);
+  mgSim.on('tick',()=>updateMGPos(link,ng)).restart().alphaDecay(.05);
+
+  setTimeout(()=>drawMinimap(nodes,'#mmm-svg',W,H),600);
+
+  // Filters
+  let pf='all', tf='all';
+  const applyF=()=>{
+    ng.style('opacity',d=>(pf==='all'||d.proj===pf)&&(tf==='all'||d.t===tf)?1:.08);
+    link.style('opacity',.06);
+  };
+  document.querySelectorAll('#mg-controls .chip[data-proj]').forEach(c=>{
+    c.addEventListener('click',()=>{
+      document.querySelectorAll('#mg-controls .chip[data-proj]').forEach(x=>x.className='chip');
+      c.className='chip active-'+(c.dataset.proj==='all'?'all':'custom');
+      if(c.dataset.proj!=='all') c.style.background=
+        {HMS:'#1D4ED8',SK:'#166534',OC:'#7C3AED',GEN:'#475569',CRS:'#B45309'}[c.dataset.proj]||'#3B82F6';
+      pf=c.dataset.proj; applyF();
+    });
+  });
+  document.querySelectorAll('#mg-controls .chip[data-type]').forEach(c=>{
+    c.addEventListener('click',()=>{
+      document.querySelectorAll('#mg-controls .chip[data-type]').forEach(x=>{ x.className='chip'; x.style.background=''; });
+      c.className='chip active-custom';
+      c.style.background=TCOLOR[c.dataset.type]||'#64748B';
+      tf=c.dataset.type; applyF();
+    });
+  });
+  document.getElementById('mg-reset').addEventListener('click',()=>
+    d3.select('#mg-svg').transition().duration(500).call(mgZoom.transform,d3.zoomIdentity));
+}
+function updateMGPos(link,ng){
+  link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+      .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+  ng.attr('transform',d=>`translate(${d.x||0},${d.y||0})`);
+}
+function openMemPanel(d){
+  document.getElementById('sp-mem-content').innerHTML=`
+    <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+      <span class="sp-id" style="color:${d.color}">${d.id}</span>
+      <span class="badge badge-${d.t.toLowerCase()}">${d.t}</span>
+    </div>
+    <div class="sp-name">${d.proj} · ${d.ts}</div>
+    <hr class="sp-divider">
+    <div class="sp-section">Weight</div>
+    ${hbar(d.w,d.color,'8px')}
+    <div style="display:flex;justify-content:space-between;margin-top:6px;margin-bottom:10px">
+      <span class="mono" style="color:${d.color};font-size:16px;font-weight:500">${d.w.toFixed(3)}</span>
+      ${d.active?'<span style="font-size:11px;color:#fff;background:#ffffff1a;padding:2px 8px;border-radius:4px">ACTIVE</span>':''}
+    </div>
+    <div class="sp-section">Content</div>
+    <div class="sp-meta">${d.c||'—'}</div>
+    ${(d.tags||[]).length?`<hr class="sp-divider"><div class="sp-section">Tags</div>
+      <div class="sp-tags">${d.tags.map(t=>`<span class="sp-tag">${t}</span>`).join('')}</div>`:''}`;
+  document.getElementById('side-panel-mem').classList.add('open');
+}
+function closeMemPanel(){ document.getElementById('side-panel-mem').classList.remove('open'); }
+document.getElementById('sp-mem-close').addEventListener('click',closeMemPanel);
+
+// ── VIEW 4: HEALTH ─────────────────────────────────────────────────────────
+function buildHealth(hd){
+  const nalert=hd.filter(d=>d.alert).length;
+  const avg=hd.reduce((s,d)=>s+d.health,0)/Math.max(1,hd.length);
+  const ac=avg>.8?'var(--green)':avg>.6?'var(--amber)':'var(--red)';
+  document.getElementById('health-summary-bar').innerHTML=`
+    <span style="font-size:13px;font-weight:500;color:${nalert?'var(--red)':'var(--green)'}">
+      ${nalert?`⚠ ${nalert} alert${nalert>1?'s':''}`:'✓ All healthy'}
+    </span>
+    <span style="color:var(--text-muted);font-size:12px">
+      Avg health: <span class="mono" style="color:${ac}">${(avg*100).toFixed(1)}%</span>
+    </span>
+    <span style="color:var(--text-muted);font-size:12px">${hd.length} skills</span>`;
+
+  document.getElementById('health-cards').innerHTML=hd.map(d=>`
+    <div class="h-card ${d.alert?'alert':'ok'}">
+      <div style="position:absolute;top:14px;right:16px">${sparkSVG(d.sparkline,d.color)}</div>
+      <div class="h-card-header">
+        <span class="badge badge-${badgeClass(d.hardness)}" style="font-size:11px">◆</span>
+        <span class="h-card-id" style="color:${d.color}">${d.id}</span>
+        <span class="h-card-name">${d.name}</span>
+        <span class="h-card-meta">v${d.version} · ${d.n} uses · ${(d.tokens||0).toLocaleString()} tok</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+        <div style="flex:1">${hbar(d.health,d.color,'8px')}</div>
+        <span class="health-score-big" style="color:${d.color}">${(d.health*100).toFixed(0)}%</span>
+        <span style="font-size:11px;color:var(--text-dim)">thr ${(d.threshold*100).toFixed(0)}%
+          ${d.alert?'<span style="color:var(--red)">⚠</span>':'<span style="color:var(--green)">✓</span>'}
+        </span>
+      </div>
+      <div class="h-rates">
+        <div class="h-rate-item">${hbar(d.applied,'#22C55E','5px')}
+          <div class="h-rate-val" style="color:#22C55E">${(d.applied*100).toFixed(0)}%</div>
+          <div class="h-rate-label">Applied</div></div>
+        <div class="h-rate-item">${hbar(d.completion,'#3B82F6','5px')}
+          <div class="h-rate-val" style="color:#3B82F6">${(d.completion*100).toFixed(0)}%</div>
+          <div class="h-rate-label">Completion</div></div>
+        <div class="h-rate-item">${hbar(d.fallback,'#EF4444','5px')}
+          <div class="h-rate-val" style="color:#EF4444">${(d.fallback*100).toFixed(0)}%</div>
+          <div class="h-rate-label">Fallback</div></div>
+      </div>
+    </div>`).join('');
+}
+
+// ── VIEW 5: EVOGRAPH ───────────────────────────────────────────────────────
+function buildEvoGraph(et){
+  const MCOL={FIX:'#22C55E',DERIVED:'#3B82F6',CAPTURED:'#F59E0B'};
+  const modes={};
+  et.forEach(e=>modes[e.mode]=(modes[e.mode]||0)+1);
+  document.getElementById('evo-counts').innerHTML=Object.entries(modes).map(([m,n])=>
+    `<span style="font-size:11px;padding:2px 8px;border-radius:4px;
+      background:${MCOL[m]||'#64748B'}18;color:${MCOL[m]||'#64748B'}">${m}: ${n}</span>`).join('');
+
+  const ctr=document.getElementById('evo-canvas');
+  if(!et.length){
+    ctr.innerHTML=`<div class="evo-empty">
+      <div style="font-size:48px;color:var(--text-dim)">⟳</div>
+      <h3>No evolution history yet</h3>
+      <p style="font-size:12px;max-width:380px;line-height:1.8;color:var(--text-muted)">
+        Evolution edges appear after:<br>
+        <code style="background:var(--bg-raised);padding:2px 6px;border-radius:4px;color:var(--cyan)">
+        skill.py evolve S-01 --mode DERIVED</code>
+      </p></div>`;
     return;
   }
 
-  const MC = {'FIX':'#43A047','DERIVED':'#1E88E5','CAPTURED':'#FF9800','root':'#607D8B'};
-  const defs = svg.append('defs');
-  Object.keys(MC).forEach(m=>{
-    defs.append('marker').attr('id','evo-'+m)
-      .attr('viewBox','0 -5 10 10').attr('refX',55).attr('refY',0)
-      .attr('markerWidth',5).attr('markerHeight',5).attr('orient','auto')
-      .append('path').attr('d','M0,-5L10,0L0,5').attr('fill',MC[m]);
+  const W=ctr.clientWidth||800, H=ctr.clientHeight||400;
+  const svg=d3.select(ctr).append('svg').attr('width',W).attr('height',H);
+  const g=svg.append('g');
+  svg.call(d3.zoom().scaleExtent([.3,3]).on('zoom',e=>g.attr('transform',e.transform)));
+
+  const defs=svg.append('defs');
+  Object.entries(MCOL).forEach(([m,c])=>{
+    defs.append('marker').attr('id','evo-arr-'+m)
+      .attr('viewBox','0 -5 10 10').attr('refX',8).attr('markerWidth',6).attr('markerHeight',6).attr('orient','auto')
+      .append('path').attr('d','M0,-5L10,0L0,5').attr('fill',c);
   });
 
-  const g = svg.append('g');
-  svg.call(d3.zoom().scaleExtent([.3,4]).on('zoom',e=>g.attr('transform',e.transform)));
+  // Build node positions
+  const nodeMap=new Map();
+  et.forEach(e=>{
+    if(!nodeMap.has(e.from)) nodeMap.set(e.from,{id:e.from,ver:e.old_ver});
+    if(!nodeMap.has(e.to))   nodeMap.set(e.to,  {id:e.to,  ver:e.new_ver});
+  });
+  const narr=[...nodeMap.values()];
+  const step=Math.min(220, (W-100)/Math.max(1,narr.length-1));
+  narr.forEach((n,i)=>{ n.x=60+i*step; n.y=H/2; });
 
-  const links = g.append('g').selectAll('line').data(EVO_EDGES).join('line')
-    .attr('stroke',d=>MC[d.mode]||'#607D8B').attr('stroke-width',1.5)
-    .attr('marker-end',d=>`url(#evo-${d.mode||'root'})`);
+  et.forEach(e=>{
+    const src=nodeMap.get(e.from), tgt=nodeMap.get(e.to);
+    if(!src||!tgt) return;
+    const mx=(src.x+tgt.x)/2;
+    g.append('path')
+      .attr('d',`M${src.x+60},${src.y} C${mx},${src.y-30} ${mx},${tgt.y-30} ${tgt.x},${tgt.y}`)
+      .attr('fill','none').attr('stroke',MCOL[e.mode]||'#64748B').attr('stroke-width',2)
+      .attr('marker-end',`url(#evo-arr-${e.mode})`)
+      .on('mouseover',ev=>showTip(ev,e.mode,`${e.trigger}\n${e.old_ver} → ${e.new_ver}\n${e.ts?.slice(0,10)||''}`))
+      .on('mousemove',moveTip).on('mouseout',hideTip);
+    g.append('text').attr('x',mx).attr('y',src.y-36)
+      .attr('text-anchor','middle').attr('font-size',9)
+      .attr('fill',MCOL[e.mode]||'#64748B').attr('font-family','JetBrains Mono,monospace').text(e.mode);
+  });
 
-  const nodes = g.append('g').selectAll('g').data(EVO_NODES).join('g')
-    .on('mouseover',(e,d)=>showTip(
-      `<div class="tip-title">`+d.id+`</div><div>Mode: `+d.mode+`</div>`,e))
-    .on('mouseout',hideTip);
-
-  nodes.append('rect').attr('x',-52).attr('y',-13).attr('width',104).attr('height',26)
-    .attr('rx',4).attr('fill',d=>(MC[d.mode]||'#607D8B')+'33')
-    .attr('stroke',d=>MC[d.mode]||'#607D8B').attr('stroke-width',1);
-  nodes.append('text').attr('text-anchor','middle').attr('dy',4)
-    .attr('font-size',9).attr('fill','#E8EAF6').attr('pointer-events','none')
-    .text(d=>d.id.length>18?d.id.slice(0,17)+'…':d.id);
-
-  const sim = d3.forceSimulation(EVO_NODES)
-    .force('link',d3.forceLink(EVO_EDGES).id(d=>d.id).distance(150))
-    .force('charge',d3.forceManyBody().strength(-250))
-    .force('center',d3.forceCenter(W/2,H/2))
-    .on('tick',()=>{
-      links.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
-           .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
-      nodes.attr('transform',d=>`translate(${d.x},${d.y})`);
-    });
+  narr.forEach(n=>{
+    const ng=g.append('g').attr('transform',`translate(${n.x-60},${n.y-20})`);
+    ng.append('rect').attr('width',120).attr('height',40).attr('rx',6)
+      .attr('fill','var(--bg-raised)').attr('stroke','var(--border)').attr('stroke-width',1.5);
+    ng.append('text').attr('x',60).attr('y',15).attr('text-anchor','middle')
+      .attr('font-family','JetBrains Mono,monospace').attr('font-size',11).attr('fill','var(--text)').text(n.id);
+    ng.append('text').attr('x',60).attr('y',30).attr('text-anchor','middle')
+      .attr('font-size',9).attr('fill','var(--text-muted)').attr('font-family','JetBrains Mono,monospace').text('v'+n.ver);
+  });
 }
 
-// ── TOKEN BUDGET ───────────────────────────────────────────────
-function buildBudget(){
-  const maxTok = 1500;
-  let alwaysTotal=0;
-  const aEl=document.getElementById('always-tokens');
-  TOKEN_BUDGET.always.forEach(t=>{
-    alwaysTotal+=t.tokens;
-    const pct=Math.min(100,t.tokens/maxTok*100).toFixed(1);
-    aEl.innerHTML+=`<div class="tok-row">
-      <div class="tok-lbl">`+t.label+`</div>
-      <div class="tok-track"><div class="tok-fill" style="width:`+pct+`%;background:`+t.color+`"></div></div>
-      <div class="tok-val">`+t.tokens+`</div></div>`;
+// ── VIEW 6: TOKEN BUDGET ───────────────────────────────────────────────────
+function buildTokenBudget(scenarios,stats){
+  if(stats.savings_pct>0)
+    document.getElementById('tok-savings-callout').innerHTML=
+      `<div class="tok-savings">HMS v2 uses ${stats.savings_pct}% fewer tokens than old design — ${stats.hms_tokens.toLocaleString()} vs ${stats.old_tokens.toLocaleString()} tokens</div>`;
+
+  document.getElementById('tok-bars').innerHTML=scenarios.map(s=>{
+    const tot=s.breakdown.reduce((sum,b)=>sum+b.v,0);
+    return `<div class="tok-scenario">
+      <div class="tok-label">${s.label}${s.note?` <span style="font-size:11px;color:var(--text-dim)">(${s.note})</span>`:''}</div>
+      <div class="tok-bar-row">${s.breakdown.map(b=>
+        `<div class="tok-seg" style="width:${(b.v/tot*100).toFixed(1)}%;background:${b.c}"
+          data-label="${b.l}" data-val="${b.v}"></div>`).join('')}
+      </div>
+      <div class="tok-total">${tot.toLocaleString()} tokens total</div>
+    </div>`;
+  }).join('');
+
+  document.querySelectorAll('.tok-seg').forEach(s=>{
+    s.addEventListener('mouseover',e=>showTip(e,s.dataset.label,`${parseInt(s.dataset.val).toLocaleString()} tokens`));
+    s.addEventListener('mousemove',moveTip);
+    s.addEventListener('mouseout',hideTip);
   });
-  document.getElementById('always-total').textContent='Always-on: '+alwaysTotal+' tokens';
 
-  const oEl=document.getElementById('ondemand-tokens');
-  TOKEN_BUDGET.ondemand.forEach(t=>{
-    const pct=Math.min(100,t.tokens/maxTok*100).toFixed(1);
-    oEl.innerHTML+=`<div class="tok-row">
-      <div class="tok-lbl">`+t.label+`</div>
-      <div class="tok-track"><div class="tok-fill" style="width:`+pct+`%;background:`+t.color+`"></div></div>
-      <div class="tok-val">+`+t.tokens+`</div></div>`;
+  const base=scenarios[0].breakdown;
+  const ctx=document.getElementById('donut-chart').getContext('2d');
+  if(donutChart) donutChart.destroy();
+  donutChart=new Chart(ctx,{
+    type:'doughnut',
+    data:{labels:base.map(b=>b.l),
+      datasets:[{data:base.map(b=>b.v),backgroundColor:base.map(b=>b.c),
+        borderColor:document.documentElement.getAttribute('data-theme')==='light'?'#fff':'#12121A',
+        borderWidth:2}]},
+    options:{cutout:'62%',animation:{duration:700},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.label}: ${c.parsed.toLocaleString()}`}}}}
   });
-
-  const svg=d3.select('#budget-svg');
-  const W=svg.node().getBoundingClientRect().width||450;
-  const H=360;
-  const R=Math.min(W,H)/2-36;
-  svg.attr('viewBox',`0 0 ${W} ${H}`);
-  const g=svg.append('g').attr('transform',`translate(${W/2},${H/2})`);
-
-  const allToks=[...TOKEN_BUDGET.always,...TOKEN_BUDGET.ondemand.slice(0,2)];
-  const pie=d3.pie().value(d=>d.tokens).sort(null);
-  const arc=d3.arc().innerRadius(R*.55).outerRadius(R);
-
-  g.selectAll('path').data(pie(allToks)).join('path')
-    .attr('d',arc).attr('fill',d=>d.data.color)
-    .attr('stroke','#0F1117').attr('stroke-width',2)
-    .on('mouseover',(e,d)=>showTip(
-      `<div class="tip-title">`+d.data.label+`</div>`+d.data.tokens+` tokens`,e))
-    .on('mouseout',hideTip);
-
-  g.append('text').attr('text-anchor','middle').attr('dy','-.2em')
-    .attr('font-size',22).attr('font-weight',700).attr('fill','#E8EAF6')
-    .text(alwaysTotal);
-  g.append('text').attr('text-anchor','middle').attr('dy','1.3em')
-    .attr('font-size',10).attr('fill','#9FA8DA').text('base tokens');
+  const tot=base.reduce((s,b)=>s+b.v,0);
+  document.getElementById('donut-legend').innerHTML=
+    base.map(b=>`<div class="type-legend-item"><div class="type-legend-dot" style="background:${b.c}"></div>
+      <span style="font-size:10px;font-family:'JetBrains Mono',monospace">${b.l}</span>
+      <span style="margin-left:auto;font-size:10px;color:var(--text-muted)">${b.v}</span></div>`).join('')+
+    `<div style="margin-top:8px;font-size:12px;color:var(--text-muted);text-align:center">Total: <span class="mono">${tot.toLocaleString()}</span></div>`;
 }
 
-// ── SYSTEM STATUS ──────────────────────────────────────────────
-(function buildStatus(){
-  function render(id, obj){
-    const el=document.getElementById(id);
-    if(!el) return;
-    Object.entries(obj||{}).forEach(([k,v])=>{
-      if(typeof v !== 'string') return;
-      const cls=v==='pass'?'s-ok':v==='warn'?'s-warn':'s-fail';
-      const icon=v==='pass'?'✓':v==='warn'?'⚠':'✗';
-      el.innerHTML+=`<div class="`+cls+`">`+icon+` `+k+`</div>`;
+// ── VIEW 7: QA REPORT ──────────────────────────────────────────────────────
+function buildQA(qa,stats){
+  if(!qa||!Object.keys(qa).length){
+    document.getElementById('qa-full').innerHTML=
+      `<div style="text-align:center;padding:48px 0;color:var(--text-muted)">
+        <div style="font-size:40px;margin-bottom:12px">✓</div>
+        Run <code class="mono" style="background:var(--bg-raised);padding:4px 8px;border-radius:4px">
+        python3 /tmp/igsl_qa_runner.py</code> to generate report</div>`;
+    return;
+  }
+  const rows=[];
+  ['system','skill_graph','memory_network','integration','hooks','data_integrity'].forEach(cat=>{
+    Object.entries(qa[cat]||{}).forEach(([name,status])=>{
+      if(typeof status==='string') rows.push({name,cat,status});
     });
-  }
-  render('s-system', QA_REPORT.system);
-  render('s-skills',  QA_REPORT.skill_graph);
-  render('s-memory',  QA_REPORT.memory_network);
-  render('s-hooks',   QA_REPORT.hooks);
-  render('s-data',    QA_REPORT.data_integrity);
+  });
+  document.getElementById('qa-full').innerHTML=`
+    <div class="qa-summary">
+      <span class="qa-pill qa-pass">✓ ${qa.passed||0} passed</span>
+      ${(qa.failed||0)?`<span class="qa-pill qa-fail">✗ ${qa.failed} failed</span>`:''}
+      ${(qa.warnings||[]).length?`<span class="qa-pill qa-warn">⚠ ${qa.warnings.length} warnings</span>`:''}
+      <span style="font-size:11px;color:var(--text-dim);margin-left:4px">
+        ${(qa.run_at||'').slice(0,19).replace('T',' ')} UTC</span>
+    </div>
+    ${(qa.failures||[]).length?`<div class="card" style="border-color:var(--red);margin-bottom:16px">
+      <div class="card-title" style="color:var(--red)">Failures</div>
+      ${qa.failures.map(f=>`<div style="color:var(--red);font-size:12px;padding:3px 0">✗ ${f}</div>`).join('')}
+    </div>`:''}
+    <div style="background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;overflow:hidden">
+      <table class="qa-table">
+        <thead><tr><th>Test</th><th>Category</th><th style="text-align:center;width:60px">Status</th></tr></thead>
+        <tbody>${rows.map(r=>`<tr>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:11px">${r.name}</td>
+          <td><span class="qa-cat">${r.cat}</span></td>
+          <td style="text-align:center" class="qa-status-${r.status==='pass'?'pass':r.status==='warn'?'warn':'fail'}">
+            ${r.status==='pass'?'✓':r.status==='warn'?'⚠':'✗'}</td>
+        </tr>`).join('')}</tbody>
+      </table>
+    </div>`;
+}
 
-  const fails=QA_REPORT.failures||[];
-  if(fails.length>0){
-    document.getElementById('qa-failures').innerHTML=
-      fails.map(f=>`<div style="color:var(--red)">✗ `+f+`</div>`).join('');
+// ── SEARCH ─────────────────────────────────────────────────────────────────
+function buildSearch(d){
+  const idx=[];
+  d.skill_graph.nodes.forEach(n=>idx.push({id:n.id,text:`${n.label} ${(n.tags||[]).join(' ')} ${(n.triggers||[]).join(' ')}`,type:'skill',icon:'◆',color:n.color,view:'skill-graph'}));
+  d.mem_graph.nodes.forEach(n=>idx.push({id:n.id,text:`${n.c} ${(n.tags||[]).join(' ')}`,type:n.t,icon:'●',color:n.color,view:'memory-net'}));
+
+  const inp=document.getElementById('search-input');
+  const res=document.getElementById('search-results');
+  let sel=-1;
+
+  function render(q){
+    if(!q){res.innerHTML='';return;}
+    const hits=idx.filter(x=>x.id.toLowerCase().includes(q)||x.text.toLowerCase().includes(q)).slice(0,12);
+    res.innerHTML=hits.map((h,i)=>`
+      <div class="sr-item${i===sel?' selected':''}" data-i="${i}" data-view="${h.view}">
+        <span class="sr-icon" style="color:${h.color}">${h.icon}</span>
+        <span class="sr-id">${h.id}</span>
+        <span class="sr-text">${h.text.slice(0,60)}</span>
+        <span class="sr-type">${h.type}</span>
+      </div>`).join('');
+    res.querySelectorAll('.sr-item').forEach(el=>
+      el.addEventListener('click',()=>{ switchView(el.dataset.view); closeSearch(); }));
   }
-  const warns=QA_REPORT.warnings||[];
-  if(warns.length>0){
-    document.getElementById('qa-warnings-list').innerHTML=
-      warns.map(w=>`<div style="color:var(--orange)">⚠ `+w+`</div>`).join('');
-  }
-})();
+
+  inp.addEventListener('input',e=>{sel=-1;render(e.target.value.toLowerCase());});
+  inp.addEventListener('keydown',e=>{
+    const items=res.querySelectorAll('.sr-item');
+    if(e.key==='ArrowDown'){sel=Math.min(sel+1,items.length-1);render(inp.value.toLowerCase());}
+    if(e.key==='ArrowUp'){sel=Math.max(sel-1,-1);render(inp.value.toLowerCase());}
+    if(e.key==='Enter'&&sel>=0) items[sel]?.click();
+    if(e.key==='Escape') closeSearch();
+  });
+  document.getElementById('search-overlay').addEventListener('click',e=>{
+    if(e.target.id==='search-overlay') closeSearch();
+  });
+}
+function openSearch(){ document.getElementById('search-overlay').classList.add('open'); document.getElementById('search-input').focus(); }
+function closeSearch(){ document.getElementById('search-overlay').classList.remove('open'); document.getElementById('search-input').value=''; document.getElementById('search-results').innerHTML=''; }
+document.getElementById('search-btn').addEventListener('click',openSearch);
 </script>
-</body></html>
+</body>
+</html>

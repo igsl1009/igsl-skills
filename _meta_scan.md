@@ -1,13 +1,12 @@
 # IGSL SKILL META-SCAN | 2026-04-09 | 13 nodes
 
 ## HARD SKILLS (auto-loaded every session)
-  [META-05     ] auto-improve             280tok  h=0.88  Always-on. Session journal, captures corrections, propo
-  [META-07     ] memory-system            180tok  h=0.89  Always-on. Memory write protocol: node.py add/update/cl
+  [META-05     ] auto-improve             280tok  h=0.92  Always-on. Session journal, captures corrections, propo
+  [META-07     ] memory-system            180tok  h=0.93  Always-on. Memory write protocol: node.py add/update/cl
   Hard skill total: 460 tokens
 
 ## SOFT-HOOK SKILLS (load when keywords match)
   [GEN-ERR-001 ] latex-errors             220tok  h=0.88  triggers:[latex pdflatex tikz compile tex]
-  [S-01        ] quant-research          1420tok  h=0.79  triggers:[lob factor alpha ic regime]
   [C-01        ] Notion                    50tok  h=0.79  triggers:[notion notes database task board project doc]
   [META-01     ] graph-manager            420tok  h=0.74  triggers:[add skill registry new node update skill deprecate]
   [META-08     ] chat-retrieval           200tok  h=0.72  triggers:[old chat find conversation past session retrieve chat history]
@@ -17,6 +16,7 @@
   [M-01        ] blackboard-mcp            80tok  h=0.68  triggers:[blackboard cuhk assignment deadline grades]
   [META-02     ] skill-selector           380tok  h=0.68  triggers:[what skills what do i have coverage bootstrap start project]
   [M-02        ] deep-research-mcp         60tok  h=0.68  triggers:[deep research research papers arxiv multi-phase research comprehensive research]
+  [S-01        ] quant-research          1420tok  h=0.12  triggers:[lob factor alpha ic regime]
 
 ## SUMMARY
   Hard skills: 2 nodes, 460 tokens always

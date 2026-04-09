@@ -1,0 +1,2786 @@
+{
+  "generated_at": "2026-04-09T09:53:22.907330Z",
+  "today": "2026-04-09",
+  "stats": {
+    "skill_nodes": 13,
+    "mem_nodes": 48,
+    "active_nodes": 10,
+    "evo_edges": 1,
+    "chat_entries": 25,
+    "open_loops": 3,
+    "avg_health": 0.748,
+    "alerts": [],
+    "by_type": {
+      "ART": 6,
+      "DEC": 11,
+      "GEN": 8,
+      "ERR": 4,
+      "PAT": 10,
+      "ARCH": 6,
+      "LOOP": 3
+    },
+    "by_proj": {
+      "ART": 3,
+      "CRS": 2,
+      "GEN": 10,
+      "HMS": 17,
+      "MCP": 2,
+      "OC": 5,
+      "SERR": 1,
+      "SK": 8
+    },
+    "base_tokens": 790,
+    "hms_tokens": 2880,
+    "old_tokens": 2450,
+    "savings_pct": -18,
+    "qa_passed": 81,
+    "qa_failed": 0,
+    "qa_failures": [],
+    "qa_warnings": [],
+    "hard_always": 460
+  },
+  "skill_graph": {
+    "nodes": [
+      {
+        "id": "S-01",
+        "label": "quant-research",
+        "type": "skill",
+        "hardness": "soft-hook",
+        "health": 0.7933,
+        "tokens": 1420,
+        "meta": "Renaissance quant. LOB microstructure, factor models, RL execution, LaTeX, HMS architecture.",
+        "tags": [
+          "hms",
+          "alpha",
+          "ic",
+          "regime",
+          "ml"
+        ],
+        "triggers": [
+          "lob",
+          "factor",
+          "alpha",
+          "ic",
+          "regime",
+          "rl"
+        ],
+        "version": "2.0",
+        "r": 24,
+        "color": "#3B82F6",
+        "applied": 47,
+        "threshold": 0.6,
+        "alert": false,
+        "tier": "private",
+        "deprecated": false,
+        "memory_nodes": [
+          "SK-001",
+          "SK-002",
+          "HMS-004",
+          "HMS-007",
+          "HMS-015"
+        ]
+      },
+      {
+        "id": "META-01",
+        "label": "graph-manager",
+        "type": "meta-skill",
+        "hardness": "explicit-import",
+        "health": 0.7448,
+        "tokens": 420,
+        "meta": "Registry keeper. Add/update/deprecate nodes, bidirectional edges, audit.",
+        "tags": [
+          "registry",
+          "graph",
+          "add-node",
+          "edges",
+          "meta"
+        ],
+        "triggers": [
+          "add skill",
+          "registry",
+          "new node",
+          "update skill",
+          "deprecate",
+          "edge"
+        ],
+        "version": "1.0",
+        "r": 23,
+        "color": "#10B981",
+        "applied": 0,
+        "threshold": 0.5,
+        "alert": false,
+        "tier": "private",
+        "deprecated": false,
+        "memory_nodes": [
+          "SK-002",
+          "SK-006"
+        ]
+      },
+      {
+        "id": "META-02",
+        "label": "skill-selector",
+        "type": "meta-skill",
+        "hardness": "explicit-import",
+        "health": 0.6782,
+        "tokens": 380,
+        "meta": "Tag-query registry, rank by coverage, find gaps for new project.",
+        "tags": [
+          "selector",
+          "coverage",
+          "gap-analysis",
+          "bootstrap",
+          "project"
+        ],
+        "triggers": [
+          "what skills",
+          "what do i have",
+          "coverage",
+          "bootstrap",
+          "start project",
+          "which nodes"
+        ],
+        "version": "1.0",
+        "r": 22,
+        "color": "#10B981",
+        "applied": 0,
+        "threshold": 0.5,
+        "alert": false,
+        "tier": "private",
+        "deprecated": false,
+        "memory_nodes": []
+      },
+      {
+        "id": "META-03",
+        "label": "pipeline-builder",
+        "type": "meta-skill",
+        "hardness": "explicit-import",
+        "health": 0.7066,
+        "tokens": 360,
+        "meta": "Design skill execution order, handoffs, generate project CLAUDE.md.",
+        "tags": [
+          "pipeline",
+          "execution-order",
+          "handoff",
+          "scaffold",
+          "claude-md"
+        ],
+        "triggers": [
+          "build pipeline",
+          "design pipeline",
+          "scaffold",
+          "execution order",
+          "project structure",
+          "how connect"
+        ],
+        "version": "1.0",
+        "r": 22,
+        "color": "#10B981",
+        "applied": 0,
+        "threshold": 0.5,
+        "alert": false,
+        "tier": "private",
+        "deprecated": false,
+        "memory_nodes": []
+      },
+      {
+        "id": "META-04",
+        "label": "gap-filler",
+        "type": "meta-skill",
+        "hardness": "explicit-import",
+        "health": 0.6961,
+        "tokens": 340,
+        "meta": "Spec atomic new skills when pipeline-builder finds gap. Sandbox testing.",
+        "tags": [
+          "new-node",
+          "spec",
+          "atomic",
+          "sandbox",
+          "build-skill"
+        ],
+        "triggers": [
+          "build new skill",
+          "spec new node",
+          "fill gap",
+          "create skill",
+          "tailor made",
+          "new function needed"
+        ],
+        "version": "1.0",
+        "r": 22,
+        "color": "#10B981",
+        "applied": 0,
+        "threshold": 0.5,
+        "alert": false,
+        "tier": "private",
+        "deprecated": false,
+        "memory_nodes": []
+      },
+      {
+        "id": "META-05",
+        "label": "auto-improve",
+        "type": "meta-skill",
+        "hardness": "hard",
+        "health": 0.8266,
+        "tokens": 280,
+        "meta": "Always-on. Session journal, captures corrections, proposes diffs at Stop.",
+        "tags": [
+          "self-improvement",
+          "journal",
+          "retrospective",
+          "correction",
+          "evolution"
+        ],
+        "triggers": [
+          "wrong",
+          "fix that",
+          "improve",
+          "remember",
+          "update skill",
+          "mistake"
+        ],
+        "version": "1.0",
+        "r": 24,
+        "color": "#EF4444",
+        "applied": 4,
+        "threshold": 0.8,
+        "alert": false,
+        "tier": "private",
+        "deprecated": false,
+        "memory_nodes": [
+          "SK-004",
+          "SK-005"
+        ]
+      },
+      {
+        "id": "META-06",
+        "label": "variant-manager",
+        "type": "meta-skill",
+        "hardness": "explicit-import",
+        "health": 0.6889,
+        "tokens": 320,
+        "meta": "Patch-overlay variants of base skills. Base stays canonical.",
+        "tags": [
+          "variants",
+          "patch",
+          "overlay",
+          "versioning",
+          "context-specific"
+        ],
+        "triggers": [
+          "variant",
+          "version",
+          "different context",
+          "patch",
+          "overlay",
+          "adapt skill"
+        ],
+        "version": "1.0",
+        "r": 22,
+        "color": "#10B981",
+        "applied": 0,
+        "threshold": 0.5,
+        "alert": false,
+        "tier": "private",
+        "deprecated": false,
+        "memory_nodes": [
+          "SK-003"
+        ]
+      },
+      {
+        "id": "META-07",
+        "label": "memory-system",
+        "type": "meta-skill",
+        "hardness": "hard",
+        "health": 0.8332,
+        "tokens": 180,
+        "meta": "Always-on. Memory write protocol: node.py add/update/close/link.",
+        "tags": [
+          "memory",
+          "token-efficient",
+          "tiers",
+          "write-protocol",
+          "nodes"
+        ],
+        "triggers": [
+          "remember",
+          "recall",
+          "memory",
+          "decision",
+          "pattern",
+          "artifact"
+        ],
+        "version": "2.0",
+        "r": 24,
+        "color": "#EF4444",
+        "applied": 4,
+        "threshold": 0.8,
+        "alert": false,
+        "tier": "private",
+        "deprecated": false,
+        "memory_nodes": [
+          "SK-001",
+          "SK-004"
+        ]
+      },
+      {
+        "id": "META-08",
+        "label": "chat-retrieval",
+        "type": "meta-skill",
+        "hardness": "explicit-import",
+        "health": 0.7217,
+        "tokens": 200,
+        "meta": "Find old chats via keyword index + pre-chunked extracts. BM25+embed.",
+        "tags": [
+          "retrieval",
+          "index",
+          "chunks",
+          "bm25",
+          "old-chats"
+        ],
+        "triggers": [
+          "old chat",
+          "find conversation",
+          "past session",
+          "retrieve",
+          "chat history",
+          "what did we discuss"
+        ],
+        "version": "1.0",
+        "r": 22,
+        "color": "#10B981",
+        "applied": 0,
+        "threshold": 0.5,
+        "alert": false,
+        "tier": "private",
+        "deprecated": false,
+        "memory_nodes": []
+      },
+      {
+        "id": "GEN-ERR-001",
+        "label": "latex-errors",
+        "type": "skill",
+        "hardness": "soft-hook",
+        "health": 0.8829,
+        "tokens": 220,
+        "meta": "LaTeX/TikZ errors: step->nodestep, tag->ctag, fontawesome5, pdflatex 2-pass.",
+        "tags": [
+          "latex",
+          "tikz",
+          "errors",
+          "patterns",
+          "compilation"
+        ],
+        "triggers": [
+          "latex",
+          "pdflatex",
+          "tikz",
+          "compile",
+          "tex",
+          "tcolorbox"
+        ],
+        "version": "1.1",
+        "r": 25,
+        "color": "#3B82F6",
+        "applied": 0,
+        "threshold": 0.6,
+        "alert": false,
+        "tier": "private",
+        "deprecated": false,
+        "memory_nodes": [
+          "GEN-001",
+          "GEN-002",
+          "GEN-003",
+          "GEN-004",
+          "GEN-007"
+        ]
+      },
+      {
+        "id": "M-01",
+        "label": "blackboard-mcp",
+        "type": "mcp",
+        "hardness": "explicit-import",
+        "health": 0.684,
+        "tokens": 80,
+        "meta": "CUHK Blackboard MCP via Playwright. Tools: courses, assignments, grades, materials.",
+        "tags": [
+          "cuhk",
+          "academic",
+          "playwright",
+          "assignments",
+          "grades"
+        ],
+        "triggers": [
+          "blackboard",
+          "cuhk",
+          "assignment",
+          "deadline",
+          "grades",
+          "course material"
+        ],
+        "version": "1.0",
+        "r": 22,
+        "color": "#10B981",
+        "applied": 0,
+        "threshold": 0.5,
+        "alert": false,
+        "tier": "private",
+        "deprecated": false,
+        "memory_nodes": [
+          "MCP-001"
+        ]
+      },
+      {
+        "id": "M-02",
+        "label": "deep-research-mcp",
+        "type": "mcp",
+        "hardness": "explicit-import",
+        "health": 0.6758,
+        "tokens": 60,
+        "meta": "Multi-phase research MCP on Railway. Explore->synthesise->gap-fill->report.",
+        "tags": [
+          "research",
+          "railway",
+          "multi-phase",
+          "papers",
+          "deep-research"
+        ],
+        "triggers": [
+          "deep research",
+          "research papers",
+          "arxiv",
+          "multi-phase research",
+          "comprehensive research"
+        ],
+        "version": "1.0",
+        "r": 22,
+        "color": "#10B981",
+        "applied": 0,
+        "threshold": 0.5,
+        "alert": false,
+        "tier": "private",
+        "deprecated": false,
+        "memory_nodes": [
+          "MCP-002"
+        ]
+      },
+      {
+        "id": "C-01",
+        "label": "Notion",
+        "type": "connector",
+        "hardness": "explicit-import",
+        "health": 0.7873,
+        "tokens": 50,
+        "meta": "Notion connector. Search, create, update pages and databases.",
+        "tags": [
+          "notion",
+          "notes",
+          "tasks",
+          "docs",
+          "database"
+        ],
+        "triggers": [
+          "notion",
+          "notes",
+          "database",
+          "task board",
+          "project doc"
+        ],
+        "version": "1.0",
+        "r": 24,
+        "color": "#10B981",
+        "applied": 0,
+        "threshold": 0.5,
+        "alert": false,
+        "tier": "private",
+        "deprecated": false,
+        "memory_nodes": []
+      }
+    ],
+    "edges": [
+      {
+        "source": "S-01",
+        "target": "META-05",
+        "kind": "cross_applies"
+      },
+      {
+        "source": "S-01",
+        "target": "META-07",
+        "kind": "cross_applies"
+      },
+      {
+        "source": "META-01",
+        "target": "META-02",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-01",
+        "target": "META-03",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-01",
+        "target": "META-04",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-01",
+        "target": "META-05",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-02",
+        "target": "META-01",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-02",
+        "target": "META-03",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-03",
+        "target": "META-02",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-03",
+        "target": "META-04",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-03",
+        "target": "META-01",
+        "kind": "cross_applies"
+      },
+      {
+        "source": "META-04",
+        "target": "META-01",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-04",
+        "target": "META-03",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-04",
+        "target": "META-02",
+        "kind": "cross_applies"
+      },
+      {
+        "source": "META-05",
+        "target": "META-01",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-05",
+        "target": "META-02",
+        "kind": "cross_applies"
+      },
+      {
+        "source": "META-05",
+        "target": "META-03",
+        "kind": "cross_applies"
+      },
+      {
+        "source": "META-05",
+        "target": "META-04",
+        "kind": "cross_applies"
+      },
+      {
+        "source": "META-05",
+        "target": "META-06",
+        "kind": "cross_applies"
+      },
+      {
+        "source": "META-06",
+        "target": "META-01",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-06",
+        "target": "META-05",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-06",
+        "target": "META-02",
+        "kind": "cross_applies"
+      },
+      {
+        "source": "META-06",
+        "target": "META-06",
+        "kind": "cross_applies"
+      },
+      {
+        "source": "META-07",
+        "target": "META-05",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-07",
+        "target": "META-01",
+        "kind": "connects_to"
+      },
+      {
+        "source": "META-08",
+        "target": "META-07",
+        "kind": "connects_to"
+      },
+      {
+        "source": "GEN-ERR-001",
+        "target": "S-01",
+        "kind": "cross_applies"
+      },
+      {
+        "source": "M-01",
+        "target": "S-01",
+        "kind": "cross_applies"
+      },
+      {
+        "source": "M-01",
+        "target": "META-07",
+        "kind": "cross_applies"
+      },
+      {
+        "source": "M-02",
+        "target": "S-01",
+        "kind": "cross_applies"
+      },
+      {
+        "source": "M-02",
+        "target": "META-02",
+        "kind": "cross_applies"
+      }
+    ]
+  },
+  "mem_graph": {
+    "nodes": [
+      {
+        "id": "ART-170631",
+        "t": "ART",
+        "proj": "ART",
+        "w": 0.8,
+        "c": "ART[2026-04-09] /Users/igsl/.igsl-skills/skills/meta/variant-manager/S",
+        "tags": [
+          "artifact",
+          "md"
+        ],
+        "ts": "2026-04-09",
+        "active": true,
+        "open_loop": false,
+        "color": "#F97316",
+        "r": 15,
+        "cx": 0.5,
+        "cy": 0.5,
+        "cluster_color": "#64748B"
+      },
+      {
+        "id": "ART-172908",
+        "t": "ART",
+        "proj": "ART",
+        "w": 0.8,
+        "c": "ART[2026-04-09] /tmp/test.py",
+        "tags": [
+          "artifact",
+          "py"
+        ],
+        "ts": "2026-04-09",
+        "active": true,
+        "open_loop": false,
+        "color": "#F97316",
+        "r": 15,
+        "cx": 0.5,
+        "cy": 0.5,
+        "cluster_color": "#64748B"
+      },
+      {
+        "id": "ART-173031",
+        "t": "ART",
+        "proj": "ART",
+        "w": 0.8,
+        "c": "ART[2026-04-09] /tmp/test.py",
+        "tags": [
+          "artifact",
+          "py"
+        ],
+        "ts": "2026-04-09",
+        "active": true,
+        "open_loop": false,
+        "color": "#F97316",
+        "r": 15,
+        "cx": 0.5,
+        "cy": 0.5,
+        "cluster_color": "#64748B"
+      },
+      {
+        "id": "CRS-001",
+        "t": "ART",
+        "proj": "CRS",
+        "w": 0.8,
+        "c": "ART[2026-04-09] ~/coursework/FINA4120/assignment3_submission.pdf",
+        "tags": [
+          "coursework",
+          "cuhk",
+          "artifact"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#F97316",
+        "r": 15,
+        "cx": 0.5,
+        "cy": 0.88,
+        "cluster_color": "#B45309"
+      },
+      {
+        "id": "CRS-002",
+        "t": "DEC",
+        "proj": "CRS",
+        "w": 0.8,
+        "c": "CUHK format: PDF via Blackboard; filename: STUDENTID_COURSECODE_ASS#.p",
+        "tags": [
+          "coursework",
+          "cuhk",
+          "submission"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#22C55E",
+        "r": 15,
+        "cx": 0.5,
+        "cy": 0.88,
+        "cluster_color": "#B45309"
+      },
+      {
+        "id": "GEN-001",
+        "t": "GEN",
+        "proj": "GEN",
+        "w": 0.8,
+        "c": "Large DataFrames (>1M rows): vectorized ops, avoid apply(), numba for ",
+        "tags": [
+          "python",
+          "performance",
+          "dataframe"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#64748B",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.75,
+        "cluster_color": "#475569"
+      },
+      {
+        "id": "GEN-002",
+        "t": "GEN",
+        "proj": "GEN",
+        "w": 0.8,
+        "c": "Feature branch: from main, PR, squash merge; never force-push main",
+        "tags": [
+          "git",
+          "workflow"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#64748B",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.75,
+        "cluster_color": "#475569"
+      },
+      {
+        "id": "GEN-003",
+        "t": "GEN",
+        "proj": "GEN",
+        "w": 0.8,
+        "c": "API retry: exp backoff 1\u21922\u21924\u21928s, max 4 retries, jitter \u00b120%; 429\u2192immed",
+        "tags": [
+          "api",
+          "retry",
+          "pattern"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#64748B",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.75,
+        "cluster_color": "#475569"
+      },
+      {
+        "id": "GEN-004",
+        "t": "GEN",
+        "proj": "GEN",
+        "w": 0.8,
+        "c": "LaTeX: use \\input{} not \\include{} (no page break); hyperref must be l",
+        "tags": [
+          "latex",
+          "typesetting"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#64748B",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.75,
+        "cluster_color": "#475569"
+      },
+      {
+        "id": "GEN-005",
+        "t": "ERR",
+        "proj": "GEN",
+        "w": 0.8,
+        "c": "LaTeX 'undefined control sequence': missing package or typo; check log",
+        "tags": [
+          "latex",
+          "error",
+          "common"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#EC4899",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.75,
+        "cluster_color": "#475569"
+      },
+      {
+        "id": "GEN-006",
+        "t": "GEN",
+        "proj": "GEN",
+        "w": 0.8,
+        "c": "Claude Code: give file+line, state what NOT to change, prefer Edit ove",
+        "tags": [
+          "claude",
+          "prompting"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#64748B",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.75,
+        "cluster_color": "#475569"
+      },
+      {
+        "id": "GEN-007",
+        "t": "PAT",
+        "proj": "GEN",
+        "w": 0.8,
+        "c": "Debug: reproduce\u2192isolate\u2192hypothesize\u2192test ONE change\u2192verify. Never cha",
+        "tags": [
+          "debugging",
+          "systematic"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#3B82F6",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.75,
+        "cluster_color": "#475569"
+      },
+      {
+        "id": "GEN-008",
+        "t": "GEN",
+        "proj": "GEN",
+        "w": 0.8,
+        "c": "launchd: StartInterval=poll, StartCalendarInterval=cron; plist in ~/Li",
+        "tags": [
+          "macos",
+          "launchd"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#64748B",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.75,
+        "cluster_color": "#475569"
+      },
+      {
+        "id": "GEN-009",
+        "t": "GEN",
+        "proj": "GEN",
+        "w": 0.8,
+        "c": "jsonschema: draft7, $defs for reusable types, additionalProperties:fal",
+        "tags": [
+          "json",
+          "schema"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#64748B",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.75,
+        "cluster_color": "#475569"
+      },
+      {
+        "id": "GEN-010",
+        "t": "PAT",
+        "proj": "GEN",
+        "w": 0.8,
+        "c": "Bash: set -euo pipefail; quote all vars; [[ ]] not [ ]; trap EXIT for ",
+        "tags": [
+          "bash",
+          "scripting"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#3B82F6",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.75,
+        "cluster_color": "#475569"
+      },
+      {
+        "id": "HMS-001",
+        "t": "DEC",
+        "proj": "HMS",
+        "w": 1.0,
+        "c": "HMS IC window: rolling 252d; shorter=noisy, longer=misses regime shift",
+        "tags": [
+          "hms",
+          "alpha",
+          "factor"
+        ],
+        "ts": "2026-04-09",
+        "active": true,
+        "open_loop": false,
+        "color": "#22C55E",
+        "r": 18,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-002",
+        "t": "PAT",
+        "proj": "HMS",
+        "w": 1.0,
+        "c": "Factor pipeline: raw\u2192winsorize(1,99)\u2192cross-z-score\u2192neutralize(industry",
+        "tags": [
+          "hms",
+          "pipeline",
+          "etl"
+        ],
+        "ts": "2026-04-09",
+        "active": true,
+        "open_loop": false,
+        "color": "#3B82F6",
+        "r": 18,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-003",
+        "t": "DEC",
+        "proj": "HMS",
+        "w": 0.8,
+        "c": "TWAP 30min for positions >0.5% ADV to minimize market impact; slippage",
+        "tags": [
+          "hms",
+          "execution",
+          "twap"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#22C55E",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-004",
+        "t": "ARCH",
+        "proj": "HMS",
+        "w": 0.8,
+        "c": "Data: Wind (CN equities), Bloomberg (cross-asset FX), internal HDF5 ti",
+        "tags": [
+          "hms",
+          "architecture",
+          "data"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#A855F7",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-005",
+        "t": "PAT",
+        "proj": "HMS",
+        "w": 0.8,
+        "c": "Risk controls: max pos 3%, sector cap 15%, turnover penalty 0.003/unit",
+        "tags": [
+          "hms",
+          "backtest",
+          "risk"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#3B82F6",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-006",
+        "t": "DEC",
+        "proj": "HMS",
+        "w": 0.8,
+        "c": "Momentum: 12-1 month returns (skip last month) \u2014 Jegadeesh-Titman; raw",
+        "tags": [
+          "hms",
+          "factor",
+          "momentum"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#22C55E",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-007",
+        "t": "ART",
+        "proj": "HMS",
+        "w": 0.8,
+        "c": "ART[2026-04-09] ~/hms/notebooks/factor_ic_analysis_2026Q1.ipynb",
+        "tags": [
+          "hms",
+          "artifact",
+          "notebook"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#F97316",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-008",
+        "t": "PAT",
+        "proj": "HMS",
+        "w": 1.0,
+        "c": "Signal blend: IC-weighted equal-weight; recalibrate quarterly; expandi",
+        "tags": [
+          "hms",
+          "signal",
+          "combination"
+        ],
+        "ts": "2026-04-09",
+        "active": true,
+        "open_loop": false,
+        "color": "#3B82F6",
+        "r": 18,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-009",
+        "t": "DEC",
+        "proj": "HMS",
+        "w": 0.8,
+        "c": "Universe: CSI 500+CSI 300, exclude ST, min 60d history, min float 500M",
+        "tags": [
+          "hms",
+          "universe"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#22C55E",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-010",
+        "t": "ARCH",
+        "proj": "HMS",
+        "w": 1.0,
+        "c": "Autoresearch: launchd 08:30 HKT daily \u2192 factor report + signal update",
+        "tags": [
+          "hms",
+          "infrastructure",
+          "scheduler"
+        ],
+        "ts": "2026-04-09",
+        "active": true,
+        "open_loop": false,
+        "color": "#A855F7",
+        "r": 18,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-011",
+        "t": "PAT",
+        "proj": "HMS",
+        "w": 0.8,
+        "c": "Risk model: Barra-style, 10 style factors + industry dummies; estimati",
+        "tags": [
+          "hms",
+          "risk",
+          "model"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#3B82F6",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-012",
+        "t": "DEC",
+        "proj": "HMS",
+        "w": 0.8,
+        "c": "Rebalance: weekly Friday close; daily signal update; min 1% turnover t",
+        "tags": [
+          "hms",
+          "rebalance"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#22C55E",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-013",
+        "t": "GEN",
+        "proj": "HMS",
+        "w": 0.8,
+        "c": "IC > 0.05 \u2192 live-tradeable; IC > 0.08 \u2192 strong; decay half-life < 5d \u2192",
+        "tags": [
+          "hms",
+          "quant",
+          "ic"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#64748B",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-014",
+        "t": "PAT",
+        "proj": "HMS",
+        "w": 0.8,
+        "c": "NLP sentiment: SnowNLP (CN), BERT-base-chinese; news from Tushare + Wi",
+        "tags": [
+          "hms",
+          "nlp",
+          "sentiment"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#3B82F6",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-015",
+        "t": "LOOP",
+        "proj": "HMS",
+        "w": 0.8,
+        "c": "\u25cb OPEN: Options flow as HMS alpha signal. No conclusion. Pending data ",
+        "tags": [
+          "hms",
+          "open",
+          "factor"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": true,
+        "color": "#EF4444",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-016",
+        "t": "ERR",
+        "proj": "HMS",
+        "w": 1.0,
+        "c": "FIXED: Lookahead bias \u2014 factor neutralization used full-sample mean; f",
+        "tags": [
+          "hms",
+          "bug",
+          "lookahead"
+        ],
+        "ts": "2026-04-09",
+        "active": true,
+        "open_loop": false,
+        "color": "#EC4899",
+        "r": 18,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "HMS-017",
+        "t": "ART",
+        "proj": "HMS",
+        "w": 0.8,
+        "c": "ART[2026-04-09] ~/hms/reports/weekly_signal_report_2026W14.pdf",
+        "tags": [
+          "hms",
+          "artifact",
+          "report"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#F97316",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.4,
+        "cluster_color": "#1D4ED8"
+      },
+      {
+        "id": "MCP-001",
+        "t": "ARCH",
+        "proj": "MCP",
+        "w": 0.8,
+        "c": "Blackboard MCP: shared state for multi-agent; keys namespaced by proje",
+        "tags": [
+          "mcp",
+          "blackboard"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#A855F7",
+        "r": 15,
+        "cx": 0.5,
+        "cy": 0.15,
+        "cluster_color": "#0891B2"
+      },
+      {
+        "id": "MCP-002",
+        "t": "ARCH",
+        "proj": "MCP",
+        "w": 0.8,
+        "c": "Deep Research MCP: Firecrawl+Claude synthesis; max 20 pages/query; out",
+        "tags": [
+          "mcp",
+          "deep-research",
+          "firecrawl"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#A855F7",
+        "r": 15,
+        "cx": 0.5,
+        "cy": 0.15,
+        "cluster_color": "#0891B2"
+      },
+      {
+        "id": "OC-001",
+        "t": "ARCH",
+        "proj": "OC",
+        "w": 0.8,
+        "c": "OpenClaude: Claude Code + MCP + Edge TTS + WhatsApp. Loop: message\u2192cla",
+        "tags": [
+          "openclaude",
+          "architecture",
+          "mcp"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#A855F7",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.75,
+        "cluster_color": "#7C3AED"
+      },
+      {
+        "id": "OC-002",
+        "t": "DEC",
+        "proj": "OC",
+        "w": 0.8,
+        "c": "Keyed queue: one slot per sender; newer overwrites pending \u2014 prevents ",
+        "tags": [
+          "openclaude",
+          "queue",
+          "keyed"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#22C55E",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.75,
+        "cluster_color": "#7C3AED"
+      },
+      {
+        "id": "OC-003",
+        "t": "PAT",
+        "proj": "OC",
+        "w": 0.8,
+        "c": "Dual timeout: 30s tool-call (hard), 90s total (soft); escalates to fal",
+        "tags": [
+          "openclaude",
+          "timeout",
+          "dual"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#3B82F6",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.75,
+        "cluster_color": "#7C3AED"
+      },
+      {
+        "id": "OC-004",
+        "t": "ERR",
+        "proj": "OC",
+        "w": 0.8,
+        "c": "Crash recovery: supervisor, 5s backoff, max 3 restarts/hour to prevent",
+        "tags": [
+          "openclaude",
+          "crash",
+          "recovery"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#EC4899",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.75,
+        "cluster_color": "#7C3AED"
+      },
+      {
+        "id": "OC-005",
+        "t": "LOOP",
+        "proj": "OC",
+        "w": 0.8,
+        "c": "\u25cb OPEN: Calendar/email integration. WhatsApp\u2192'my calendar'\u2192Google Cal.",
+        "tags": [
+          "openclaude",
+          "open",
+          "calendar"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": true,
+        "color": "#EF4444",
+        "r": 15,
+        "cx": 0.22,
+        "cy": 0.75,
+        "cluster_color": "#7C3AED"
+      },
+      {
+        "id": "SERR-001",
+        "t": "ERR",
+        "proj": "SERR",
+        "w": 0.8,
+        "c": "ERR: skill quant-research health=0.27<0.60 | evolve with FIX mode",
+        "tags": [
+          "skill-health",
+          "S-01",
+          "low-health"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#EC4899",
+        "r": 15,
+        "cx": 0.6,
+        "cy": 0.5,
+        "cluster_color": "#EC4899"
+      },
+      {
+        "id": "SK-001",
+        "t": "DEC",
+        "proj": "SK",
+        "w": 1.0,
+        "c": "IGSL v2 health: EMA \u03b1=0.1; formula=applied\u00d7completion\u00d7(1-0.5\u00d7fallback)",
+        "tags": [
+          "igsl",
+          "skill-graph",
+          "health"
+        ],
+        "ts": "2026-04-09",
+        "active": true,
+        "open_loop": false,
+        "color": "#22C55E",
+        "r": 18,
+        "cx": 0.78,
+        "cy": 0.25,
+        "cluster_color": "#166534"
+      },
+      {
+        "id": "SK-002",
+        "t": "DEC",
+        "proj": "SK",
+        "w": 0.8,
+        "c": "Memory half-lives: DEC=\u221e, PAT=30d, ARCH=60d, ART=14d, LOOP=\u221e, GEN=90d,",
+        "tags": [
+          "igsl",
+          "memory",
+          "half-life"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#22C55E",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.25,
+        "cluster_color": "#166534"
+      },
+      {
+        "id": "SK-003",
+        "t": "ARCH",
+        "proj": "SK",
+        "w": 0.8,
+        "c": "Token budget: T0(80)+T1(50)+Index(50)+Hard(460)=640 always; soft skill",
+        "tags": [
+          "igsl",
+          "token-budget"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#A855F7",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.25,
+        "cluster_color": "#166534"
+      },
+      {
+        "id": "SK-004",
+        "t": "PAT",
+        "proj": "SK",
+        "w": 1.0,
+        "c": "BM25 boost: score\u00d7(0.6+0.4\u00d7health); memory: score\u00d7w\u00d7recency_factor=exp",
+        "tags": [
+          "igsl",
+          "bm25",
+          "search"
+        ],
+        "ts": "2026-04-09",
+        "active": true,
+        "open_loop": false,
+        "color": "#3B82F6",
+        "r": 18,
+        "cx": 0.78,
+        "cy": 0.25,
+        "cluster_color": "#166534"
+      },
+      {
+        "id": "SK-005",
+        "t": "DEC",
+        "proj": "SK",
+        "w": 0.8,
+        "c": "EvoGraph: FIX/DERIVED/CAPTURED modes; parent\u2192child with session_id+tri",
+        "tags": [
+          "igsl",
+          "evograph",
+          "lineage"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#22C55E",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.25,
+        "cluster_color": "#166534"
+      },
+      {
+        "id": "SK-006",
+        "t": "LOOP",
+        "proj": "SK",
+        "w": 0.8,
+        "c": "\u25cb OPEN: Semantic embedding search for skills via all-MiniLM-L6-v2. Not",
+        "tags": [
+          "igsl",
+          "open",
+          "embedding"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": true,
+        "color": "#EF4444",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.25,
+        "cluster_color": "#166534"
+      },
+      {
+        "id": "SK-007",
+        "t": "PAT",
+        "proj": "SK",
+        "w": 0.8,
+        "c": "Hook chain: session_start_v2.sh\u2192additionalContext; health_recorder.py ",
+        "tags": [
+          "igsl",
+          "session",
+          "hook"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#3B82F6",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.25,
+        "cluster_color": "#166534"
+      },
+      {
+        "id": "SK-008",
+        "t": "DEC",
+        "proj": "SK",
+        "w": 0.8,
+        "c": "5 bridges: skill-applied, memory-to-skills, health-sync, session-conte",
+        "tags": [
+          "igsl",
+          "integrate",
+          "bidirectional"
+        ],
+        "ts": "2026-04-09",
+        "active": false,
+        "open_loop": false,
+        "color": "#22C55E",
+        "r": 15,
+        "cx": 0.78,
+        "cy": 0.25,
+        "cluster_color": "#166534"
+      }
+    ],
+    "edges": []
+  },
+  "health": [
+    {
+      "id": "GEN-ERR-001",
+      "name": "latex-errors",
+      "hardness": "soft-hook",
+      "color": "#3B82F6",
+      "health": 0.8829,
+      "applied": 0.91,
+      "completion": 0.98,
+      "fallback": 0.02,
+      "threshold": 0.6,
+      "n": 0,
+      "tokens": 220,
+      "sparkline": [
+        0.784,
+        0.813,
+        0.824,
+        0.823,
+        0.807,
+        0.822,
+        0.827,
+        0.876,
+        0.865,
+        0.874,
+        0.844,
+        0.842,
+        0.853,
+        0.8829
+      ],
+      "alert": false,
+      "version": "1.1",
+      "meta": "LaTeX/TikZ errors: step->nodestep, tag->ctag, fontawesome5, pdflatex 2-pass."
+    },
+    {
+      "id": "META-07",
+      "name": "memory-system",
+      "hardness": "hard",
+      "color": "#EF4444",
+      "health": 0.8332,
+      "applied": 1.0,
+      "completion": 0.8332,
+      "fallback": 0.0,
+      "threshold": 0.8,
+      "n": 4,
+      "tokens": 180,
+      "sparkline": [
+        0.746,
+        0.773,
+        0.734,
+        0.763,
+        0.785,
+        0.781,
+        0.776,
+        0.785,
+        0.827,
+        0.807,
+        0.802,
+        0.834,
+        0.825,
+        0.8332
+      ],
+      "alert": false,
+      "version": "2.0",
+      "meta": "Always-on. Memory write protocol: node.py add/update/close/link."
+    },
+    {
+      "id": "META-05",
+      "name": "auto-improve",
+      "hardness": "hard",
+      "color": "#EF4444",
+      "health": 0.8266,
+      "applied": 1.0,
+      "completion": 0.8266,
+      "fallback": 0.0,
+      "threshold": 0.8,
+      "n": 4,
+      "tokens": 280,
+      "sparkline": [
+        0.7,
+        0.708,
+        0.724,
+        0.755,
+        0.751,
+        0.756,
+        0.73,
+        0.723,
+        0.727,
+        0.75,
+        0.786,
+        0.791,
+        0.802,
+        0.8266
+      ],
+      "alert": false,
+      "version": "1.0",
+      "meta": "Always-on. Session journal, captures corrections, proposes diffs at Stop."
+    },
+    {
+      "id": "S-01",
+      "name": "quant-research",
+      "hardness": "soft-hook",
+      "color": "#3B82F6",
+      "health": 0.7933,
+      "applied": 0.87,
+      "completion": 0.94,
+      "fallback": 0.06,
+      "threshold": 0.6,
+      "n": 47,
+      "tokens": 1420,
+      "sparkline": [
+        0.705,
+        0.721,
+        0.737,
+        0.778,
+        0.761,
+        0.728,
+        0.756,
+        0.773,
+        0.789,
+        0.793,
+        0.788,
+        0.789,
+        0.799,
+        0.7933
+      ],
+      "alert": false,
+      "version": "2.0",
+      "meta": "Renaissance quant. LOB microstructure, factor models, RL execution, LaTeX, HMS architecture."
+    },
+    {
+      "id": "C-01",
+      "name": "Notion",
+      "hardness": "explicit-import",
+      "color": "#10B981",
+      "health": 0.7873,
+      "applied": 0.85,
+      "completion": 0.95,
+      "fallback": 0.05,
+      "threshold": 0.5,
+      "n": 0,
+      "tokens": 50,
+      "sparkline": [
+        0.672,
+        0.638,
+        0.677,
+        0.705,
+        0.697,
+        0.744,
+        0.751,
+        0.769,
+        0.752,
+        0.764,
+        0.765,
+        0.783,
+        0.803,
+        0.7873
+      ],
+      "alert": false,
+      "version": "1.0",
+      "meta": "Notion connector. Search, create, update pages and databases."
+    },
+    {
+      "id": "META-01",
+      "name": "graph-manager",
+      "hardness": "explicit-import",
+      "color": "#10B981",
+      "health": 0.7448,
+      "applied": 0.8,
+      "completion": 0.95,
+      "fallback": 0.04,
+      "threshold": 0.5,
+      "n": 0,
+      "tokens": 420,
+      "sparkline": [
+        0.63,
+        0.673,
+        0.685,
+        0.692,
+        0.71,
+        0.686,
+        0.689,
+        0.707,
+        0.73,
+        0.728,
+        0.738,
+        0.744,
+        0.76,
+        0.7448
+      ],
+      "alert": false,
+      "version": "1.0",
+      "meta": "Registry keeper. Add/update/deprecate nodes, bidirectional edges, audit."
+    },
+    {
+      "id": "META-08",
+      "name": "chat-retrieval",
+      "hardness": "explicit-import",
+      "color": "#10B981",
+      "health": 0.7217,
+      "applied": 0.8,
+      "completion": 0.93,
+      "fallback": 0.06,
+      "threshold": 0.5,
+      "n": 0,
+      "tokens": 200,
+      "sparkline": [
+        0.605,
+        0.614,
+        0.63,
+        0.643,
+        0.653,
+        0.667,
+        0.712,
+        0.696,
+        0.708,
+        0.695,
+        0.738,
+        0.75,
+        0.754,
+        0.7217
+      ],
+      "alert": false,
+      "version": "1.0",
+      "meta": "Find old chats via keyword index + pre-chunked extracts. BM25+embed."
+    },
+    {
+      "id": "META-03",
+      "name": "pipeline-builder",
+      "hardness": "explicit-import",
+      "color": "#10B981",
+      "health": 0.7066,
+      "applied": 0.8,
+      "completion": 0.92,
+      "fallback": 0.08,
+      "threshold": 0.5,
+      "n": 0,
+      "tokens": 360,
+      "sparkline": [
+        0.547,
+        0.58,
+        0.587,
+        0.59,
+        0.598,
+        0.625,
+        0.632,
+        0.69,
+        0.676,
+        0.659,
+        0.681,
+        0.713,
+        0.722,
+        0.7066
+      ],
+      "alert": false,
+      "version": "1.0",
+      "meta": "Design skill execution order, handoffs, generate project CLAUDE.md."
+    },
+    {
+      "id": "META-04",
+      "name": "gap-filler",
+      "hardness": "explicit-import",
+      "color": "#10B981",
+      "health": 0.6961,
+      "applied": 0.78,
+      "completion": 0.92,
+      "fallback": 0.06,
+      "threshold": 0.5,
+      "n": 0,
+      "tokens": 340,
+      "sparkline": [
+        0.636,
+        0.625,
+        0.62,
+        0.596,
+        0.614,
+        0.612,
+        0.642,
+        0.653,
+        0.658,
+        0.677,
+        0.719,
+        0.701,
+        0.689,
+        0.6961
+      ],
+      "alert": false,
+      "version": "1.0",
+      "meta": "Spec atomic new skills when pipeline-builder finds gap. Sandbox testing."
+    },
+    {
+      "id": "META-06",
+      "name": "variant-manager",
+      "hardness": "explicit-import",
+      "color": "#10B981",
+      "health": 0.6889,
+      "applied": 0.78,
+      "completion": 0.92,
+      "fallback": 0.08,
+      "threshold": 0.5,
+      "n": 0,
+      "tokens": 320,
+      "sparkline": [
+        0.47,
+        0.478,
+        0.503,
+        0.534,
+        0.508,
+        0.581,
+        0.545,
+        0.556,
+        0.578,
+        0.593,
+        0.601,
+        0.585,
+        0.585,
+        0.6889
+      ],
+      "alert": false,
+      "version": "1.0",
+      "meta": "Patch-overlay variants of base skills. Base stays canonical."
+    },
+    {
+      "id": "M-01",
+      "name": "blackboard-mcp",
+      "hardness": "explicit-import",
+      "color": "#10B981",
+      "health": 0.684,
+      "applied": 0.8,
+      "completion": 0.9,
+      "fallback": 0.1,
+      "threshold": 0.5,
+      "n": 0,
+      "tokens": 80,
+      "sparkline": [
+        0.628,
+        0.619,
+        0.619,
+        0.627,
+        0.639,
+        0.663,
+        0.654,
+        0.651,
+        0.657,
+        0.669,
+        0.661,
+        0.654,
+        0.692,
+        0.684
+      ],
+      "alert": false,
+      "version": "1.0",
+      "meta": "CUHK Blackboard MCP via Playwright. Tools: courses, assignments, grades, materials."
+    },
+    {
+      "id": "META-02",
+      "name": "skill-selector",
+      "hardness": "explicit-import",
+      "color": "#10B981",
+      "health": 0.6782,
+      "applied": 0.76,
+      "completion": 0.92,
+      "fallback": 0.06,
+      "threshold": 0.5,
+      "n": 0,
+      "tokens": 380,
+      "sparkline": [
+        0.6,
+        0.587,
+        0.62,
+        0.625,
+        0.598,
+        0.598,
+        0.58,
+        0.568,
+        0.557,
+        0.561,
+        0.592,
+        0.609,
+        0.617,
+        0.6782
+      ],
+      "alert": false,
+      "version": "1.0",
+      "meta": "Tag-query registry, rank by coverage, find gaps for new project."
+    },
+    {
+      "id": "M-02",
+      "name": "deep-research-mcp",
+      "hardness": "explicit-import",
+      "color": "#10B981",
+      "health": 0.6758,
+      "applied": 0.8,
+      "completion": 0.88,
+      "fallback": 0.08,
+      "threshold": 0.5,
+      "n": 0,
+      "tokens": 60,
+      "sparkline": [
+        0.478,
+        0.537,
+        0.56,
+        0.588,
+        0.625,
+        0.622,
+        0.596,
+        0.614,
+        0.628,
+        0.623,
+        0.648,
+        0.664,
+        0.646,
+        0.6758
+      ],
+      "alert": false,
+      "version": "1.0",
+      "meta": "Multi-phase research MCP on Railway. Explore->synthesise->gap-fill->report."
+    }
+  ],
+  "evo_tree": [
+    {
+      "from": "GEN-ERR-001@1.0",
+      "to": "GEN-ERR-001",
+      "mode": "CAPTURED",
+      "color": "#F59E0B",
+      "ts": "2026-04-09",
+      "trigger": "pattern-capture",
+      "old_ver": "1.0",
+      "new_ver": "1.1",
+      "delta": ""
+    }
+  ],
+  "token_scenarios": [
+    {
+      "label": "Base session",
+      "breakdown": [
+        {
+          "l": "T0 Identity",
+          "v": 80,
+          "c": "#EF4444"
+        },
+        {
+          "l": "T1 Session",
+          "v": 50,
+          "c": "#F97316"
+        },
+        {
+          "l": "Active Index",
+          "v": 50,
+          "c": "#EAB308"
+        },
+        {
+          "l": "Skill Meta-Scan",
+          "v": 150,
+          "c": "#22C55E"
+        },
+        {
+          "l": "Hard Skills",
+          "v": 460,
+          "c": "#3B82F6"
+        }
+      ]
+    },
+    {
+      "label": "HMS session (+S-01)",
+      "breakdown": [
+        {
+          "l": "T0 Identity",
+          "v": 80,
+          "c": "#EF4444"
+        },
+        {
+          "l": "T1 Session",
+          "v": 50,
+          "c": "#F97316"
+        },
+        {
+          "l": "Active Index",
+          "v": 50,
+          "c": "#EAB308"
+        },
+        {
+          "l": "Skill Meta-Scan",
+          "v": 150,
+          "c": "#22C55E"
+        },
+        {
+          "l": "Hard Skills",
+          "v": 460,
+          "c": "#3B82F6"
+        },
+        {
+          "l": "T2 hms.mem",
+          "v": 300,
+          "c": "#8B5CF6"
+        },
+        {
+          "l": "S-01 quant-research",
+          "v": 1420,
+          "c": "#06B6D4"
+        },
+        {
+          "l": "Bundle (latex-err)",
+          "v": 220,
+          "c": "#84CC16"
+        },
+        {
+          "l": "Memory query (5n)",
+          "v": 150,
+          "c": "#F472B6"
+        }
+      ]
+    },
+    {
+      "label": "Old design (always-on)",
+      "note": "v1: no progressive disclosure",
+      "breakdown": [
+        {
+          "l": "T0+T1",
+          "v": 230,
+          "c": "#EF4444"
+        },
+        {
+          "l": "Full project dump",
+          "v": 800,
+          "c": "#DC2626"
+        },
+        {
+          "l": "S-01 always",
+          "v": 1420,
+          "c": "#B91C1C"
+        }
+      ]
+    }
+  ],
+  "chat_index": [
+    {
+      "id": "CI-001",
+      "d": "2026-04-01",
+      "project": "hms",
+      "title": "Debugged lookahead bias in factor neutralization; fixed expanding window mean",
+      "tags": [
+        "hms",
+        "factor",
+        "bug",
+        "fix",
+        "lookahead"
+      ],
+      "concepts": [
+        "neutralization",
+        "expanding",
+        "window",
+        "mean",
+        "IC",
+        "calculation"
+      ],
+      "session": "ci-001"
+    },
+    {
+      "id": "CI-002",
+      "d": "2026-04-01",
+      "project": "hms",
+      "title": "Reviewed IC decay curves for momentum, value, quality; momentum 15d half-life",
+      "tags": [
+        "hms",
+        "ic",
+        "decay",
+        "momentum",
+        "analysis"
+      ],
+      "concepts": [
+        "Jegadeesh-Titman",
+        "factor",
+        "decay",
+        "half-life",
+        "Spearman"
+      ],
+      "session": "ci-002"
+    },
+    {
+      "id": "CI-003",
+      "d": "2026-04-02",
+      "project": "openclaude",
+      "title": "Fixed keyed queue race condition for rapid WhatsApp messages",
+      "tags": [
+        "openclaude",
+        "queue",
+        "race",
+        "bug",
+        "fix"
+      ],
+      "concepts": [
+        "keyed",
+        "queue",
+        "race",
+        "condition",
+        "concurrent",
+        "messages"
+      ],
+      "session": "ci-003"
+    },
+    {
+      "id": "CI-004",
+      "d": "2026-04-02",
+      "project": "openclaude",
+      "title": "Added dual timeout: 30s tool-call, 90s total; fallback text reply",
+      "tags": [
+        "openclaude",
+        "timeout",
+        "feature"
+      ],
+      "concepts": [
+        "dual",
+        "timeout",
+        "fallback",
+        "reply",
+        "30s",
+        "90s"
+      ],
+      "session": "ci-004"
+    },
+    {
+      "id": "CI-005",
+      "d": "2026-04-02",
+      "project": "igsl",
+      "title": "Designed IGSL v2: skill graph + memory node network + 5 integration bridges",
+      "tags": [
+        "igsl",
+        "architecture",
+        "design"
+      ],
+      "concepts": [
+        "skill",
+        "graph",
+        "memory",
+        "node",
+        "integration",
+        "bridge",
+        "v2"
+      ],
+      "session": "ci-005"
+    },
+    {
+      "id": "CI-006",
+      "d": "2026-04-03",
+      "project": "hms",
+      "title": "Implemented Barra-style risk model with 10 style factors",
+      "tags": [
+        "hms",
+        "risk-model",
+        "implementation"
+      ],
+      "concepts": [
+        "Barra",
+        "style",
+        "factor",
+        "industry",
+        "specific",
+        "risk"
+      ],
+      "session": "ci-006"
+    },
+    {
+      "id": "CI-007",
+      "d": "2026-04-03",
+      "project": "hms",
+      "title": "Options flow as alpha signal discussion \u2014 tracked as LOOP item",
+      "tags": [
+        "hms",
+        "options",
+        "alpha",
+        "open-loop"
+      ],
+      "concepts": [
+        "options",
+        "flow",
+        "low-frequency",
+        "signal",
+        "open",
+        "loop"
+      ],
+      "session": "ci-007"
+    },
+    {
+      "id": "CI-008",
+      "d": "2026-04-03",
+      "project": "openclaude",
+      "title": "Crash recovery supervisor: 5s backoff, max 3 restarts/hour",
+      "tags": [
+        "openclaude",
+        "supervisor",
+        "recovery"
+      ],
+      "concepts": [
+        "supervisor",
+        "crash",
+        "restart",
+        "backoff",
+        "throttle"
+      ],
+      "session": "ci-008"
+    },
+    {
+      "id": "CI-009",
+      "d": "2026-04-04",
+      "project": "igsl",
+      "title": "Built skill.py: BM25 search, EMA health scoring, EvoGraph lineage",
+      "tags": [
+        "igsl",
+        "skill.py",
+        "implementation"
+      ],
+      "concepts": [
+        "BM25",
+        "EMA",
+        "health",
+        "EvoGraph",
+        "lineage",
+        "CLI"
+      ],
+      "session": "ci-009"
+    },
+    {
+      "id": "CI-010",
+      "d": "2026-04-04",
+      "project": "igsl",
+      "title": "Defined memory node types and half-lives: DEC PAT ARCH ART LOOP GEN ERR",
+      "tags": [
+        "igsl",
+        "memory",
+        "types",
+        "half-life"
+      ],
+      "concepts": [
+        "DEC",
+        "permanent",
+        "PAT",
+        "30d",
+        "ARCH",
+        "60d",
+        "ART",
+        "14d",
+        "LOOP",
+        "GEN",
+        "90d",
+        "ERR",
+        "180d"
+      ],
+      "session": "ci-010"
+    },
+    {
+      "id": "CI-011",
+      "d": "2026-04-04",
+      "project": "igsl",
+      "title": "Token budget: T0+T1+Index+Hard=640 always; soft skills on demand",
+      "tags": [
+        "igsl",
+        "token-budget",
+        "progressive-loading"
+      ],
+      "concepts": [
+        "T0",
+        "T1",
+        "hard",
+        "soft",
+        "skills",
+        "640",
+        "tokens"
+      ],
+      "session": "ci-011"
+    },
+    {
+      "id": "CI-012",
+      "d": "2026-04-05",
+      "project": "hms",
+      "title": "NLP sentiment factor: SnowNLP + BERT-base-chinese; IC ~0.03",
+      "tags": [
+        "hms",
+        "nlp",
+        "sentiment",
+        "factor"
+      ],
+      "concepts": [
+        "SnowNLP",
+        "BERT",
+        "Chinese",
+        "sentiment",
+        "IC",
+        "0.03"
+      ],
+      "session": "ci-012"
+    },
+    {
+      "id": "CI-013",
+      "d": "2026-04-05",
+      "project": "hms",
+      "title": "Weekly portfolio rebalance: Friday close, min 1% turnover",
+      "tags": [
+        "hms",
+        "rebalance",
+        "portfolio"
+      ],
+      "concepts": [
+        "weekly",
+        "Friday",
+        "close",
+        "turnover",
+        "threshold"
+      ],
+      "session": "ci-013"
+    },
+    {
+      "id": "CI-014",
+      "d": "2026-04-05",
+      "project": "igsl",
+      "title": "Built memory/node.py: half-life decay, BM25 search, contradiction detection",
+      "tags": [
+        "igsl",
+        "node.py",
+        "memory",
+        "implementation"
+      ],
+      "concepts": [
+        "half-life",
+        "decay",
+        "BM25",
+        "weight",
+        "contradiction",
+        "semantic"
+      ],
+      "session": "ci-014"
+    },
+    {
+      "id": "CI-015",
+      "d": "2026-04-05",
+      "project": "igsl",
+      "title": "embed.py: all-MiniLM-L6-v2 semantic search; degrades to BM25 if torch unavailable",
+      "tags": [
+        "igsl",
+        "embed.py",
+        "semantic-search"
+      ],
+      "concepts": [
+        "MiniLM",
+        "embeddings",
+        "cosine",
+        "similarity",
+        "graceful",
+        "degradation"
+      ],
+      "session": "ci-015"
+    },
+    {
+      "id": "CI-016",
+      "d": "2026-04-06",
+      "project": "igsl",
+      "title": "integrate.py: 5 bidirectional skill-memory connections",
+      "tags": [
+        "igsl",
+        "integrate.py",
+        "bidirectional"
+      ],
+      "concepts": [
+        "skill",
+        "applied",
+        "memory",
+        "skills",
+        "health",
+        "sync",
+        "session",
+        "context",
+        "post-session"
+      ],
+      "session": "ci-016"
+    },
+    {
+      "id": "CI-017",
+      "d": "2026-04-06",
+      "project": "igsl",
+      "title": "session_start_v2.sh: project detection, active index rebuild, health-sync",
+      "tags": [
+        "igsl",
+        "session-hook",
+        "bash"
+      ],
+      "concepts": [
+        "project",
+        "detection",
+        "additionalContext",
+        "JSON",
+        "health",
+        "sync"
+      ],
+      "session": "ci-017"
+    },
+    {
+      "id": "CI-018",
+      "d": "2026-04-06",
+      "project": "igsl",
+      "title": "health_recorder.py: PostToolUse hook \u2014 tool log, ART nodes, failure journal",
+      "tags": [
+        "igsl",
+        "health-recorder",
+        "hook"
+      ],
+      "concepts": [
+        "tool",
+        "log",
+        "ART",
+        "nodes",
+        "failure",
+        "journal",
+        "PostToolUse"
+      ],
+      "session": "ci-018"
+    },
+    {
+      "id": "CI-019",
+      "d": "2026-04-07",
+      "project": "igsl",
+      "title": "retrospective_v2.py: stop_hook_active loop prevention, post-session synthesis",
+      "tags": [
+        "igsl",
+        "retrospective",
+        "stop-hook"
+      ],
+      "concepts": [
+        "infinite",
+        "loop",
+        "prevention",
+        "stop_hook_active",
+        "synthesis",
+        "proposals"
+      ],
+      "session": "ci-019"
+    },
+    {
+      "id": "CI-020",
+      "d": "2026-04-07",
+      "project": "igsl",
+      "title": "cascade_watcher.py: MCP file changes, git drift, health degradation",
+      "tags": [
+        "igsl",
+        "cascade",
+        "watcher"
+      ],
+      "concepts": [
+        "MCP",
+        "drift",
+        "health",
+        "degradation",
+        "cascade",
+        "dependency"
+      ],
+      "session": "ci-020"
+    },
+    {
+      "id": "CI-021",
+      "d": "2026-04-07",
+      "project": "openclaude",
+      "title": "Calendar/email integration tracked as LOOP OC-005",
+      "tags": [
+        "openclaude",
+        "calendar",
+        "open-loop"
+      ],
+      "concepts": [
+        "Google",
+        "Calendar",
+        "email",
+        "integration",
+        "WhatsApp"
+      ],
+      "session": "ci-021"
+    },
+    {
+      "id": "CI-022",
+      "d": "2026-04-08",
+      "project": "igsl",
+      "title": "apply_proposals.py: interactive y/n/edit/skip-all review; archives to applied/",
+      "tags": [
+        "igsl",
+        "proposals",
+        "apply",
+        "review"
+      ],
+      "concepts": [
+        "interactive",
+        "proposal",
+        "review",
+        "archive"
+      ],
+      "session": "ci-022"
+    },
+    {
+      "id": "CI-023",
+      "d": "2026-04-08",
+      "project": "hms",
+      "title": "HMS autoresearch scheduler: daily 08:30 HKT factor report + signal update",
+      "tags": [
+        "hms",
+        "scheduler",
+        "launchd",
+        "automation"
+      ],
+      "concepts": [
+        "launchd",
+        "08:30",
+        "HKT",
+        "daily",
+        "factor",
+        "signal",
+        "report"
+      ],
+      "session": "ci-023"
+    },
+    {
+      "id": "CI-024",
+      "d": "2026-04-09",
+      "project": "igsl",
+      "title": "Completed IGSL v2 build: all 35 files committed to git",
+      "tags": [
+        "igsl",
+        "build",
+        "complete"
+      ],
+      "concepts": [
+        "skill.py",
+        "node.py",
+        "integrate.py",
+        "hooks",
+        "settings",
+        "registry"
+      ],
+      "session": "ci-024"
+    },
+    {
+      "id": "CI-025",
+      "d": "2026-04-09",
+      "project": "igsl",
+      "title": "Seeded 44 memory nodes: HMS/OC/SK/MCP/GEN/CRS prefixed",
+      "tags": [
+        "igsl",
+        "seed-data",
+        "memory",
+        "nodes"
+      ],
+      "concepts": [
+        "44",
+        "nodes",
+        "HMS",
+        "OC",
+        "SK",
+        "MCP",
+        "GEN",
+        "CRS",
+        "seed"
+      ],
+      "session": "ci-025"
+    }
+  ],
+  "active_nodes": [
+    "HMS-016",
+    "HMS-001",
+    "HMS-010",
+    "ART-170631",
+    "SK-004",
+    "ART-173031",
+    "SK-001",
+    "ART-172908",
+    "HMS-002",
+    "HMS-008"
+  ],
+  "qa": {
+    "run_at": "2026-04-09T09:30:30.237798",
+    "system": {
+      "skill.py exists": "pass",
+      "node.py exists": "pass",
+      "integrate.py exists": "pass",
+      "embed.py exists": "pass",
+      "query.py exists": "pass",
+      "cascade_watcher.py exists": "pass",
+      "session_start_v2.sh exists": "pass",
+      "health_recorder.py exists": "pass",
+      "retrospective_v2.py exists": "pass",
+      "apply_proposals.py exists": "pass",
+      "_registry_v2.yaml exists": "pass",
+      "nodes.jsonl exists": "pass",
+      "t0_identity.mem exists": "pass",
+      "chat-index.jsonl exists": "pass",
+      "active-index.json exists": "pass",
+      "settings installed": "pass",
+      "git initialized": "pass",
+      "CLAUDE.md exists": "pass",
+      "skills/meta/auto-improve/SKILL.md": "pass",
+      "skills/meta/memory-system/SKILL.md": "pass",
+      "skills/meta/graph-manager/SKILL.md": "pass",
+      "skills/meta/skill-selector/SKILL.md": "pass",
+      "skills/meta/pipeline-builder/SKILL.md": "pass",
+      "skills/meta/gap-filler/SKILL.md": "pass",
+      "skills/meta/variant-manager/SKILL.md": "pass",
+      "skills/meta/chat-retrieval/SKILL.md": "pass",
+      "skills/user/latex-errors/SKILL.md": "pass",
+      "skills/quant/quant-research/SKILL.md": "pass",
+      "templates/CLAUDE_v2_template.md": "pass",
+      "templates/CLAUDE_hms.md": "pass",
+      "templates/CLAUDE_coursework.md": "pass",
+      "templates/CLAUDE_skills.md": "pass",
+      "registry_nodes": 13,
+      "evograph_edges": 5,
+      "evograph_stress_edges": 0,
+      "real_nodes": 46,
+      "stress_nodes": 0,
+      "total_nodes": 47
+    },
+    "skill_graph": {
+      "skill show: exit 0": "pass",
+      "skill show: has nodes": "pass",
+      "skill scan: exit 0": "pass",
+      "skill scan: has output": "pass",
+      "skill query: exit 0": "pass",
+      "skill query: finds S-01": "pass",
+      "skill health show: exit 0": "pass",
+      "skill health show: bars": "pass",
+      "skill health alert: exit 0": "pass",
+      "skill bundle suggest: exit 0": "pass",
+      "skill lineage: exit 0": "pass",
+      "skill lineage: has output": "pass",
+      "registry has 13+ nodes (13)": "pass",
+      "evograph: no stress contamination": "pass"
+    },
+    "memory_network": {
+      "node show: exit 0": "pass",
+      "node show: reports nodes": "pass",
+      "node show: type distribution": "pass",
+      "node query: exit 0": "pass",
+      "node query: finds HMS nodes": "pass",
+      "node fetch HMS-001: exit 0": "pass",
+      "node fetch HMS-001: content": "pass",
+      "node active: exit 0": "pass",
+      "no STRESS nodes in nodes.jsonl (0 found)": "pass",
+      "active index: has nodes (10)": "pass",
+      "chat index: 20+ entries (25)": "pass",
+      "chat query search: exit 0": "pass",
+      "chat query: finds results": "pass"
+    },
+    "integration": {
+      "integrate session-context": "pass",
+      "integrate health-sync": "pass",
+      "integrate memory-to-skills": "pass",
+      "integrate skill-applied": "pass"
+    },
+    "hooks": {
+      "stop hook: exit 0 on stop_hook_active": "pass",
+      "stop hook: silent on stop_hook_active": "pass",
+      "health_recorder: success Write payload": "pass",
+      "health_recorder: failure payload": "pass",
+      "health_recorder: malformed JSON": "pass",
+      "health_recorder: empty stdin": "pass",
+      "session_start: valid JSON output": "pass",
+      "session_start: exit 0": "pass",
+      "cascade_watcher: exit 0": "pass",
+      "settings: SessionStart hook": "pass",
+      "settings: PostToolUse hook": "pass",
+      "settings: Stop hook": "pass",
+      "settings: SubagentStop hook": "pass",
+      "settings: valid JSON": "pass"
+    },
+    "data_integrity": {
+      "nodes.jsonl: no schema errors (0 found)": "pass",
+      "nodes.jsonl: no duplicate IDs (0 found)": "pass",
+      "registry paths exist (0 missing)": "pass",
+      "_evograph.jsonl: valid JSON (0 errors)": "pass"
+    },
+    "failures": [],
+    "warnings": [],
+    "passed": 81,
+    "failed": 0
+  }
+}
