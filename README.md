@@ -96,6 +96,198 @@ python3 ~/.igsl-skills/igsl_manage.py status  # full health report
 
 ---
 
+## Tutorial
+
+### 1. Check the system is alive
+
+Start a new Claude Code session. The session start hook fires automatically and injects context. To verify:
+
+```bash
+python3 ~/.igsl-skills/igsl_manage.py check
+# PASS
+
+python3 ~/.igsl-skills/igsl_manage.py status
+# Shows: registry version, skill count, memory nodes, health alerts, active index
+```
+
+Or just ask Claude in the session:
+> "What IGSL skills are loaded right now?"
+
+Claude should respond with META-05, META-07, META-09 and your session ID.
+
+---
+
+### 2. Store a memory node
+
+When you make an important decision, learn something, or want to track a TODO — save it as a memory node. Claude can do this for you, or you can run it directly:
+
+```bash
+# A permanent decision (never decays)
+python3 ~/.igsl-skills/memory/node.py add \
+  --id DEC-001 \
+  --type DEC \
+  --tags "architecture api decision" \
+  --content "Use REST not GraphQL for external API — simpler for mobile clients"
+
+# A pattern you want to remember (decays after 30 days if unused)
+python3 ~/.igsl-skills/memory/node.py add \
+  --id PAT-001 \
+  --type PAT \
+  --tags "debugging pattern" \
+  --content "PAT[+] When tests pass but prod fails: check mock/real DB divergence"
+
+# An open TODO (stays active until you close it)
+python3 ~/.igsl-skills/memory/node.py add \
+  --id LOOP-001 \
+  --type LOOP \
+  --tags "feature todo" \
+  --content "○ Add rate limiting to the /api/search endpoint"
+```
+
+Node IDs can use any prefix. Convention: use project prefix (e.g. `HMS-`, `OC-`, `GEN-`).
+
+---
+
+### 3. Search memory
+
+Find relevant nodes using BM25 keyword search:
+
+```bash
+python3 ~/.igsl-skills/memory/node.py query "api authentication"
+# Returns top-5 nodes scored by relevance × weight × recency
+```
+
+Or ask Claude:
+> "What do you know about our API design decisions?"
+
+Claude will query memory and surface relevant nodes.
+
+---
+
+### 4. Close a completed TODO
+
+When a LOOP node is done:
+
+```bash
+python3 ~/.igsl-skills/memory/node.py close LOOP-001 --note "Done — rate limiter deployed"
+```
+
+The node is marked resolved and removed from the active index.
+
+---
+
+### 5. Work with skills
+
+Skills are reusable instruction sets. Hard skills (META-05/07/09) always load. Soft skills load when relevant keywords appear.
+
+```bash
+# See all skills and their health scores
+python3 ~/.igsl-skills/skill.py scan
+
+# Find which skill covers a topic
+python3 ~/.igsl-skills/skill.py query "quant research alpha"
+
+# Manually load a soft skill into the current session
+python3 ~/.igsl-skills/skill.py load S-01
+```
+
+To add your own skill, create a `SKILL.md` file and register it in `_registry_v2.yaml`:
+
+```yaml
+nodes:
+  S-99:
+    name: my-skill
+    hardness: soft
+    path: ~/.igsl-skills/skills/my-skill/SKILL.md
+    trigger_keywords: ["keyword1", "keyword2"]
+    health:
+      alert_threshold: 0.6
+```
+
+---
+
+### 6. View the dashboard
+
+```bash
+cd ~/.igsl-skills && python3 -m http.server 8765 &
+open http://127.0.0.1:8765/dashboard.html
+```
+
+| View | What you see |
+|------|-------------|
+| Overview | Skill count, memory stats, health score, QA results |
+| Skill Graph | D3 force graph — nodes = skills, edges = connections |
+| Memory Network | D3 graph of memory nodes colored by type |
+| Health | Per-skill health scores with applied/completion/fallback rates |
+| Activity | Session journal timeline |
+| QA | Test suite results (81 tests) |
+| Settings | Registry config, paths, thresholds |
+
+---
+
+### 7. Run the QA test suite
+
+```bash
+python3 ~/.igsl-skills/igsl_v2_test_suite.py
+# Should output: 81/81 PASS
+```
+
+Run this after making changes to the registry or core scripts to catch regressions.
+
+---
+
+### 8. Understand session end (retrospective)
+
+When you end a Claude Code session, `retrospective_v2.py` fires automatically and:
+
+1. Scores the session 0–100 based on journal events
+2. Prints a quality badge (A/B/C/D/F)
+3. If score < 50: auto-runs fix-serr, rebuilds memory index, re-checks integrity
+
+Example output:
+```
+══════════════════════════════════════════════════════════
+  IGSL v2 SESSION RETROSPECTIVE
+  Session: 2026-04-10_143022_hms-crypto
+  Session Quality: 🟢 87/100 — EXCELLENT (Grade A)
+══════════════════════════════════════════════════════════
+```
+
+---
+
+### 9. Maintenance
+
+```bash
+# Remove duplicate error nodes (same skill, multiple ERR records)
+python3 ~/.igsl-skills/igsl_manage.py fix-serr
+
+# Preview which memory nodes would be garbage-collected
+python3 ~/.igsl-skills/memory/node.py gc --dry-run
+
+# Actually GC (removes nodes with effective_weight < 0.05)
+python3 ~/.igsl-skills/memory/node.py gc
+
+# Verify all skill file paths in the registry still exist
+python3 ~/.igsl-skills/igsl_manage.py links
+```
+
+---
+
+### 10. Multi-account (Claude Swarm)
+
+If you run multiple Claude Code accounts for parallel work, each needs the hooks and CLAUDE.md configured. Copy the setup to each account's config dir:
+
+```bash
+# Account A
+mkdir -p ~/.claude-account-a/commands
+cp ~/.claude/commands/igsl.md ~/.claude-account-a/commands/
+# Add CLAUDE.md with @imports and hooks in settings.json — see Installation above
+```
+
+All accounts share the same `~/.igsl-skills/` directory — one memory graph, one registry, consistent state across instances.
+
+---
+
 ## Key Commands
 
 ```bash
