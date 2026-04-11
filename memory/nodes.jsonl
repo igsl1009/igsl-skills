@@ -1,7 +1,14 @@
+{"id":"ART-144356","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-10","links":[],"src":"2026-0","c":"ART[2026-04-10] /Users/igsl/Desktop/crypto-data-collector-bundle/README.md","refs7d":1}
 {"id":"ART-170631","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"unknow","c":"ART[2026-04-09] /Users/igsl/.igsl-skills/skills/meta/variant-manager/SKILL.md","refs7d":1}
 {"id":"ART-172908","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /tmp/test.py","refs7d":1}
 {"id":"ART-173031","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /tmp/test.py","refs7d":1}
 {"id":"ART-182318","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /Users/igsl/.igsl-skills/skills/meta/system-manager/SKILL.md","refs7d":1}
+{"id":"ART-185018","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /Users/igsl/.claude/CLAUDE.md","refs7d":1}
+{"id":"ART-185031","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /Users/igsl/.claude/commands/igsl.md","refs7d":1}
+{"id":"ART-185457","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /Users/igsl/.claude-account-a/CLAUDE.md","refs7d":1}
+{"id":"ART-185500","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /Users/igsl/.claude-account-b/CLAUDE.md","refs7d":1}
+{"id":"ART-190038","t":"ART","tags":["artifact","json"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /Users/igsl/.claude-account-a/settings.json","refs7d":1}
+{"id":"ART-190046","t":"ART","tags":["artifact","json"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /Users/igsl/.claude-account-b/settings.json","refs7d":1}
 {"id":"CRS-001","t":"ART","tags":["coursework","cuhk","artifact"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"ART[2026-04-09] ~/coursework/FINA4120/assignment3_submission.pdf","refs7d":0}
 {"id":"CRS-002","t":"DEC","tags":["coursework","cuhk","submission"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"CUHK format: PDF via Blackboard; filename: STUDENTID_COURSECODE_ASS#.pdf","refs7d":0}
 {"id":"GEN-001","t":"GEN","tags":["python","performance","dataframe"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Large DataFrames (>1M rows): vectorized ops, avoid apply(), numba for custom aggregations","refs7d":0}
@@ -28,23 +35,24 @@
 {"id":"HMS-012","t":"DEC","tags":["hms","rebalance"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Rebalance: weekly Friday close; daily signal update; min 1% turnover to trade","refs7d":0}
 {"id":"HMS-013","t":"GEN","tags":["hms","quant","ic","threshold"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"IC > 0.05 → live-tradeable; IC > 0.08 → strong; decay half-life < 5d → discard (too noisy)","refs7d":0}
 {"id":"HMS-014","t":"PAT","tags":["hms","nlp","sentiment"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"NLP sentiment: SnowNLP (CN), BERT-base-chinese; news from Tushare + Wind news API. IC ~0.03","refs7d":0}
-{"id":"HMS-015","t":"LOOP","tags":["hms","open","factor"],"w":0.6,"ts":"2026-04-09","links":[],"src":"seed","c":"○ OPEN: Options flow as HMS alpha signal. No conclusion yet.","refs7d":2}
+{"id":"HMS-015","t":"LOOP","tags":["hms","open","factor"],"w":0.7,"ts":"2026-04-10","links":[],"src":"seed","c":"○ OPEN: Options flow as HMS alpha signal. No conclusion yet.","refs7d":3}
 {"id":"HMS-016","t":"ERR","tags":["hms","bug","lookahead"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"FIXED: Lookahead bias — factor neutralization used full-sample mean; fixed→expanding window mean","refs7d":7}
 {"id":"HMS-017","t":"ART","tags":["hms","artifact","report"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"ART[2026-04-09] ~/hms/reports/weekly_signal_report_2026W14.pdf","refs7d":0}
 {"id":"MCP-001","t":"ARCH","tags":["mcp","blackboard"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Blackboard MCP: shared state for multi-agent; keys namespaced by project; TTL 24h default","refs7d":0}
 {"id":"MCP-002","t":"ARCH","tags":["mcp","deep-research","firecrawl"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Deep Research MCP: Firecrawl+Claude synthesis; max 20 pages/query; outputs structured JSON","refs7d":0}
-{"id":"OC-001","t":"ARCH","tags":["openclaude","architecture","mcp","voice"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"OpenClaude: Claude Code + MCP + Edge TTS + WhatsApp. Loop: message→classify→route→respond","refs7d":0}
+{"id":"OC-001","t":"ARCH","tags":["openclaude","architecture","mcp","voice"],"w":0.9,"ts":"2026-04-10","links":[],"src":"seed","c":"OpenClaude: Claude Code + MCP + Edge TTS + WhatsApp. Loop: message→classify→route→respond","refs7d":1}
 {"id":"OC-002","t":"DEC","tags":["openclaude","queue","keyed"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Keyed queue: one slot per sender; newer overwrites pending — prevents buildup during busy periods","refs7d":0}
 {"id":"OC-003","t":"PAT","tags":["openclaude","timeout","dual"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Dual timeout: 30s tool-call (hard), 90s total (soft); escalates to fallback text reply","refs7d":0}
 {"id":"OC-004","t":"ERR","tags":["openclaude","crash","recovery"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Crash recovery: supervisor, 5s backoff, max 3 restarts/hour to prevent thrash","refs7d":0}
-{"id":"OC-005","t":"LOOP","tags":["openclaude","open","calendar"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"○ OPEN: Calendar/email integration. WhatsApp→'my calendar'→Google Cal. Pending API setup.","refs7d":0}
+{"id":"OC-005","t":"LOOP","tags":["openclaude","open","calendar"],"w":0.9,"ts":"2026-04-10","links":[],"src":"seed","c":"○ OPEN: Calendar/email integration. WhatsApp→'my calendar'→Google Cal. Pending API setup.","refs7d":1}
 {"id":"SERR-001","t":"ERR","tags":["skill-health","S-01","low-health"],"w":0.8,"ts":"2026-04-09","links":[],"src":"health","c":"ERR: skill quant-research health=0.27<0.60 | evolve with FIX mode","refs7d":1}
 {"id":"SERR-002","t":"ERR","tags":["skill-health","META-05","low-health"],"w":0.8,"ts":"2026-04-09","links":[],"src":"health","c":"ERR: skill auto-improve health=0.80<0.80 | evolve with FIX mode","refs7d":1}
+{"id":"SERR-003","t":"ERR","tags":["skill-health","META-07","low-health"],"w":0.8,"ts":"2026-04-09","links":[],"src":"health","c":"ERR: skill memory-system health=0.72<0.80 | evolve with FIX mode","refs7d":1}
 {"id":"SK-001","t":"DEC","tags":["igsl","skill-graph","health"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"IGSL v2 health: EMA α=0.1; formula=applied×completion×(1-0.5×fallback); alert threshold 0.60","refs7d":5}
-{"id":"SK-002","t":"DEC","tags":["igsl","memory","half-life"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"Memory half-lives: DEC=∞, PAT=30d, ARCH=60d, ART=14d, LOOP=∞, GEN=90d, ERR=180d","refs7d":2}
+{"id":"SK-002","t":"DEC","tags":["igsl","memory","half-life"],"w":1.0,"ts":"2026-04-10","links":[],"src":"seed","c":"Memory half-lives: DEC=∞, PAT=30d, ARCH=60d, ART=14d, LOOP=∞, GEN=90d, ERR=180d","refs7d":3}
 {"id":"SK-003","t":"ARCH","tags":["igsl","token-budget"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Token budget: T0(80)+T1(50)+Index(50)+Hard(460)=640 always; soft skills load on keyword match","refs7d":0}
 {"id":"SK-004","t":"PAT","tags":["igsl","bm25","search"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"BM25 boost: score×(0.6+0.4×health); memory: score×w×recency_factor=exp(-age/90)","refs7d":3}
 {"id":"SK-005","t":"DEC","tags":["igsl","evograph","lineage"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"EvoGraph: FIX/DERIVED/CAPTURED modes; parent→child with session_id+trigger+delta summary","refs7d":0}
-{"id":"SK-006","t":"LOOP","tags":["igsl","open","embedding"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"○ OPEN: Semantic embedding search for skills via all-MiniLM-L6-v2. Not yet implemented.","refs7d":0}
+{"id":"SK-006","t":"LOOP","tags":["igsl","open","embedding"],"w":0.9,"ts":"2026-04-10","links":[],"src":"seed","c":"○ OPEN: Semantic embedding search for skills via all-MiniLM-L6-v2. Not yet implemented.","refs7d":1}
 {"id":"SK-007","t":"PAT","tags":["igsl","session","hook"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Hook chain: session_start_v2.sh→additionalContext; health_recorder.py per-tool; retro on Stop","refs7d":0}
 {"id":"SK-008","t":"DEC","tags":["igsl","integrate","bidirectional"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"5 bridges: skill-applied, memory-to-skills, health-sync, session-context, post-session","refs7d":0}
