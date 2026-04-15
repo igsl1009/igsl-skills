@@ -46,6 +46,10 @@
 {"id":"ART-214135","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/run_bt_al80.py","refs7d":1}
 {"id":"ART-214153","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/run_bt_al80.py","refs7d":1}
 {"id":"ART-214156","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/run_bt_al80.py","refs7d":1}
+{"id":"ART-214432","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/monte_carlo.py","refs7d":1}
+{"id":"ART-214442","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/monte_carlo.py","refs7d":1}
+{"id":"ART-214455","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/monte_carlo.py","refs7d":1}
+{"id":"ART-214517","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/monte_carlo.py","refs7d":1}
 {"id":"CRS-001","t":"ART","tags":["coursework","cuhk","artifact"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"ART[2026-04-09] ~/coursework/FINA4120/assignment3_submission.pdf","refs7d":0}
 {"id":"CRS-002","t":"DEC","tags":["coursework","cuhk","submission"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"CUHK format: PDF via Blackboard; filename: STUDENTID_COURSECODE_ASS#.pdf","refs7d":0}
 {"id":"GEN-001","t":"GEN","tags":["python","performance","dataframe"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Large DataFrames (>1M rows): vectorized ops, avoid apply(), numba for custom aggregations","refs7d":0}
