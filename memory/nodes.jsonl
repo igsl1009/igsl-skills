@@ -1,3 +1,13 @@
+{"id":"ART-001811","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/strategies/working/s038_optimized.py","refs7d":1}
+{"id":"ART-001823","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/strategies/working/s038_bt.py","refs7d":1}
+{"id":"ART-003128","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/strategies/working/s039_bt.py","refs7d":1}
+{"id":"ART-003306","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/sweep_s039v2.py","refs7d":1}
+{"id":"ART-003533","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/strategies/working/s039_fvcap_bt.py","refs7d":1}
+{"id":"ART-003544","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/strategies/working/s039_fvtake_bt.py","refs7d":1}
+{"id":"ART-003748","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/s039_competition.py","refs7d":1}
+{"id":"ART-003820","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/strategies/working/s039_final_bt.py","refs7d":1}
+{"id":"ART-004847","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_prosperity_comprehensive_prompt.md","refs7d":1}
+{"id":"ART-005847","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/s039_insider.py","refs7d":1}
 {"id":"ART-024931","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Library/Python/3.14/lib/python/site-packages/prosperity2bt/data.py","refs7d":1}
 {"id":"ART-025043","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/run_backtest.py","refs7d":1}
 {"id":"ART-025046","t":"ART","tags":["artifact","json"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/results.json","refs7d":1}
