@@ -39,6 +39,7 @@
 {"id":"ART-195322","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/strategies/working/s024_real_champion.py","refs7d":1}
 {"id":"ART-195412","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/.claude/projects/-Users-igsl-Desktop/memory/project_hms_setup.md","refs7d":1}
 {"id":"ART-201148","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/strategies/working/s025_submission.py","refs7d":1}
+{"id":"ART-205108","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/.claude/projects/-Users-igsl-Desktop/memory/project_hms_setup.md","refs7d":1}
 {"id":"CRS-001","t":"ART","tags":["coursework","cuhk","artifact"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"ART[2026-04-09] ~/coursework/FINA4120/assignment3_submission.pdf","refs7d":0}
 {"id":"CRS-002","t":"DEC","tags":["coursework","cuhk","submission"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"CUHK format: PDF via Blackboard; filename: STUDENTID_COURSECODE_ASS#.pdf","refs7d":0}
 {"id":"GEN-001","t":"GEN","tags":["python","performance","dataframe"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Large DataFrames (>1M rows): vectorized ops, avoid apply(), numba for custom aggregations","refs7d":0}
