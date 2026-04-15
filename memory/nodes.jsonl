@@ -28,6 +28,7 @@
 {"id":"ART-172908","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /tmp/test.py","refs7d":1}
 {"id":"ART-173031","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /tmp/test.py","refs7d":1}
 {"id":"ART-181417","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/research_loop.py","refs7d":1}
+{"id":"ART-181817","t":"ART","tags":["artifact","json"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/.claude/settings.json","refs7d":1}
 {"id":"ART-182318","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /Users/igsl/.igsl-skills/skills/meta/system-manager/SKILL.md","refs7d":1}
 {"id":"ART-185018","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /Users/igsl/.claude/CLAUDE.md","refs7d":1}
 {"id":"ART-185031","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /Users/igsl/.claude/commands/igsl.md","refs7d":1}
