@@ -169,6 +169,7 @@
 {"id":"ART-152136","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/Claude/FINA4380/hms_cnn/scripts/run_train.py","refs7d":1}
 {"id":"ART-152214","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/npc_forensics/NPC_FORENSICS_REPORT.md","refs7d":1}
 {"id":"ART-152229","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/Claude/FINA4380/hms_cnn/README.md","refs7d":1}
+{"id":"ART-152750","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/s075/s075_sim.py","refs7d":1}
 {"id":"ART-170631","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"unknow","c":"ART[2026-04-09] /Users/igsl/.igsl-skills/skills/meta/variant-manager/SKILL.md","refs7d":1}
 {"id":"ART-172908","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /tmp/test.py","refs7d":1}
 {"id":"ART-173031","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /tmp/test.py","refs7d":1}
