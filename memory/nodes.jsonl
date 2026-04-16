@@ -237,6 +237,13 @@
 {"id":"ART-170631","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"unknow","c":"ART[2026-04-09] /Users/igsl/.igsl-skills/skills/meta/variant-manager/SKILL.md","refs7d":1}
 {"id":"ART-172908","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /tmp/test.py","refs7d":1}
 {"id":"ART-173031","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /tmp/test.py","refs7d":1}
+{"id":"ART-173423","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/adaptive_final_v2/run_grid.py","refs7d":1}
+{"id":"ART-173537","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/adaptive_final_v2/analyze_grid.py","refs7d":1}
+{"id":"ART-174207","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/adaptive_final_v2/ipr_sweep.py","refs7d":1}
+{"id":"ART-174406","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/adaptive_final_v2/make_plots.py","refs7d":1}
+{"id":"ART-174623","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/adaptive_final_v2/FINAL_REPORT.md","refs7d":1}
+{"id":"ART-175016","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/s076_final.py","refs7d":1}
+{"id":"ART-175745","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/backtest_logs/forward_mc.py","refs7d":1}
 {"id":"ART-181417","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/research_loop.py","refs7d":1}
 {"id":"ART-181817","t":"ART","tags":["artifact","json"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/.claude/settings.json","refs7d":1}
 {"id":"ART-182318","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /Users/igsl/.igsl-skills/skills/meta/system-manager/SKILL.md","refs7d":1}
