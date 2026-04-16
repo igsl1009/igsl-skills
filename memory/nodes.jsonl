@@ -161,6 +161,14 @@
 {"id":"ART-151834","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/npc_forensics/task6_counterparty.py","refs7d":1}
 {"id":"ART-151904","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/npc_forensics/task7_aco_npcs.py","refs7d":1}
 {"id":"ART-151937","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/Claude/FINA4380/hms_cnn/hms_cnn/loss.py","refs7d":1}
+{"id":"ART-152018","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/npc_forensics/task9_oos_predictions.py","refs7d":1}
+{"id":"ART-152028","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/Claude/FINA4380/hms_cnn/hms_cnn/data.py","refs7d":1}
+{"id":"ART-152050","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/Claude/FINA4380/hms_cnn/hms_cnn/train.py","refs7d":1}
+{"id":"ART-152059","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/Claude/FINA4380/hms_cnn/hms_cnn/config.py","refs7d":1}
+{"id":"ART-152124","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/Claude/FINA4380/hms_cnn/scripts/run_search.py","refs7d":1}
+{"id":"ART-152136","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/Claude/FINA4380/hms_cnn/scripts/run_train.py","refs7d":1}
+{"id":"ART-152214","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/npc_forensics/NPC_FORENSICS_REPORT.md","refs7d":1}
+{"id":"ART-152229","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/Claude/FINA4380/hms_cnn/README.md","refs7d":1}
 {"id":"ART-170631","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"unknow","c":"ART[2026-04-09] /Users/igsl/.igsl-skills/skills/meta/variant-manager/SKILL.md","refs7d":1}
 {"id":"ART-172908","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /tmp/test.py","refs7d":1}
 {"id":"ART-173031","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /tmp/test.py","refs7d":1}
