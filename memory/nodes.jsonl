@@ -1,3 +1,18 @@
+{"id":"ART-000004","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/npc_research/ipr_drift.md","refs7d":1}
+{"id":"ART-000125","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/team_context.md","refs7d":1}
+{"id":"ART-000341","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/npc_research/xasset_analysis.py","refs7d":1}
+{"id":"ART-000434","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/npc_research/cross_asset.md","refs7d":1}
+{"id":"ART-000524","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/grid_search/runner.py","refs7d":1}
+{"id":"ART-000556","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/grid_search/runner.py","refs7d":1}
+{"id":"ART-000612","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/grid_search/runner.py","refs7d":1}
+{"id":"ART-000625","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/team_context.md","refs7d":1}
+{"id":"ART-000626","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/grid_search/runner.py","refs7d":1}
+{"id":"ART-000632","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/grid_search/runner.py","refs7d":1}
+{"id":"ART-000647","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/grid_search/runner.py","refs7d":1}
+{"id":"ART-000907","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/team_context.md","refs7d":1}
+{"id":"ART-001311","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/team_context.md","refs7d":1}
+{"id":"ART-001643","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/team_context.md","refs7d":1}
+{"id":"ART-001743","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/round6_plan.md","refs7d":1}
 {"id":"ART-001811","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/strategies/working/s038_optimized.py","refs7d":1}
 {"id":"ART-001823","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/strategies/working/s038_bt.py","refs7d":1}
 {"id":"ART-003128","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/strategies/working/s039_bt.py","refs7d":1}
@@ -329,6 +344,9 @@
 {"id":"ART-235641","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/strategies/working/s037_bt.py","refs7d":1}
 {"id":"ART-235740","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/strategies/working/s037_competition_fix.py","refs7d":1}
 {"id":"ART-235752","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/strategies/working/s037_bt.py","refs7d":1}
+{"id":"ART-235759","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /tmp/npc_research/reaction.md","refs7d":1}
+{"id":"ART-235839","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /tmp/npc_research/spread_patterns.md","refs7d":1}
+{"id":"ART-235905","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /tmp/npc_research/size_patterns.md","refs7d":1}
 {"id":"CRS-001","t":"ART","tags":["coursework","cuhk","artifact"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"ART[2026-04-09] ~/coursework/FINA4120/assignment3_submission.pdf","refs7d":0}
 {"id":"CRS-002","t":"DEC","tags":["coursework","cuhk","submission"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"CUHK format: PDF via Blackboard; filename: STUDENTID_COURSECODE_ASS#.pdf","refs7d":0}
 {"id":"GEN-001","t":"GEN","tags":["python","performance","dataframe"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Large DataFrames (>1M rows): vectorized ops, avoid apply(), numba for custom aggregations","refs7d":0}
