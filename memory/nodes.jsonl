@@ -421,6 +421,7 @@
 {"id":"ART-174406","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/adaptive_final_v2/make_plots.py","refs7d":1}
 {"id":"ART-174623","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/adaptive_final_v2/FINAL_REPORT.md","refs7d":1}
 {"id":"ART-175016","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/s076_final.py","refs7d":1}
+{"id":"ART-175730","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-20","links":[],"src":"2026-0","c":"ART[2026-04-20] /tmp/run_w_sweep_parallel.py","refs7d":1}
 {"id":"ART-175745","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/backtest_logs/forward_mc.py","refs7d":1}
 {"id":"ART-181417","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/research_loop.py","refs7d":1}
 {"id":"ART-181817","t":"ART","tags":["artifact","json"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/.claude/settings.json","refs7d":1}
