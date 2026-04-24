@@ -114,9 +114,11 @@
 {"id":"ART-023926","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/research_board.md","refs7d":1}
 {"id":"ART-023929","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/s093_probe_no_l2.py","refs7d":1}
 {"id":"ART-024119","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/team_context.md","refs7d":1}
+{"id":"ART-024355","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v1_baseline.py","refs7d":1}
 {"id":"ART-024427","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/ipr_optimal.py","refs7d":1}
 {"id":"ART-024447","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/ipr_schedule.py","refs7d":1}
 {"id":"ART-024711","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /Users/igsl/Desktop/s094_ipr_wallmid.py","refs7d":1}
+{"id":"ART-024715","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_analysis.py","refs7d":1}
 {"id":"ART-024917","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/research_board.md","refs7d":1}
 {"id":"ART-024931","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Library/Python/3.14/lib/python/site-packages/prosperity2bt/data.py","refs7d":1}
 {"id":"ART-025043","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/run_backtest.py","refs7d":1}
@@ -128,6 +130,7 @@
 {"id":"ART-025725","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/research_loop.py","refs7d":1}
 {"id":"ART-025948","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/analysis/insights.md","refs7d":1}
 {"id":"ART-025954","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/s097_probe_no_skew.py","refs7d":1}
+{"id":"ART-030035","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v2_shortvol.py","refs7d":1}
 {"id":"ART-030102","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/strategies/testing/s009_aco_bounce.py","refs7d":1}
 {"id":"ART-030117","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/strategies/testing/s010_aco_inside_spread.py","refs7d":1}
 {"id":"ART-030130","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/strategies/testing/s011_aco_layered.py","refs7d":1}
@@ -137,15 +140,21 @@
 {"id":"ART-030302","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/strategies/testing/s020_master.py","refs7d":1}
 {"id":"ART-030530","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/analysis/bot_fingerprint.md","refs7d":1}
 {"id":"ART-030620","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/strategies/working/s021_final_master.py","refs7d":1}
+{"id":"ART-030724","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v3_tight_mm.py","refs7d":1}
 {"id":"ART-030845","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/team_context.md","refs7d":1}
+{"id":"ART-030947","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v3c_edgeonly.py","refs7d":1}
 {"id":"ART-031106","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/research_loop.py","refs7d":1}
 {"id":"ART-031131","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/research_loop.py","refs7d":1}
 {"id":"ART-031135","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/research_loop.py","refs7d":1}
+{"id":"ART-031148","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v3d_robust.py","refs7d":1}
+{"id":"ART-031523","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v3e_k5000.py","refs7d":1}
+{"id":"ART-031628","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v3f_best.py","refs7d":1}
 {"id":"ART-031640","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/team_context.md","refs7d":1}
 {"id":"ART-031842","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/strategies/working/s022_ultra_master.py","refs7d":1}
 {"id":"ART-031948","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/research_loop.py","refs7d":1}
 {"id":"ART-032003","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/research_loop.py","refs7d":1}
 {"id":"ART-032007","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/research_loop.py","refs7d":1}
+{"id":"ART-032106","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v5_vev_lean.py","refs7d":1}
 {"id":"ART-032242","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /tmp/team_context.md","refs7d":1}
 {"id":"ART-032535","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/strategies/working/s023_champion.py","refs7d":1}
 {"id":"ART-032715","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/s060_competitive_v1.py","refs7d":1}
@@ -544,7 +553,7 @@
 {"id":"HMS-012","t":"DEC","tags":["hms","rebalance"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Rebalance: weekly Friday close; daily signal update; min 1% turnover to trade","refs7d":0}
 {"id":"HMS-013","t":"GEN","tags":["hms","quant","ic","threshold"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"IC > 0.05 → live-tradeable; IC > 0.08 → strong; decay half-life < 5d → discard (too noisy)","refs7d":0}
 {"id":"HMS-014","t":"PAT","tags":["hms","nlp","sentiment"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"NLP sentiment: SnowNLP (CN), BERT-base-chinese; news from Tushare + Wind news API. IC ~0.03","refs7d":0}
-{"id":"HMS-015","t":"LOOP","tags":["hms","open","factor"],"w":0.7,"ts":"2026-04-10","links":[],"src":"seed","c":"○ OPEN: Options flow as HMS alpha signal. No conclusion yet.","refs7d":3}
+{"id":"HMS-015","t":"LOOP","tags":["hms","open","factor"],"w":0.8,"ts":"2026-04-25","links":[],"src":"seed","c":"○ OPEN: Options flow as HMS alpha signal. No conclusion yet.","refs7d":4}
 {"id":"HMS-016","t":"ERR","tags":["hms","bug","lookahead"],"w":1.0,"ts":"2026-04-09","links":[],"src":"seed","c":"FIXED: Lookahead bias — factor neutralization used full-sample mean; fixed→expanding window mean","refs7d":7}
 {"id":"HMS-017","t":"ART","tags":["hms","artifact","report"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"ART[2026-04-09] ~/hms/reports/weekly_signal_report_2026W14.pdf","refs7d":0}
 {"id":"MCP-001","t":"ARCH","tags":["mcp","blackboard"],"w":0.8,"ts":"2026-04-09","links":[],"src":"seed","c":"Blackboard MCP: shared state for multi-agent; keys namespaced by project; TTL 24h default","refs7d":0}
