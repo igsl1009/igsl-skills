@@ -1,4 +1,4 @@
-# IGSL SKILL META-SCAN | 2026-04-24 | 14 nodes
+# IGSL SKILL META-SCAN | 2026-04-25 | 14 nodes
 
 ## HARD SKILLS (auto-loaded every session)
   [META-05     ] auto-improve             280tok  h=0.99  Always-on. Session journal, captures corrections, propo
