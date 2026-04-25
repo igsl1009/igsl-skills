@@ -534,6 +534,12 @@
 {"id":"ART-230731","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /tmp/adsel/gen_v2.py","refs7d":1}
 {"id":"ART-230815","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /tmp/adsel/gen_v3.py","refs7d":1}
 {"id":"ART-230858","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /tmp/adsel/gen_v4.py","refs7d":1}
+{"id":"ART-231043","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v19_master.py","refs7d":1}
+{"id":"ART-231620","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v19_master.py","refs7d":1}
+{"id":"ART-231629","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v19_master.py","refs7d":1}
+{"id":"ART-231736","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v19_master.py","refs7d":1}
+{"id":"ART-231750","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v19_master.py","refs7d":1}
+{"id":"ART-231822","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v19_master.py","refs7d":1}
 {"id":"ART-232555","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /tmp/oos_analysis/plot21.py","refs7d":1}
 {"id":"ART-233040","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/bayesian_opt.py","refs7d":1}
 {"id":"ART-233129","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /tmp/oos_analysis/theoretical_limit.md","refs7d":1}
