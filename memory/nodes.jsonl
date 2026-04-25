@@ -315,6 +315,7 @@
 {"id":"ART-102339","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/imc_p4/repo/trader.py","refs7d":1}
 {"id":"ART-102347","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/imc_p4/repo/trader.py","refs7d":1}
 {"id":"ART-102451","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/imc-backtester/plot_round3.py","refs7d":1}
+{"id":"ART-103028","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/imc-backtester/plot_round3.py","refs7d":1}
 {"id":"ART-103555","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/s069_tape_aware.py","refs7d":1}
 {"id":"ART-103939","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /Users/igsl/.claude/projects/-Users-igsl-Desktop/memory/feedback_full_metrics_every_strategy.md","refs7d":1}
 {"id":"ART-104743","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/s070_clairvoyant.py","refs7d":1}
