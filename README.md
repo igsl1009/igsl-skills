@@ -1,15 +1,13 @@
 # .igsl-skills
 
-> Auto-backed up by [Claude Code](https://claude.ai/code) · Last updated: 2026-04-25 03:32
+> Auto-backed up by [Claude Code](https://claude.ai/code) · Last updated: 2026-04-25 10:23
 
 **Type:** Python
-**Tracked files:** 46 | **Commits:** 310
+**Tracked files:** 46 | **Commits:** 311
 
 ## Structure
 
 ```
-  CLAUDE.md
-  README.md
   __pycache__
   _archive
   _evograph.jsonl
@@ -18,6 +16,7 @@
   _proposed
   _registry_v2.yaml
   _registry_v2.yaml.pre-reset
+  CLAUDE.md
   dashboard-data.json
   dashboard.html
   hooks
@@ -26,6 +25,7 @@
   integrate.py
   memory
   meta
+  README.md
   settings_v2.json
   skill.py
   skills
