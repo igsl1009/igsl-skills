@@ -395,6 +395,8 @@
 {"id":"ART-145913","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/audit/friend_oos_diagnostic.md","refs7d":1}
 {"id":"ART-150102","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/Claude/FINA4380/hms_cnn/hms_cnn/__init__.py","refs7d":1}
 {"id":"ART-150113","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/Knowledge/FINA4380/hms_cnn/hms_cnn/loss.py","refs7d":1}
+{"id":"ART-150352","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/audit/voucher_analyze.py","refs7d":1}
+{"id":"ART-150407","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/audit/voucher_analyze.py","refs7d":1}
 {"id":"ART-150441","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/npc_forensics/task1_steady_state.py","refs7d":1}
 {"id":"ART-150632","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/oos_audit/h1_verify.py","refs7d":1}
 {"id":"ART-150707","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/oos_audit/oos_tape_builder.py","refs7d":1}
