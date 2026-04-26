@@ -321,6 +321,10 @@
 {"id":"ART-103555","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/s069_tape_aware.py","refs7d":1}
 {"id":"ART-103939","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-17","links":[],"src":"2026-0","c":"ART[2026-04-17] /Users/igsl/.claude/projects/-Users-igsl-Desktop/memory/feedback_full_metrics_every_strategy.md","refs7d":1}
 {"id":"ART-104743","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/s070_clairvoyant.py","refs7d":1}
+{"id":"ART-112752","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/strategies/noop_trader.py","refs7d":1}
+{"id":"ART-113132","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/audit/backtester_setup.md","refs7d":1}
+{"id":"ART-113238","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/audit/eda_recap.md","refs7d":1}
+{"id":"ART-113412","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/audit/phase0_status.md","refs7d":1}
 {"id":"ART-113926","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-20","links":[],"src":"2026-0","c":"ART[2026-04-20] /Users/igsl/.claude/plans/be-like-a-professional-merry-snail.md","refs7d":1}
 {"id":"ART-114352","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-20","links":[],"src":"2026-0","c":"ART[2026-04-20] /Users/igsl/.claude/plans/be-like-a-professional-merry-snail.md","refs7d":1}
 {"id":"ART-114919","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-20","links":[],"src":"2026-0","c":"ART[2026-04-20] /Users/igsl/.claude/plans/be-like-a-professional-merry-snail.md","refs7d":1}
