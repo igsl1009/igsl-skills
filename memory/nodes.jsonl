@@ -366,9 +366,11 @@
 {"id":"ART-132318","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/strategies/friend_v2.py","refs7d":1}
 {"id":"ART-132451","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-20","links":[],"src":"2026-0","c":"ART[2026-04-20] /Users/igsl/Desktop/r2_invest_expand_bundle/README.md","refs7d":1}
 {"id":"ART-132640","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/s074_hybrid_sim.py","refs7d":1}
+{"id":"ART-132819","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/lib/registry_constants.py","refs7d":1}
 {"id":"ART-132925","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/s074_hybrid.py","refs7d":1}
 {"id":"ART-133035","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/s074_hybrid.py","refs7d":1}
 {"id":"ART-133103","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/s074_guarded_sim.py","refs7d":1}
+{"id":"ART-133115","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/audit/phase2_parallel_prep.md","refs7d":1}
 {"id":"ART-133202","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/s074_hybrid.py","refs7d":1}
 {"id":"ART-133311","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/s074_mc_weighted.py","refs7d":1}
 {"id":"ART-133519","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/s074_hybrid.py","refs7d":1}
