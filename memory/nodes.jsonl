@@ -402,6 +402,8 @@
 {"id":"ART-150707","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/oos_audit/oos_tape_builder.py","refs7d":1}
 {"id":"ART-150749","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/oos_audit/test_s074_on_oos.py","refs7d":1}
 {"id":"ART-150904","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/oos_audit/oos_infrastructure_report.md","refs7d":1}
+{"id":"ART-151216","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/strategies/v_mm_only.py","refs7d":1}
+{"id":"ART-151220","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/audit/voucher_analysis.md","refs7d":1}
 {"id":"ART-151602","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/npc_forensics/task2_anomaly_detection.py","refs7d":1}
 {"id":"ART-151639","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/npc_forensics/task3_schedule_match.py","refs7d":1}
 {"id":"ART-151722","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/npc_forensics/task4_clustering.py","refs7d":1}
