@@ -1,8 +1,8 @@
 # IGSL SKILL META-SCAN | 2026-04-26 | 14 nodes
 
 ## HARD SKILLS (auto-loaded every session)
-  [META-05     ] auto-improve             280tok  h=0.70  Always-on. Session journal, captures corrections, propo
-  [META-07     ] memory-system            180tok  h=0.70  Always-on. Memory write protocol: node.py add/update/cl
+  [META-05     ] auto-improve             280tok  h=0.76  Always-on. Session journal, captures corrections, propo
+  [META-07     ] memory-system            180tok  h=0.76  Always-on. Memory write protocol: node.py add/update/cl
   [META-09     ] system-manager           220tok  h=0.90  Always-on. igsl_manage.py status/check/links/fix-serr. 
   Hard skill total: 680 tokens
 
