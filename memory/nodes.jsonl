@@ -376,6 +376,8 @@
 {"id":"ART-133519","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/s074_hybrid.py","refs7d":1}
 {"id":"ART-133540","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/s074_mc_weighted.py","refs7d":1}
 {"id":"ART-133707","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/s074_guarded_sim.py","refs7d":1}
+{"id":"ART-133744","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/.claude/projects/-Users-igsl-imc-backtester/memory/imc_round3_target.md","refs7d":1}
+{"id":"ART-133824","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/.claude/projects/-Users-igsl-imc-backtester/memory/MEMORY.md","refs7d":1}
 {"id":"ART-144356","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-10","links":[],"src":"2026-0","c":"ART[2026-04-10] /Users/igsl/Desktop/crypto-data-collector-bundle/README.md","refs7d":1}
 {"id":"ART-150102","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/Claude/FINA4380/hms_cnn/hms_cnn/__init__.py","refs7d":1}
 {"id":"ART-150113","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/Knowledge/FINA4380/hms_cnn/hms_cnn/loss.py","refs7d":1}
