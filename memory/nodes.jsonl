@@ -549,6 +549,11 @@
 {"id":"ART-180311","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-27","links":[],"src":"2026-0","c":"ART[2026-04-27] /Users/igsl/imc-backtester/test_ZZ_wallpress.py","refs7d":1}
 {"id":"ART-180402","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-27","links":[],"src":"2026-0","c":"ART[2026-04-27] /Users/igsl/imc-backtester/test_AAA_accel.py","refs7d":1}
 {"id":"ART-180536","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-27","links":[],"src":"2026-0","c":"ART[2026-04-27] /Users/igsl/imc-backtester/test_BBB_volsize.py","refs7d":1}
+{"id":"ART-180915","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-27","links":[],"src":"2026-0","c":"ART[2026-04-27] /Users/igsl/imc-backtester/test_BASE_v2.py","refs7d":1}
+{"id":"ART-180923","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-27","links":[],"src":"2026-0","c":"ART[2026-04-27] /Users/igsl/imc-backtester/test_BASE_v2.py","refs7d":1}
+{"id":"ART-180927","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-27","links":[],"src":"2026-0","c":"ART[2026-04-27] /Users/igsl/imc-backtester/test_BASE_v2.py","refs7d":1}
+{"id":"ART-181147","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-27","links":[],"src":"2026-0","c":"ART[2026-04-27] /Users/igsl/imc-backtester/test_DDD_range.py","refs7d":1}
+{"id":"ART-181248","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-27","links":[],"src":"2026-0","c":"ART[2026-04-27] /Users/igsl/imc-backtester/test_EEE_universe.py","refs7d":1}
 {"id":"ART-181417","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/research_loop.py","refs7d":1}
 {"id":"ART-181817","t":"ART","tags":["artifact","json"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/.claude/settings.json","refs7d":1}
 {"id":"ART-182318","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-09","links":[],"src":"2026-0","c":"ART[2026-04-09] /Users/igsl/.igsl-skills/skills/meta/system-manager/SKILL.md","refs7d":1}
