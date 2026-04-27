@@ -124,6 +124,7 @@
 {"id":"ART-025043","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/run_backtest.py","refs7d":1}
 {"id":"ART-025046","t":"ART","tags":["artifact","json"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/results.json","refs7d":1}
 {"id":"ART-025100","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/strategies/testing/s001_aco_mean_reversion.py","refs7d":1}
+{"id":"ART-025140","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-28","links":[],"src":"2026-0","c":"ART[2026-04-28] /Users/igsl/imc-backtester/test_QQQ_extuniv.py","refs7d":1}
 {"id":"ART-025307","t":"ART","tags":["artifact","json"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/results.json","refs7d":1}
 {"id":"ART-025437","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-15","links":[],"src":"2026-0","c":"ART[2026-04-15] /Users/igsl/Desktop/imc_research/strategies/testing/s006_tight_aco.py","refs7d":1}
 {"id":"ART-025509","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-27","links":[],"src":"2026-0","c":"ART[2026-04-27] /Users/igsl/imc-backtester/test_I_v_mm.py","refs7d":1}
