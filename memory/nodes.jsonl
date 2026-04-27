@@ -649,6 +649,7 @@
 {"id":"ART-230635","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /tmp/adsel/gen_variants.py","refs7d":1}
 {"id":"ART-230731","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /tmp/adsel/gen_v2.py","refs7d":1}
 {"id":"ART-230815","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /tmp/adsel/gen_v3.py","refs7d":1}
+{"id":"ART-230840","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-27","links":[],"src":"2026-0","c":"ART[2026-04-27] /Users/igsl/.claude/projects/-Users-igsl-imc-backtester/memory/imc_round4_best.md","refs7d":1}
 {"id":"ART-230858","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /tmp/adsel/gen_v4.py","refs7d":1}
 {"id":"ART-231043","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v19_master.py","refs7d":1}
 {"id":"ART-231620","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/Desktop/imc_research/r3_swarm/r3_v19_master.py","refs7d":1}
