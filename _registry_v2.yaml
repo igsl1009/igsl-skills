@@ -360,13 +360,13 @@ nodes:
     full_tokens: 280
     health:
       applied_rate: 1.0
-      completion_rate: 0.971
+      completion_rate: 0.9739
       fallback_rate: 0.0
       alert_threshold: 0.8
-      total_applications: 662
+      total_applications: 663
       token_cost_avg: 280
-      health_score: 0.971
-      last_applied: '2026-04-27'
+      health_score: 0.9739
+      last_applied: '2026-04-28'
     lineage:
       version: '1.0'
       parent: null
@@ -477,13 +477,13 @@ nodes:
     full_tokens: 180
     health:
       applied_rate: 1.0
-      completion_rate: 0.971
+      completion_rate: 0.9739
       fallback_rate: 0.0
       alert_threshold: 0.8
-      total_applications: 662
+      total_applications: 663
       token_cost_avg: 180
-      health_score: 0.971
-      last_applied: '2026-04-27'
+      health_score: 0.9739
+      last_applied: '2026-04-28'
     lineage:
       version: '2.0'
       parent: null
