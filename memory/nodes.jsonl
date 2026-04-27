@@ -329,12 +329,14 @@
 {"id":"ART-101247","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/imc_p4/repo/trader.py","refs7d":1}
 {"id":"ART-101313","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/imc_p4/repo/trader.py","refs7d":1}
 {"id":"ART-101336","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/imc_p4/repo/trader.py","refs7d":1}
+{"id":"ART-101425","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-27","links":[],"src":"2026-0","c":"ART[2026-04-27] /Users/igsl/imc-backtester/test_II_pca_idio.py","refs7d":1}
 {"id":"ART-101521","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/imc_p4/repo/trader.py","refs7d":1}
 {"id":"ART-101850","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/imc_p4/repo/trader.py","refs7d":1}
 {"id":"ART-102016","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-25","links":[],"src":"2026-0","c":"ART[2026-04-25] /Users/igsl/imc_p4/repo/trader.py","refs7d":1}
 {"id":"ART-102156","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/s068_analysis.py","refs7d":1}
 {"id":"ART-102256","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/monte_carlo_sim.py","refs7d":1}
 {"id":"ART-102259","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/s068_analysis.py","refs7d":1}
+{"id":"ART-102302","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-27","links":[],"src":"2026-0","c":"ART[2026-04-27] /Users/igsl/imc-backtester/test_JJ_full.py","refs7d":1}
 {"id":"ART-102305","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/s068_analysis.py","refs7d":1}
 {"id":"ART-102316","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/s068_analysis.py","refs7d":1}
 {"id":"ART-102330","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/s068_analysis.py","refs7d":1}
