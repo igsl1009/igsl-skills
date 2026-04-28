@@ -407,6 +407,9 @@
 {"id":"ART-133707","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-16","links":[],"src":"2026-0","c":"ART[2026-04-16] /Users/igsl/Desktop/imc_research/s074_guarded_sim.py","refs7d":1}
 {"id":"ART-133744","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/.claude/projects/-Users-igsl-imc-backtester/memory/imc_round3_target.md","refs7d":1}
 {"id":"ART-133824","t":"ART","tags":["artifact","md"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/.claude/projects/-Users-igsl-imc-backtester/memory/MEMORY.md","refs7d":1}
+{"id":"ART-135633","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-28","links":[],"src":"2026-0","c":"ART[2026-04-28] /Users/igsl/imc-backtester/v26_combined.py","refs7d":1}
+{"id":"ART-135654","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-28","links":[],"src":"2026-0","c":"ART[2026-04-28] /Users/igsl/imc-backtester/v26_combined.py","refs7d":1}
+{"id":"ART-140116","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-28","links":[],"src":"2026-0","c":"ART[2026-04-28] /Users/igsl/imc-backtester/v26_combined.py","refs7d":1}
 {"id":"ART-140424","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/strategies/h_v0_friend_pure.py","refs7d":1}
 {"id":"ART-140939","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/strategies/h_v3_oos_robust.py","refs7d":1}
 {"id":"ART-141903","t":"ART","tags":["artifact","py"],"w":0.8,"ts":"2026-04-26","links":[],"src":"2026-0","c":"ART[2026-04-26] /Users/igsl/Downloads/ROUND_3/strategies/h_taker_only.py","refs7d":1}
